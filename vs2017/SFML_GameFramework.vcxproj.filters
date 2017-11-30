@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{fb54562a-4657-4489-9cd0-e80ca48d95ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{26d36934-e1da-40e1-9cbd-d5cfb66e2d23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{299a783b-2edc-4b45-96f9-f3a28cdf352d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{a3073385-65a3-4f30-9809-82b13c032d70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{2e23942c-ed5d-4ff2-979c-e36878fbafa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{bd8f58ec-5fcd-47ba-8fd7-a3ed473196a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tools">
+      <UniqueIdentifier>{e052265f-c6fa-4e03-bea3-5700dd0dd9fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\audio">
+      <UniqueIdentifier>{5f226c6c-1615-4266-bbd6-4d3eb5d1212a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\fonts">
+      <UniqueIdentifier>{545a6c73-dcb9-4aa4-a306-cb496b37506c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\textures">
+      <UniqueIdentifier>{6856b99f-348d-4aa3-9978-f9f407c1edeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\textures\cursors">
+      <UniqueIdentifier>{e305ff7a-d816-410c-8506-39a6cf5a59e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\audio\sounds">
+      <UniqueIdentifier>{a8cf5c71-2f22-4072-9a2e-9e1e6e6e803d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\audio\musics">
+      <UniqueIdentifier>{d4f1502c-c3bf-4ef8-a1a3-e63b0ad170a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{4d3d1d4c-0c00-42c5-a3a7-27d306872961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{1844caf6-efa8-48a7-812f-6d64d0b513b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\config">
+      <UniqueIdentifier>{dbc600d8-09c2-42e3-b9d8-bdb61901e2b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State_Credits.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State_Game.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State_GameOver.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State_Intro.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State_MainMenu.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State_Paused.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EventManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SoundManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StateManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Window.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Actor.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Player.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ActorManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Enemy.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State_Credits.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State_Game.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State_GameOver.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State_Intro.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State_MainMenu.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State_Paused.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FontManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EventManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AudioManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SoundManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\StateManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TextureManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ResourceManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BaseState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Window.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameInfo.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SharedContext.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utilities.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Actor.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Vector2D.h">
+      <Filter>Header Files\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Player.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ActorManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Enemy.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\textures\cursors\yellow.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\black.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\blue.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\brown.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\green.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\grey.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\light_blue.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\light_green.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\orange.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\red.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\sepia.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\cursors\white.png">
+      <Filter>Resource Files\textures\cursors</Filter>
+    </Image>
+    <Image Include="..\assets\textures\Mushroom.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+    <Image Include="..\assets\textures\background.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+    <Image Include="..\assets\textures\game_logo.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+    <Image Include="..\assets\textures\space_craft.png">
+      <Filter>Resource Files\textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\assets\fonts\arial.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </Font>
+    <Font Include="..\assets\fonts\retro.ttf">
+      <Filter>Resource Files\fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\audio\musics\intro.ogg">
+      <Filter>Resource Files\audio\musics</Filter>
+    </None>
+    <None Include="..\assets\audio\musics\menu.ogg">
+      <Filter>Resource Files\audio\musics</Filter>
+    </None>
+    <None Include="..\assets\audio\musics\game.ogg">
+      <Filter>Resource Files\audio\musics</Filter>
+    </None>
+    <None Include="..\assets\audio\musics\gameover.ogg">
+      <Filter>Resource Files\audio\musics</Filter>
+    </None>
+    <None Include="..\assets\audio\sounds\validate.ogg">
+      <Filter>Resource Files\audio\sounds</Filter>
+    </None>
+    <None Include="..\config\fonts.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="..\config\keys.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="..\config\textures.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="..\config\audio.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+  </ItemGroup>
+</Project>

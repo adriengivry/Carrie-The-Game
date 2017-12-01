@@ -16,6 +16,7 @@ void State_Game::OnCreate()
 
 	// OnCreate core
 	++gameInfo->m_gameStarted;
+	gameInfo->m_gameOver = false;
 
 	textureManager->RequireResource("Game_Bg");
 	textureManager->RequireResource("Player");
@@ -49,6 +50,9 @@ void State_Game::Update(const sf::Time& l_time)
 		Pause(nullptr);
 	
 	actorManager->Update(l_time);
+
+	if (m_stateMgr->GetContext()->m_gameInfo->m_gameOver)
+		GameOver();
 }
 
 void State_Game::Draw()

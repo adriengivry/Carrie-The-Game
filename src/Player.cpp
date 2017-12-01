@@ -93,9 +93,24 @@ void Player::Move(const sf::Time& l_time)
 	if (m_moveDown)
 		direction.Y() += 1;
 
+	if (abs(direction.X()) + abs(direction.Y()) == 2)
+	{
+		direction.X() /= 2;
+		direction.Y() /= 2;
+	}
+
 	m_direction = direction;
 
 	Actor::Move(l_time);
+}
+
+void Player::Update(const sf::Time& l_time)
+{
+	Actor::Update(l_time);
+
+	for (auto otherActor : m_sharedContext->m_actorManager->GetActors())
+		if (IsIntersecting(otherActor))
+			m_sharedContext->m_gameInfo->m_gameOver = true;
 }
 
 void Player::StopControl()

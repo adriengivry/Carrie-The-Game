@@ -13,6 +13,7 @@ public:
 	void React(EventDetails* l_details);
 	void Unreact(EventDetails* l_details);
 	void Move(const sf::Time& l_time) override;
+	void Update(const sf::Time& l_time) override;
 	void StopControl();
 
 private:

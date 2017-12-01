@@ -19,23 +19,14 @@ void Actor::Update(const sf::Time& l_time)
 
 void Actor::Move(const sf::Time& l_time)
 {
-	Vector2D<float> m_previousPos = m_position;
-	const Vector2D<float> m_newPos = m_position + m_direction * m_velocity * l_time.asSeconds();
+	Vector2D<float> previousPos = m_position;
+	const Vector2D<float> newPos = m_position + m_direction * m_velocity * l_time.asSeconds();
 
-	bool allowMove = true;
+	m_position = newPos;
 
-	for (auto it : m_sharedContext->m_actorManager->GetActors())
-		if (m_newPos.DistanceTo(it->GetPosition()) <= 80)
-			allowMove = false;
-
-	if (allowMove)
-		m_position = m_newPos;
-
-	if (m_position.X() != m_previousPos.X() || m_position.Y() != m_previousPos.Y())
-	{
+	if (m_position.X() != previousPos.X() || m_position.Y() != previousPos.Y())
 		if (m_textureGetSet)
 			m_sprite.setRotation(m_direction.GetAngle());
-	}
 }
 
 void Actor::Draw() const
@@ -46,7 +37,7 @@ void Actor::Draw() const
 
 bool Actor::IsIntersecting(Actor* p_otherActor) const
 {
-	return m_position.DistanceTo(p_otherActor->GetPosition()) <= 120;
+	return m_position.DistanceTo(p_otherActor->GetPosition()) <= m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2 - (m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2) * 0.2f;
 }
 
 void Actor::SetVelocity(const float p_newVelocity)

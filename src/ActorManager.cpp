@@ -29,10 +29,29 @@ void ActorManager::CleanActors()
 
 void ActorManager::Update(const sf::Time& l_time)
 {
+	CheckDeads();
+
 	for (auto it : m_actors)
 		it->Update(l_time);
 
 	m_player->Update(l_time);
+
+}
+
+void ActorManager::CheckDeads()
+{
+	for (auto it = m_actors.begin(); it != m_actors.end();)
+	{
+		if ((*it)->MustDie())
+		{
+			delete *it;
+			it = m_actors.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 void ActorManager::Draw()

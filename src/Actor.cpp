@@ -6,7 +6,9 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_sharedContext(p_sharedContext),
 	m_position(p_x, p_y),
 	m_direction(0, 0),
-	m_velocity(__ACTOR_DEFAULT_VELOCITY) {}
+	m_velocity(__ACTOR_DEFAULT_VELOCITY),
+	m_orientable(false),
+	m_mustDie(false) {}
 
 Actor::~Actor() {}
 
@@ -24,9 +26,10 @@ void Actor::Move(const sf::Time& l_time)
 
 	m_position = newPos;
 
-	if (m_position.X() != previousPos.X() || m_position.Y() != previousPos.Y())
-		if (m_textureGetSet)
-			m_sprite.setRotation(m_direction.GetAngle());
+	if (m_orientable)
+		if (m_position.X() != previousPos.X() || m_position.Y() != previousPos.Y())
+			if (m_textureGetSet)
+				m_sprite.setRotation(m_direction.GetAngle());
 }
 
 void Actor::Draw() const
@@ -38,6 +41,11 @@ void Actor::Draw() const
 bool Actor::IsIntersecting(Actor* p_otherActor) const
 {
 	return m_position.DistanceTo(p_otherActor->GetPosition()) <= m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2 - (m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2) * 0.2f;
+}
+
+bool Actor::MustDie() const
+{
+	return m_mustDie;
 }
 
 void Actor::SetVelocity(const float p_newVelocity)

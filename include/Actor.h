@@ -21,6 +21,7 @@ public:
 	void Draw() const;
 
 	bool IsIntersecting(Actor* p_otherActor) const;
+	bool MustDie() const;
 
 	Vector2D<float>& GetPosition();
 	Vector2D<float>& GetDirection();
@@ -42,4 +43,7 @@ protected:
 	Vector2D<float> m_position;
 	Vector2D<float> m_direction;
 	float m_velocity;
+
+	bool m_orientable;
+	bool m_mustDie;
 };

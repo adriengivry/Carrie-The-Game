@@ -15,6 +15,7 @@ public:
 	void SetPlayer(Player* p_player);
 	void CleanActors();
 	void Update(const sf::Time& l_time);
+	void CheckDeads();
 	void Draw();
 
 	Player* GetPlayer() const;

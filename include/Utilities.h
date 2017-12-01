@@ -67,4 +67,10 @@ namespace Utils
 		p_rect.setOrigin(rect.left + rect.width / 2.0f,
 			rect.top + rect.height / 2.0f);
 	}
+
+	inline int randomgen(const int min, const int max)
+	{
+		const int range = max - min;
+		return rand() % range + min;
+	}
 }

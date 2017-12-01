@@ -6,6 +6,9 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 {
 	SetTexture(__ENEMY_TEXTURE);
 	m_velocity = __ENEMY_SPEED;
+
+	m_direction.Set(1, Utils::randomgen(45, 135), POLAR);
+	m_position.Set(Utils::randomgen(100, 1820), -50);
 }
 
 Enemy::~Enemy()
@@ -29,5 +32,10 @@ void Enemy::Update(const sf::Time& l_time)
 		m_sprite.setPosition(m_position.ToSFVector());
 	}
 
+	m_sprite.rotate(100 * l_time.asSeconds());
+
 	Actor::Update(l_time);
+
+	if (m_position.Y() >= 1200)
+		m_mustDie = true;
 }

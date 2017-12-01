@@ -14,6 +14,9 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Up_Stop", &Player::Unreact, this);
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Down_Stop", &Player::Unreact, this);
 
+	m_orientable = true;
+	m_velocity = __PLAYER_SPEED;
+
 	SetTexture(__PLAYER_TEXTURE);
 }
 

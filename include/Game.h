@@ -1,11 +1,14 @@
 #pragma once
+
+#include <iostream>
+
 #include "Window.h"
 #include "EventManager.h"
 #include "StateManager.h"
 #include "SharedContext.h"
 #include "AudioManager.h"
 #include "GameInfo.h"
-#include <iostream>
+
 
 class Game
 {

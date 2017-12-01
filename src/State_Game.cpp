@@ -23,7 +23,6 @@ void State_Game::OnCreate()
 
 	m_backgroundSprite.setTexture(*textureManager->GetResource("Game_Bg"));
 
-	actorManager->AddActor(new Enemy(m_stateMgr->GetContext(), 800, 600));
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), 1200, 500));
 
 	// Adding callbacks
@@ -48,6 +47,9 @@ void State_Game::Update(const sf::Time& l_time)
 
 	if (!m_stateMgr->GetContext()->m_eventManager->IsFocused())
 		Pause(nullptr);
+
+	if (Utils::randomgen(0, 30) == 0)
+		actorManager->AddActor(new Enemy(m_stateMgr->GetContext(), 0, 0));
 	
 	actorManager->Update(l_time);
 

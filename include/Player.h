@@ -4,7 +4,8 @@
 
 class Player : public Actor
 {
-	const std::string __PLAYER_TEXTURE = "Player";
+	const std::string	__PLAYER_TEXTURE = "Player";
+	const float			__PLAYER_SPEED	 = 400;
 
 public:
 	explicit Player(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);

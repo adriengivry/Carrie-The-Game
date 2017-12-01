@@ -1,30 +1,30 @@
 #include "ActorManager.h"
 
-ActorManager::ActorManager(SharedContext* p_sharedContext) :
-	m_sharedContext(p_sharedContext),
+ActorManager::ActorManager() :
 	m_player(nullptr) {}
 
 ActorManager::~ActorManager()
+{
+}
+
+void ActorManager::AddActor(Actor* p_newActor)
+{
+	m_actors.push_back(p_newActor);
+}
+
+void ActorManager::SetPlayer(Player* p_player)
+{
+	m_player = p_player;
+}
+
+void ActorManager::CleanActors()
 {
 	for (auto it : m_actors)
 		delete it;
 
 	delete m_player;
-}
 
-void ActorManager::CreateActors()
-{
-	const sf::Vector2u windowCenter = m_sharedContext->m_wind->GetWindowCenter();
-
-	m_player = new Player(m_sharedContext, windowCenter.x, windowCenter.y);
-
-	m_actors.push_back(new Enemy(m_sharedContext, 100, 200));
-	m_actors.push_back(new Enemy(m_sharedContext, 1400, 800));
-	m_actors.push_back(new Enemy(m_sharedContext, 1200, 750));
-	m_actors.push_back(new Enemy(m_sharedContext, 800, 100));
-
-	for (auto it : m_actors)
-		static_cast<Enemy*>(it)->SetTarget(m_player);
+	m_actors.clear();
 }
 
 void ActorManager::Update(const sf::Time& l_time)

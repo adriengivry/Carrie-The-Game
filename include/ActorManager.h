@@ -2,16 +2,18 @@
 
 #include <vector>
 
+#include "Actor.h"
 #include "Player.h"
-#include "Enemy.h"
 
 class ActorManager
 {
 public:
-	explicit ActorManager(SharedContext* p_sharedContext);
+	ActorManager();
 	~ActorManager();
 
-	void CreateActors();
+	void AddActor(Actor* p_newActor);
+	void SetPlayer(Player* p_player);
+	void CleanActors();
 	void Update(const sf::Time& l_time);
 	void Draw();
 
@@ -19,8 +21,6 @@ public:
 	std::vector<Actor*>& GetActors();
 
 private:
-	SharedContext* m_sharedContext;
-
 	Player* m_player;
 	std::vector<Actor*> m_actors;
 };

@@ -1,5 +1,5 @@
 #include "Actor.h"
-
+#include "ActorManager.h"
 
 Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) : 
 	m_textureGetSet(false),
@@ -20,7 +20,16 @@ void Actor::Update(const sf::Time& l_time)
 void Actor::Move(const sf::Time& l_time)
 {
 	Vector2D<float> m_previousPos = m_position;
-	m_position += m_direction * m_velocity * l_time.asSeconds();
+	const Vector2D<float> m_newPos = m_position + m_direction * m_velocity * l_time.asSeconds();
+
+	bool allowMove = true;
+
+	for (auto it : m_sharedContext->m_actorManager->GetActors())
+		if (m_newPos.DistanceTo(it->GetPosition()) <= 80)
+			allowMove = false;
+
+	if (allowMove)
+		m_position = m_newPos;
 
 	if (m_position.X() != m_previousPos.X() || m_position.Y() != m_previousPos.Y())
 	{

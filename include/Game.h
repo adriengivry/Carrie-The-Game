@@ -28,9 +28,11 @@ private:
 	FontManager m_fontManager;
 	AudioManager m_audioManager;
 	SoundManager m_soundManager;
+	ActorManager m_actorManager;
 	GameInfo m_gameInfo;
 	sf::Clock m_clock;
 	sf::Time m_elapsed;
-	void RestartClock();
 	sf::Sprite m_cursor;
+
+	void RestartClock();
 };

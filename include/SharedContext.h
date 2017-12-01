@@ -6,6 +6,8 @@
 #include "SoundManager.h"
 #include "GameInfo.h"
 
+class ActorManager;
+
 struct SharedContext
 {
 	SharedContext()
@@ -15,6 +17,7 @@ struct SharedContext
 		m_fontManager(nullptr),
 		m_audioManager(nullptr),
 		m_soundManager(nullptr),
+		m_actorManager(nullptr),
 		m_gameInfo(nullptr)
 	{}
 	Window* m_wind;
@@ -23,5 +26,6 @@ struct SharedContext
 	FontManager* m_fontManager;
 	AudioManager* m_audioManager;
 	SoundManager* m_soundManager;
+	ActorManager* m_actorManager;
 	GameInfo* m_gameInfo;
 };

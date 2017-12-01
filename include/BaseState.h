@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "TextureManager.h"
+
 class StateManager;
 
 #define LOAD_UTILITY()\
@@ -9,6 +11,7 @@ class StateManager;
 	FontManager* fontManager = m_stateMgr->GetContext()->m_fontManager;\
 	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;\
 	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;\
+	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;\
 	GameInfo* gameInfo = m_stateMgr->GetContext()->m_gameInfo;\
 	EventManager* evMgr = m_stateMgr->GetContext()->m_eventManager;
 
@@ -38,6 +41,7 @@ public:
 	bool IsTranscendent() const { return m_transcendent; }
 	StateManager* GetStateManager() const { return m_stateMgr; }
 	sf::View& GetView() { return m_view; }
+
 protected:
 	StateManager* m_stateMgr;
 	bool m_transparent;

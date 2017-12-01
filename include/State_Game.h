@@ -1,7 +1,6 @@
 #pragma once
 #include "BaseState.h"
 #include "EventManager.h"
-#include "Player.h"
 #include "ActorManager.h"
 
 class State_Game : public BaseState
@@ -25,8 +24,6 @@ public:
 	void Pause(EventDetails* l_details) const;
 private:
 	sf::Sprite m_backgroundSprite;
-	
-	ActorManager* m_actorManager;
 
 	sf::Vector2f m_increment;
 };

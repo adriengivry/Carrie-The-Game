@@ -9,6 +9,7 @@ Game::Game(): m_window("SFML-GameFramework", sf::Vector2u(1920, 1080)), m_stateM
 	m_context.m_fontManager = &m_fontManager;
 	m_context.m_audioManager = &m_audioManager;
 	m_context.m_soundManager = &m_soundManager;
+	m_context.m_actorManager = &m_actorManager;
 	m_context.m_gameInfo = &m_gameInfo;
 
 	m_fontManager.RequireResource("Retro");

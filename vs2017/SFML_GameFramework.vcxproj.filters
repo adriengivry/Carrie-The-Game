@@ -132,10 +132,10 @@
     <ClCompile Include="..\src\JellyBear.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\PastryBag.cpp">
+    <ClCompile Include="..\src\Crocodile.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Crocodile.cpp">
+    <ClCompile Include="..\src\CakeMonster.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,10 +233,10 @@
     <ClInclude Include="..\include\JellyBear.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\PastryBag.h">
+    <ClInclude Include="..\include\Crocodile.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Crocodile.h">
+    <ClInclude Include="..\include\CakeMonster.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

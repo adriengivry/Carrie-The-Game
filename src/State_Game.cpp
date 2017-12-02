@@ -22,8 +22,13 @@ void State_Game::OnCreate()
 
 	m_backgroundSprite.setTexture(*textureManager->GetResource("Game_Bg"));
 
-	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), 1200, 500));
-	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), 1600, 250));
+	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
+	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 180));
+	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 100));
+	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 100));
+	
+	for (int i = 0; i < 3; ++i)
+		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), i * 2));
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
@@ -52,6 +57,13 @@ void State_Game::Update(const sf::Time& l_time)
 
 	if (m_stateMgr->GetContext()->m_gameInfo->m_gameOver)
 		GameOver();
+
+	if (LevelCompleted())
+	{
+		actorManager->GetNpc()->Activate();
+		actorManager->GetDoor(0)->Activate();
+		actorManager->GetDoor(1)->Activate();
+	}
 }
 
 void State_Game::Draw()
@@ -92,4 +104,21 @@ void State_Game::GameOver() const
 {
 	m_stateMgr->SwitchTo(StateType::GameOver);
 	m_stateMgr->Remove(StateType::Game);
+}
+
+bool State_Game::LevelCompleted() const
+{
+	std::vector<SpawnPoint*> spawnPoints = m_stateMgr->GetContext()->m_actorManager->GetSpawnPoints();
+	std::vector<Enemy*> enemies = m_stateMgr->GetContext()->m_actorManager->GetEnemies();
+
+	bool levelComplete = true;
+
+	for (auto spawnPoint : spawnPoints)
+		if (!spawnPoint->IsDone())
+			levelComplete = false;
+
+	if (enemies.size() != 0)
+		levelComplete = false;
+
+	return levelComplete;
 }

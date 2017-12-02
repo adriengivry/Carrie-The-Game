@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Actor.cpp" />
     <ClCompile Include="..\src\ActorManager.cpp" />
+    <ClCompile Include="..\src\Door.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\EventManager.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Projectile.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
+    <ClCompile Include="..\src\SpawnPoint.cpp" />
     <ClCompile Include="..\src\StateManager.cpp" />
     <ClCompile Include="..\src\State_Credits.cpp" />
     <ClCompile Include="..\src\State_Game.cpp" />
@@ -42,6 +44,7 @@
     <ClInclude Include="..\include\Actor.h" />
     <ClInclude Include="..\include\ActorManager.h" />
     <ClInclude Include="..\include\BaseState.h" />
+    <ClInclude Include="..\include\Door.h" />
     <ClInclude Include="..\include\Enemy.h" />
     <ClInclude Include="..\include\EventManager.h" />
     <ClInclude Include="..\include\FontManager.h" />
@@ -54,6 +57,7 @@
     <ClInclude Include="..\include\ResourceManager.h" />
     <ClInclude Include="..\include\SharedContext.h" />
     <ClInclude Include="..\include\SoundManager.h" />
+    <ClInclude Include="..\include\SpawnPoint.h" />
     <ClInclude Include="..\include\StateManager.h" />
     <ClInclude Include="..\include\State_Credits.h" />
     <ClInclude Include="..\include\State_Game.h" />

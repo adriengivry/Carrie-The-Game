@@ -19,9 +19,14 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_orientable = false;
 	m_velocity = __PLAYER_SPEED;
 
+	m_maxLife = __PLAYER_LIFE;
+	m_life = m_maxLife;
+
 	m_damagesMultiplicator = 1;
 	m_projectileSpeedMultiplicator = 1;
 	m_hitrateMultiplicator = 1;
+
+	m_collide = false;
 
 	SetTexture(__PLAYER_TEXTURE);
 }
@@ -104,7 +109,7 @@ void Player::Move(const sf::Time& l_time)
 	if (m_moveDown)
 		direction.Y() += 1;
 
-	if (abs(direction.X()) + abs(direction.Y()) == 2)
+	if (abs(direction.X()) + abs(direction.Y()) == 2 && !m_collide)
 	{
 		direction.X() /= 2;
 		direction.Y() /= 2;
@@ -119,17 +124,43 @@ void Player::Move(const sf::Time& l_time)
 	else if (direction.X() == 0 && direction.Y() < 0)
 		SetTexture("Back");
 	else if (direction.X() > 0 && direction.Y() > 0)
-		SetTexture("Back_Right");
-	else if(direction.X() < 0 && direction.Y() > 0)
-		SetTexture("Back_Left");
-	else if (direction.X() > 0 && direction.Y() < 0)
 		SetTexture("Front_Right");
-	if (direction.X() < 0 && direction.Y() < 0)
+	else if(direction.X() < 0 && direction.Y() > 0)
 		SetTexture("Front_Left");
+	else if (direction.X() > 0 && direction.Y() < 0)
+		SetTexture("Back_Right");
+	if (direction.X() < 0 && direction.Y() < 0)
+		SetTexture("Back_Left");
 
 	m_direction = direction;
 
 	Actor::Move(l_time);
+
+	m_collide = false;
+
+	if (m_position.X() < 320)
+	{
+		m_position.X(320);
+		m_collide = true;
+	}
+
+	if (m_position.X() > 1600)
+	{
+		m_position.X(1600);
+		m_collide = true;
+	}
+
+	if (m_position.Y() < 120)
+	{
+		m_position.Y(120);
+		m_collide = true;
+	}
+
+	if (m_position.Y() > 780)
+	{
+		m_position.Y(780);
+		m_collide = true;
+	}
 }
 
 void Player::Update(const sf::Time& l_time)
@@ -156,9 +187,12 @@ void Player::Draw() const
 
 void Player::Fire(EventDetails* l_details)
 {
+	if (m_sharedContext->m_actorManager->GetNpc()->IsTalking())
+		return;
+
 	Vector2D<float> mousePos;
 	mousePos.Set(l_details->m_mouse.x, l_details->m_mouse.y);
-	
+
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
 

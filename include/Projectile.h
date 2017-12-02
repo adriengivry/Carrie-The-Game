@@ -6,7 +6,7 @@ class Projectile : public Actor
 private:
 	const std::string __PROJECTILE_TEXTURE = "Projectile";
 	const float __PROJECTILE_SPEED = 800;
-	const float __PROJECTILE_DAMAGES = 10;
+	const float __PROJECTILE_DAMAGES = 5;
 	const float __PROJECTILE_HITRATE = 100;
 
 public:

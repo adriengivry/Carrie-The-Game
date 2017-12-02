@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "StateManager.h"
 
 Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	Actor(p_sharedContext, p_x, p_y),
@@ -9,9 +10,11 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 
 	m_maxLife = __ENEMY_LIFE;
 	m_life = m_maxLife;
+	m_damages = __ENEMY_DAMAGES;
 
 	m_direction.Set(1, Utils::randomgen(45, 135), POLAR);
-	m_position.Set(Utils::randomgen(100, 1820), -50);
+
+	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 }
 
 Enemy::~Enemy()
@@ -55,7 +58,7 @@ void Enemy::Update(const sf::Time& l_time)
 
 	Actor::Update(l_time);
 
-	if (m_position.Y() >= 1200)
+	if (m_position.X() < 270 || m_position.X() > 1650 || m_position.Y() < 120 || m_position.Y() > 900)
 		m_mustDie = true;
 }
 

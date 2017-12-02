@@ -5,8 +5,9 @@
 
 class Player : public Actor
 {
-	const std::string	__PLAYER_TEXTURE = "Front";
+	const std::string	__PLAYER_TEXTURE = "Back";
 	const float			__PLAYER_SPEED	 = 400;
+	const float			__PLAYER_LIFE	 = 100;
 
 public:
 	explicit Player(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
@@ -26,6 +27,11 @@ private:
 	bool m_moveRight;
 	bool m_moveUp;
 	bool m_moveDown;
+
+	bool m_collide;
+
+	float m_maxLife;
+	float m_life;
 
 	float m_damagesMultiplicator;
 	float m_projectileSpeedMultiplicator;

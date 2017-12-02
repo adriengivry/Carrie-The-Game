@@ -6,7 +6,9 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	SetTexture(__NPC_TEXTURE);
-	Activate();
+	Desactivate();
+
+	m_talking = false;
 }
 
 Npc::~Npc()
@@ -23,10 +25,18 @@ void Npc::Desactivate()
 	m_isActive = false;
 }
 
+bool Npc::IsTalking() const { return m_talking; }
+bool Npc::IsActive() const { return m_isActive; }
+
 void Npc::Update(const sf::Time& l_time)
 {
+	m_talking = false;
+
 	if (m_isActive)
 		Actor::Update(l_time);
+
+	if (m_position.DistanceTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()) <= __TALK_DISTANCE)
+		m_talking = true;
 }
 
 void Npc::Draw() const
@@ -34,7 +44,8 @@ void Npc::Draw() const
 	if (m_isActive)
 	{
 		Actor::Draw();
-		if (m_position.DistanceTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()) <= __TALK_DISTANCE)
+
+		if (m_talking)
 			DrawAffirmation();
 	}
 }

@@ -30,6 +30,9 @@ void Projectile::Update(const sf::Time& l_time)
 			enemy->RemoveLife(m_damages);
 		}
 	}
+
+	if (m_position.X() < 270 || m_position.X() > 1650 || m_position.Y() < 120 || m_position.Y() > 900)
+		m_mustDie = true;
 }
 
 void Projectile::MultiplyDamages(const float p_value)

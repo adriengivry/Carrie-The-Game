@@ -17,6 +17,8 @@ public:
 
 	void GameOver() const;
 
+	bool LevelCompleted() const;
+
 	void Update(const sf::Time& l_time) override;
 	void Draw() override;
 

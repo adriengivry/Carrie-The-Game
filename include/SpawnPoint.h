@@ -2,6 +2,15 @@
 
 #include "Actor.h"
 
+enum class SpawnerType
+{
+	JELLY_SPAWNER,
+	JELLYBEAR_SPAWNER,
+	LOLLIPOP_SPAWNER,
+	CAKEMONSTER_SPAWNER,
+	CROCODILE_SPAWNER
+};
+
 class SpawnPoint : public Actor
 {
 	const std::string	__SPAWNPOINT_TEXTURE = "SpawnPoint";

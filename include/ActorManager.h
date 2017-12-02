@@ -4,6 +4,9 @@
 
 #include "Actor.h"
 #include "Player.h"
+#include "Npc.h"
+#include "Enemy.h"
+#include "Projectile.h"
 
 class ActorManager
 {
@@ -11,17 +14,23 @@ public:
 	ActorManager();
 	~ActorManager();
 
-	void AddActor(Actor* p_newActor);
+	void AddEnemy(Enemy* p_newActor);
+	void AddProjectile(Projectile* p_newActor);
 	void SetPlayer(Player* p_player);
+	void SetNpc(Npc* p_npc);
 	void CleanActors();
 	void Update(const sf::Time& l_time);
 	void CheckDeads();
 	void Draw();
 
 	Player* GetPlayer() const;
-	std::vector<Actor*>& GetActors();
+	Npc* GetNpc() const;
+	std::vector<Projectile*>& GetProjectile();
+	std::vector<Enemy*>& GetEnemies();
 
 private:
 	Player* m_player;
-	std::vector<Actor*> m_actors;
+	Npc* m_npc;
+	std::vector<Enemy*> m_enemies;
+	std::vector<Projectile*> m_projectiles;
 };

@@ -25,7 +25,9 @@
     <ClCompile Include="..\src\EventManager.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\Npc.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
+    <ClCompile Include="..\src\Projectile.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\StateManager.cpp" />
     <ClCompile Include="..\src\State_Credits.cpp" />
@@ -46,7 +48,9 @@
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\AudioManager.h" />
     <ClInclude Include="..\include\GameInfo.h" />
+    <ClInclude Include="..\include\Npc.h" />
     <ClInclude Include="..\include\Player.h" />
+    <ClInclude Include="..\include\Projectile.h" />
     <ClInclude Include="..\include\ResourceManager.h" />
     <ClInclude Include="..\include\SharedContext.h" />
     <ClInclude Include="..\include\SoundManager.h" />
@@ -94,6 +98,7 @@
     <None Include="..\config\fonts.cfg" />
     <None Include="..\config\keys.cfg" />
     <None Include="..\config\textures.cfg" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -14,8 +14,14 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Up_Stop", &Player::Unreact, this);
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Down_Stop", &Player::Unreact, this);
 
-	m_orientable = true;
+	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Fire", &Player::Fire, this);
+
+	m_orientable = false;
 	m_velocity = __PLAYER_SPEED;
+
+	m_damagesMultiplicator = 1;
+	m_projectileSpeedMultiplicator = 1;
+	m_hitrateMultiplicator = 1;
 
 	SetTexture(__PLAYER_TEXTURE);
 }
@@ -31,25 +37,27 @@ Player::~Player()
 	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Right_Stop");
 	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Up_Stop");
 	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Down_Stop");
+
+	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Fire");
 }
 
 void Player::React(EventDetails* l_details)
 {
 	switch (l_details->m_keyCode)
 	{
-	case sf::Keyboard::Left:
+	case sf::Keyboard::A:
 		m_moveLeft = true;
 		break;
 
-	case sf::Keyboard::Right:
+	case sf::Keyboard::D:
 		m_moveRight = true;
 		break;
 
-	case sf::Keyboard::Up:
+	case sf::Keyboard::W:
 		m_moveUp = true;
 		break;
 
-	case sf::Keyboard::Down:
+	case sf::Keyboard::S:
 		m_moveDown = true;
 		break;
 
@@ -62,19 +70,19 @@ void Player::Unreact(EventDetails* l_details)
 {
 	switch (l_details->m_keyCode)
 	{
-	case sf::Keyboard::Left:
+	case sf::Keyboard::A:
 		m_moveLeft = false;
 		break;
 
-	case sf::Keyboard::Right:
+	case sf::Keyboard::D:
 		m_moveRight = false;
 		break;
 
-	case sf::Keyboard::Up:
+	case sf::Keyboard::W:
 		m_moveUp = false;
 		break;
 
-	case sf::Keyboard::Down:
+	case sf::Keyboard::S:
 		m_moveDown = false;
 		break;
 
@@ -102,6 +110,23 @@ void Player::Move(const sf::Time& l_time)
 		direction.Y() /= 2;
 	}
 
+	if (direction.X() > 0 && direction.Y() == 0)
+		SetTexture("Right");
+	else if (direction.X() < 0 && direction.Y() == 0)
+		SetTexture("Left");
+	else if (direction.X() == 0 && direction.Y() > 0)
+		SetTexture("Front");
+	else if (direction.X() == 0 && direction.Y() < 0)
+		SetTexture("Back");
+	else if (direction.X() > 0 && direction.Y() > 0)
+		SetTexture("Back_Right");
+	else if(direction.X() < 0 && direction.Y() > 0)
+		SetTexture("Back_Left");
+	else if (direction.X() > 0 && direction.Y() < 0)
+		SetTexture("Front_Right");
+	if (direction.X() < 0 && direction.Y() < 0)
+		SetTexture("Front_Left");
+
 	m_direction = direction;
 
 	Actor::Move(l_time);
@@ -111,7 +136,7 @@ void Player::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
 
-	for (auto otherActor : m_sharedContext->m_actorManager->GetActors())
+	for (auto otherActor : m_sharedContext->m_actorManager->GetEnemies())
 		if (IsIntersecting(otherActor))
 			m_sharedContext->m_gameInfo->m_gameOver = true;
 }
@@ -122,6 +147,27 @@ void Player::StopControl()
 	m_moveLeft = false;
 	m_moveRight = false;
 	m_moveUp = false;
+}
+
+void Player::Draw() const
+{
+	Actor::Draw();
+}
+
+void Player::Fire(EventDetails* l_details)
+{
+	Vector2D<float> mousePos;
+	mousePos.Set(l_details->m_mouse.x, l_details->m_mouse.y);
+	
+	Vector2D<float> projectileDirection;
+	projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
+
+	Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y());
+	newProjectile->MultiplyDamages(m_damagesMultiplicator);
+	newProjectile->MultiplyHitrate(m_hitrateMultiplicator);
+	newProjectile->MultiplySpeed(m_projectileSpeedMultiplicator);
+
+	m_sharedContext->m_actorManager->AddProjectile(newProjectile);
 }
 
 

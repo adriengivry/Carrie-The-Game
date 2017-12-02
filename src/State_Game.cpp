@@ -19,11 +19,11 @@ void State_Game::OnCreate()
 	gameInfo->m_gameOver = false;
 
 	textureManager->RequireResource("Game_Bg");
-	textureManager->RequireResource("Player");
 
 	m_backgroundSprite.setTexture(*textureManager->GetResource("Game_Bg"));
 
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), 1200, 500));
+	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), 1600, 250));
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
@@ -47,9 +47,6 @@ void State_Game::Update(const sf::Time& l_time)
 
 	if (!m_stateMgr->GetContext()->m_eventManager->IsFocused())
 		Pause(nullptr);
-
-	if (Utils::randomgen(0, 30) == 0)
-		actorManager->AddActor(new Enemy(m_stateMgr->GetContext(), 0, 0));
 	
 	actorManager->Update(l_time);
 

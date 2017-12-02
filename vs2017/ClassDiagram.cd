@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Game" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBQAAAABAAAECAAACAAIIAAAAAiAAAAgABAAAgTwEAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseState" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAEAABgBAAgBAAAgAAQAAACAAAAAAIAADgJAIAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\BaseState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State_Credits" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQBAAIAAABAAgjGgAAAAAAQACAAAAAAAAAAAIQAAIA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Credits.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State_Game" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQhgAAAAABAAoBEACAAAAARACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State_GameOver" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAIAAABAAgBEAAAAAAAQCCAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_GameOver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State_Intro" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBSEIgAABAAgBEBIAAAAAABCAAQABAABAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Intro.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State_MainMenu" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQBAAAAAIDAAgBMgAAAAAAAEDAIAAAAoBARAAAgAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_MainMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="State_Paused" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQDAAAAAABAAgBAAAAAAAAAACAAAAAAgAQAAAAEAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Paused.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ActorManager" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAgFAEQAAAAhAAAIEEAgAAAAAABAAAAAAgEABAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\ActorManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EventManager" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMQBABAAADABAAACAABwAAAAUAEgAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FontManager" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\FontManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AudioManager" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\AudioManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceManager&lt;Derived, T&gt;" Collapsed="true">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgICAAAAAAAAAAAAAGAEEAAAKAAAAAAAACACICAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\ResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundManager" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAICIBAQAAAAAkBAgARIAAAIAADAoBAIQA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StateManager" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAREAAAAAAADAgBAAhAABAAwAAFAAQAAACAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\StateManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureManager" Collapsed="true">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\TextureManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Window" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>jAQAACAAiBAxAAAYAAABAAIIARQAQEAAACAACiCAAAg=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Actor" Collapsed="true">
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAAAgEAKAIkgAEkAAKAAAgACIAAgRAEACAAIAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Actor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAgAAAEAAkgAAABAAAAAACAAEAQAAAEAAAAAgAAI=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Enemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="7.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAgAAAIIAIwAAEABEAAAgAAAEIAAAAAAAAQAAEFA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Projectile" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAIAAAAEAAAAAAAgAQAAQAEAAAAAAAAAAABAAAIgA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Projectile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Npc" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIQAAAAAgAAAAgBAEAAIAAAAAAAAAAAAAAAEAAAAEAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Npc.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AGMath::Vector2D&lt;T&gt;" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIMQIAgAIAAFAGAEAAAAQAAAAAAAAAIgQBgAEAAYEA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Vector2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="EventInfo" Collapsed="true">
+    <Position X="18" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="EventDetails" Collapsed="true">
+    <Position X="16.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAIAAEAAAAAAAAAAAAAAgAAAAAAAAIAJACAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Binding" Collapsed="true">
+    <Position X="14.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAAAAAABAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAACQ=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Sound" Collapsed="true">
+    <Position X="18" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAIAACAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GameInfo" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\GameInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SharedContext" Collapsed="true">
+    <Position X="16.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAgAAAAACAAIAAAAAAQAAAAAAAAAAgQAEgA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SharedContext.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="ChannelID" Collapsed="true">
+    <Position X="14.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="EventType" Collapsed="true">
+    <Position X="16.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAQQAAAAAAgAAAQAgAICAAAAAAAAEAAIgAAQCAAQA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AudioType" Collapsed="true">
+    <Position X="14.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="StateType" Collapsed="true">
+    <Position X="14.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gEAggAAAAAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\StateManager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AGMath::InitMode" Collapsed="true">
+    <Position X="18" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Vector2D.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

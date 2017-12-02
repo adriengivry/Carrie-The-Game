@@ -18,7 +18,7 @@ public:
 
 	virtual void Update(const sf::Time& l_time);
 	virtual void Move(const sf::Time& l_time);
-	void Draw() const;
+	virtual void Draw() const;
 
 	bool IsIntersecting(Actor* p_otherActor) const;
 	bool MustDie() const;

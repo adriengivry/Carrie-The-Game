@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\EventManager.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
+    <ClCompile Include="..\src\Jelly.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Npc.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\AudioManager.h" />
     <ClInclude Include="..\include\GameInfo.h" />
+    <ClInclude Include="..\include\Jelly.h" />
     <ClInclude Include="..\include\Npc.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Projectile.h" />

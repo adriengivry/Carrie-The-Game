@@ -5,7 +5,7 @@ class Door : public Actor
 {
 private:
 	const std::string	__DOOR_TEXTURE = "Door";
-	const float			__DOOR_ACTIVATION_ZONE = 50;
+	const float			__DOOR_ACTIVATION_ZONE = 40;
 
 public:
 	explicit Door(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);

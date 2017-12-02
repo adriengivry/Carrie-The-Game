@@ -172,7 +172,7 @@ void Player::Update(const sf::Time& l_time)
 
 	if (IsInvulnerable())
 	{
-		m_sprite.setColor(sf::Color(255, 255, 255, 150));
+		m_sprite.setColor(sf::Color(255, 255, 255, 200));
 		m_invulnerableTimer += l_time.asSeconds();
 		if (m_invulnerableTimer >= __INVULNERABLE_DURATION)
 			m_invulnerable = false;

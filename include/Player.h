@@ -8,6 +8,7 @@ class Player : public Actor
 	const std::string	__PLAYER_TEXTURE = "Back";
 	const float			__PLAYER_SPEED	 = 400;
 	const float			__PLAYER_LIFE	 = 100;
+	const float			__INVULNERABLE_DURATION = 0.5f;
 
 public:
 	explicit Player(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
@@ -19,6 +20,9 @@ public:
 	void Update(const sf::Time& l_time) override;
 	void StopControl();
 	void Draw() const override;
+
+	void MakeInvulnerable();
+	bool IsInvulnerable() const;
 
 	void Fire(EventDetails* l_details);
 	void RemoveLife(const float p_value);
@@ -33,6 +37,9 @@ private:
 
 	float m_maxLife;
 	float m_life;
+
+	bool m_invulnerable;
+	float m_invulnerableTimer;
 
 	float m_damagesMultiplicator;
 	float m_projectileSpeedMultiplicator;

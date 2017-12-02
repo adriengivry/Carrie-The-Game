@@ -22,6 +22,9 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_maxLife = __PLAYER_LIFE;
 	m_life = m_maxLife;
 
+	m_invulnerable = false;
+	m_invulnerableTimer = 0;
+
 	m_damagesMultiplicator = 1;
 	m_projectileSpeedMultiplicator = 1;
 	m_hitrateMultiplicator = 1;
@@ -167,6 +170,18 @@ void Player::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
 
+	if (IsInvulnerable())
+	{
+		m_sprite.setColor(sf::Color(255, 255, 255, 150));
+		m_invulnerableTimer += l_time.asSeconds();
+		if (m_invulnerableTimer >= __INVULNERABLE_DURATION)
+			m_invulnerable = false;
+	}
+	else
+	{
+		m_sprite.setColor(sf::Color(255, 255, 255, 255));
+	}
+
 	for (auto otherActor : m_sharedContext->m_actorManager->GetEnemies())
 		if (IsIntersecting(otherActor))
 			m_sharedContext->m_gameInfo->m_gameOver = true;
@@ -184,6 +199,14 @@ void Player::Draw() const
 {
 	Actor::Draw();
 }
+
+void Player::MakeInvulnerable()
+{
+	m_invulnerable = true;
+	m_invulnerableTimer = 0;
+}
+
+bool Player::IsInvulnerable() const { return m_invulnerable; }
 
 void Player::Fire(EventDetails* l_details)
 {

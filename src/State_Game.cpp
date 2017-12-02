@@ -23,9 +23,9 @@ void State_Game::OnCreate()
 	m_backgroundSprite.setTexture(*textureManager->GetResource("Game_Bg"));
 
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
-	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 180));
-	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 100));
-	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 100));
+	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 250));
+	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198));
+	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198));
 	
 	for (int i = 0; i < 3; ++i)
 		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), i * 2));

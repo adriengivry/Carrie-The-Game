@@ -24,7 +24,7 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const float p_secondBefo
 	do
 	{
 		spawnIsCorrect = true;
-		newPos.Set(Utils::randomgen(400, 1500), Utils::randomgen(250, 750));
+		newPos.Set(Utils::randomgen(250, 1600), Utils::randomgen(300, 750));
 
 		for (auto it : actorManager->GetSpawnPoints())
 			if (newPos.DistanceTo(it->GetPosition()) <= __DISTANCE_MIN_TO_OTHER_SPAWNPOINT && this != it)

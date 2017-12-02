@@ -5,13 +5,6 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	Actor(p_sharedContext, p_x, p_y),
 	m_target(nullptr)
 {
-	SetTexture(__ENEMY_TEXTURE);
-	m_velocity = __ENEMY_SPEED;
-
-	m_maxLife = __ENEMY_LIFE;
-	m_life = m_maxLife;
-	m_damages = __ENEMY_DAMAGES;
-
 	m_direction.Set(1, Utils::randomgen(45, 135), POLAR);
 
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());

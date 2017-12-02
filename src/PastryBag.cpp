@@ -10,6 +10,8 @@ PastryBag::PastryBag(SharedContext * p_sharedContext, const float p_x, const flo
 	m_maxLife = __PASTRYBAG_LIFE;
 	m_life = m_maxLife;
 	m_damages = __PASTRYBAG_DAMAGES;
+
+	SetTarget(nullptr);
 }
 
 PastryBag::~PastryBag()

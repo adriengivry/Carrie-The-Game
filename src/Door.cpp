@@ -27,7 +27,8 @@ void Door::Desactivate()
 
 void Door::Use()
 {
-	exit(0);
+	m_sharedContext->m_gameInfo->m_doorPassed = true;
+	++m_sharedContext->m_gameInfo->m_currentLevel;
 }
 
 bool Door::IsActivated() const { return m_activated; }

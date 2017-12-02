@@ -5,6 +5,8 @@ struct GameInfo
 	uint16_t m_gameStarted = 0;
 	const bool m_allowMouse = true;
 	bool m_gameOver = false;
+	uint16_t m_currentLevel = 1;
+	bool m_doorPassed = false;
 
 	uint8_t m_reverseMovement = 0;
 	uint8_t m_lowerAttackSpeed = 0;

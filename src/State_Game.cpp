@@ -17,6 +17,7 @@ void State_Game::OnCreate()
 	// OnCreate core
 	++gameInfo->m_gameStarted;
 	gameInfo->m_gameOver = false;
+	gameInfo->m_doorPassed = false;
 
 	textureManager->RequireResource("Game_Bg");
 
@@ -27,7 +28,7 @@ void State_Game::OnCreate()
 	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198));
 	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198));
 	
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 0; ++i)
 		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), i * 2));
 
 	// Adding callbacks
@@ -64,6 +65,12 @@ void State_Game::Update(const sf::Time& l_time)
 		actorManager->GetDoor(0)->Activate();
 		actorManager->GetDoor(1)->Activate();
 	}
+
+	if (m_stateMgr->GetContext()->m_gameInfo->m_doorPassed)
+	{
+		OnDestroy();
+		OnCreate();
+	}
 }
 
 void State_Game::Draw()
@@ -74,6 +81,13 @@ void State_Game::Draw()
 	window->draw(m_backgroundSprite);
 	
 	actorManager->Draw();
+
+	sf::Text levelLabel;
+	levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
+	levelLabel.setPosition(window->getSize().x / 2, 50);
+	Utils::centerOrigin(levelLabel);
+	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(levelLabel);
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

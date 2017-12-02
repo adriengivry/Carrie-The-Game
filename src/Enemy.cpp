@@ -57,6 +57,13 @@ void Enemy::Update(const sf::Time& l_time)
 	m_sprite.rotate(100 * l_time.asSeconds());
 
 	Actor::Update(l_time);
+	Player* player = m_sharedContext->m_actorManager->GetPlayer();
+
+	if (this->IsIntersecting(player))
+	{
+		player->RemoveLife(m_damages);
+		player->MakeInvulnerable();
+	}
 
 	if (m_position.X() < 270 || m_position.X() > 1650 || m_position.Y() < 120 || m_position.Y() > 900)
 		m_mustDie = true;

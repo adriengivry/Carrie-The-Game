@@ -4,6 +4,7 @@
 
 class Enemy : public Actor
 {
+protected:
 	const std::string	__ENEMY_TEXTURE	= "Enemy";
 	const float			__ENEMY_SPEED	= 300;
 	const float			__ENEMY_LIFE	= 1;
@@ -25,7 +26,7 @@ public:
 
 	void DrawLifebar() const;
 
-private:
+private :
 	Actor* m_target;
 
 	float m_damages;

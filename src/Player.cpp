@@ -181,10 +181,6 @@ void Player::Update(const sf::Time& l_time)
 	{
 		m_sprite.setColor(sf::Color(255, 255, 255, 255));
 	}
-
-	for (auto otherActor : m_sharedContext->m_actorManager->GetEnemies())
-		if (IsIntersecting(otherActor))
-			m_sharedContext->m_gameInfo->m_gameOver = true;
 }
 
 void Player::StopControl()

@@ -59,7 +59,7 @@ void Enemy::Update(const sf::Time& l_time)
 	Actor::Update(l_time);
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
 
-	if (this->IsIntersecting(player) && player->IsInvulnerable())
+	if (this->IsIntersecting(player) && !player->IsInvulnerable())
 	{
 		player->RemoveLife(m_damages);
 		player->MakeInvulnerable();

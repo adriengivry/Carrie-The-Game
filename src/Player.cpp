@@ -204,4 +204,14 @@ void Player::Fire(EventDetails* l_details)
 	m_sharedContext->m_actorManager->AddProjectile(newProjectile);
 }
 
+void Player::RemoveLife(const float p_value)
+{
+	m_life -= p_value;
+	if (m_life <= 0)
+	{
+		m_life = 0;
+		m_sharedContext->m_gameInfo->m_gameOver = true;
+	}
+}
+
 

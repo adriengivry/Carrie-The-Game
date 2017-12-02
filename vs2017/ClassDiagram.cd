@@ -8,49 +8,49 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BaseState" Collapsed="true">
-    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBAEAABgBAAgBAAAgAAQAAACAAAAAAIAADgJAIAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\BaseState.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Credits" Collapsed="true">
-    <Position X="5.25" Y="1.75" Width="1.5" />
+    <Position X="5.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAQBAAIAAABAAgjGgAAAAAAQACAAAAAAAAAAAIQAAIA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Credits.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Game" Collapsed="true">
-    <Position X="7.5" Y="1.75" Width="1.5" />
+    <Position X="7.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQhgAAAAABAAoBEACAAAAARACAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQhgAAAAABAAoBEACQAAAARACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Game.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_GameOver" Collapsed="true">
-    <Position X="9.75" Y="1.75" Width="1.5" />
+    <Position X="9.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBAAIAAABAAgBEAAAAAAAQCCAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_GameOver.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Intro" Collapsed="true">
-    <Position X="12" Y="1.75" Width="1.5" />
+    <Position X="12" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBSEIgAABAAgBEBIAAAAAABCAAQABAABAAAAAAAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Intro.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_MainMenu" Collapsed="true">
-    <Position X="0.75" Y="1.75" Width="1.5" />
+    <Position X="0.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAQBAAAAAIDAAgBMgAAAAAAAEDAIAAAAoBARAAAgAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_MainMenu.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Paused" Collapsed="true">
-    <Position X="3" Y="1.75" Width="1.5" />
+    <Position X="3" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQDAAAAAABAAgBAAAAAAAAAACAAAAAAgAQAAAAEAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Paused.h</FileName>
@@ -59,7 +59,7 @@
   <Class Name="ActorManager" Collapsed="true">
     <Position X="14.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAUAgFAEQAAAAhAAAIEEAgAAAAAABAAAAAAgEABAAAA=</HashCode>
+      <HashCode>AAUAgFAEQAAgChKAAIEEAggAAAAABAAAAAAgEABAgAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\ActorManager.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -120,38 +120,52 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Actor" Collapsed="true">
-    <Position X="3.75" Y="3.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAQAAAgEAKAIkgAEkAAKAAAgACIAAgRAEACAAIAAAAA=</HashCode>
+      <HashCode>AAQAAAgEAKAIkgAEkAAKAAAgACIAAgRAEACAAIAAAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Actor.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Enemy" Collapsed="true">
-    <Position X="5" Y="4.75" Width="1.5" />
+  <Class Name="Door" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgQAAgAAAEAAkgAAABAAAAAACAAEAQAAAEAAAAAgAAI=</HashCode>
+      <HashCode>AAQAACAAAAAAIADAAAAIAAAAAgAEAAAAAAIAAAAAAQA=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Door.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgUIAgAAAEAAkgAAABAAAAAACAAEAQAAAEAAAAAgAAI=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Enemy.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Player" Collapsed="true">
-    <Position X="7.25" Y="4.75" Width="1.5" />
+  <Class Name="Npc" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAAgAAAIIAIwAAEABEAAAgAAAEIAAAAAAAAQAAEFA=</HashCode>
+      <HashCode>EIQAAAAAgAAAAgBAEAAIAAAAAAAAAAAAAAAEAAABEAE=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Npc.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAgAAAIIAIwAAEBBEAAAgAAQEIAAAAAAAAQAhEFA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Player.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Projectile" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="5.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAUAIAAAAEAAAAAAAgAQAAQAEAAAAAAAAAAABAAAIgA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Projectile.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Npc" Collapsed="true">
-    <Position X="2.75" Y="4.75" Width="1.5" />
+  <Class Name="SpawnPoint" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EIQAAAAAgAAAAgBAEAAIAAAAAAAAAAAAAAAEAAAAEAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Npc.h</FileName>
+      <HashCode>gAQAACABAAAAAghCEBBIAAAgAACAERAECAAAAAAQAAQ=</HashCode>
+      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SpawnPoint.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AGMath::Vector2D&lt;T&gt;" Collapsed="true">
@@ -192,7 +206,7 @@
   <Struct Name="GameInfo" Collapsed="true">
     <Position X="14.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAIAAAAAQQAAAAABABAAAAIAAQAAAAIAAAAAAAAA=</HashCode>
       <FileName>C:\Users\adrie\Desktop\LD40-Project\include\GameInfo.h</FileName>
     </TypeIdentifier>
   </Struct>

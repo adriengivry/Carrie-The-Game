@@ -21,6 +21,7 @@ public:
 	void Draw() const override;
 
 	void Fire(EventDetails* l_details);
+	void RemoveLife(const float p_value);
 
 private:
 	bool m_moveLeft;

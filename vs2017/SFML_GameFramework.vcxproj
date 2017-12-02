@@ -31,7 +31,7 @@
     <ClCompile Include="..\src\Lollipop.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Npc.cpp" />
-    <ClCompile Include="..\src\PastryBag.cpp" />
+    <ClCompile Include="..\src\CakeMonster.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Projectile.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
@@ -61,7 +61,7 @@
     <ClInclude Include="..\include\JellyBear.h" />
     <ClInclude Include="..\include\Lollipop.h" />
     <ClInclude Include="..\include\Npc.h" />
-    <ClInclude Include="..\include\PastryBag.h" />
+    <ClInclude Include="..\include\CakeMonster.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Projectile.h" />
     <ClInclude Include="..\include\ResourceManager.h" />

@@ -126,6 +126,18 @@
     <ClCompile Include="..\src\Jelly.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Lollipop.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\JellyBear.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PastryBag.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Crocodile.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Game.h">
@@ -213,6 +225,18 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Jelly.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Lollipop.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\JellyBear.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PastryBag.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Crocodile.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

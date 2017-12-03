@@ -11,6 +11,8 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 
 	SetTexture(__PROJECTILE_TEXTURE);
 
+	++m_sharedContext->m_gameInfo->m_spawnedProjectiles;
+
 	m_orientable = true;
 }
 

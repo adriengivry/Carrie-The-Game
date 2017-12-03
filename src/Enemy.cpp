@@ -39,7 +39,7 @@ void Enemy::Update(const sf::Time& l_time)
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
 
 	// Hitting wall
-	if (m_position.X() < 70 || m_position.X() > 1850 || m_position.Y() < 200 || m_position.Y() > 950)
+	if (m_position.X() < 70 || m_position.X() > 1850 || m_position.Y() < 300 || m_position.Y() > 950)
 		return;
 
 	// Out of screen

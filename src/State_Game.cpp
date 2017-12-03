@@ -19,8 +19,10 @@ void State_Game::OnCreate()
 	gameInfo->Reset();
 
 	textureManager->RequireResource("Game_Bg");
+	textureManager->RequireResource("Background_Edges");
 
 	m_backgroundSprite.setTexture(*textureManager->GetResource("Game_Bg"));
+	m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Background_Edges"));
 
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
 	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 250));
@@ -87,7 +89,7 @@ void State_Game::Draw()
 	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
 	levelLabel.setPosition(window->getSize().x / 2, 50);
 	Utils::centerOrigin(levelLabel);
-	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(levelLabel);
+	window->draw(levelLabel);
 
 	sf::Text spawnedEnemies;
 	spawnedEnemies.setString("SPAWNED ENEMIES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedEnemies));
@@ -104,9 +106,11 @@ void State_Game::Draw()
 	spawnedProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	spawnedProjectiles.setPosition(0, 100);
 
-	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(spawnedEnemies);
-	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(spawnedProjectiles);
-	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(travelledDistance);
+	window->draw(spawnedEnemies);
+	window->draw(spawnedProjectiles);
+	window->draw(travelledDistance);
+
+	window->draw(m_backgroundEdgesSprites);
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

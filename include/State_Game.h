@@ -26,6 +26,7 @@ public:
 	void Pause(EventDetails* l_details) const;
 private:
 	sf::Sprite m_backgroundSprite;
+	sf::Sprite m_backgroundEdgesSprites;
 
 	sf::Vector2f m_increment;
 };

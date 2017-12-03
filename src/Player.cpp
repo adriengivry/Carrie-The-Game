@@ -165,9 +165,9 @@ void Player::Move(const sf::Time& l_time)
 		m_collide = true;
 	}
 
-	if (m_position.Y() > 890)
+	if (m_position.Y() > 920)
 	{
-		m_position.Y(890);
+		m_position.Y(920);
 		m_collide = true;
 	}
 }

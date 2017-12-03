@@ -7,17 +7,13 @@
 #include "Lollipop.h"
 
 
-SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const float p_secondBeforeActivation) :
+SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	Actor(p_sharedContext)
 {
 	SetTexture(__SPAWNPOINT_TEXTURE);
 	m_velocity = 0.0f;
 
-	m_maxSpawn = __SPAWNPOINT_MAXSPAWN;
 	m_timer = 0;
-	m_spawnFrequency = __SPAWNPOINT_SPAWN_FREQUENCY;
-
-	m_secondsBeforeActivation = p_secondBeforeActivation;
 
 	m_active = false;
 
@@ -46,6 +42,34 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const float p_secondBefo
 	m_position = newPos;
 
 	m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
+	switch (m_type)
+	{
+	case SpawnerType::JELLY_SPAWNER:
+		m_spawnFrequency = __SPAWNPOINT_JELLY_SPAWN_FREQUENCY;
+		m_maxSpawn = __SPAWNPOINT_JELLY_MAXSPAWN;
+		m_secondsBeforeActivation = __SPAWNPOINT_JELLY_WAIT;
+		break;
+	case SpawnerType::JELLYBEAR_SPAWNER:
+		m_spawnFrequency = __SPAWNPOINT_JELLYBEAR_SPAWN_FREQUENCY;
+		m_maxSpawn = __SPAWNPOINT_JELLYBEAR_MAXSPAWN;
+		m_secondsBeforeActivation = __SPAWNPOINT_JELLYBEAR_WAIT;
+		break;
+	case SpawnerType::LOLLIPOP_SPAWNER:
+		m_spawnFrequency = __SPAWNPOINT_LOLLIPOP_SPAWN_FREQUENCY;
+		m_maxSpawn = __SPAWNPOINT_LOLLIPOP_MAXSPAWN;
+		m_secondsBeforeActivation = __SPAWNPOINT_LOLLIPOP_WAIT;
+		break;
+	case SpawnerType::CROCODILE_SPAWNER:
+		m_spawnFrequency = __SPAWNPOINT_CROCODILE_SPAWN_FREQUENCY;
+		m_maxSpawn = __SPAWNPOINT_CROCODILE_MAXSPAWN;
+		m_secondsBeforeActivation = __SPAWNPOINT_CROCODILE_WAIT;
+		break;
+	case SpawnerType::CAKEMONSTER_SPAWNER:
+		m_spawnFrequency = __SPAWNPOINT_CAKEMONSTER_SPAWN_FREQUENCY;
+		m_maxSpawn = __SPAWNPOINT_CAKEMONSTER_MAXSPAWN;
+		m_secondsBeforeActivation = __SPAWNPOINT_CAKEMONSTER_WAIT;
+		break;
+	}
 
 }
 

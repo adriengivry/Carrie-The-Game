@@ -29,7 +29,7 @@ void State_Game::OnCreate()
 	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198));
 	
 	for (int i = 0; i < 0; ++i)
-		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), i * 2));
+		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);

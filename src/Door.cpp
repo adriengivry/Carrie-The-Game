@@ -67,7 +67,7 @@ void Door::SelectCurse()
 {
 	GameInfo* gameInfo = m_sharedContext->m_gameInfo;
 
-	if (gameInfo->m_reverseMovement == 0)
+	// if (gameInfo->m_reverseMovement == 0)
 }
 
 void Door::Update(const sf::Time& l_time)

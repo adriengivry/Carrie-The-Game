@@ -20,6 +20,8 @@ public:
 
 	bool IsActivated() const;
 
+	void SelectCurse();
+
 	void Update(const sf::Time& l_time) override;
 private:
 	bool m_activated;

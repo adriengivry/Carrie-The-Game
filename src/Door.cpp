@@ -38,7 +38,9 @@ void Door::Use() const
 	}
 	else
 	{
-		exit(0);
+		m_sharedContext->m_gameInfo->m_doorPassed = true;
+		++m_sharedContext->m_gameInfo->m_currentLevel;
+		SelectCurse();
 	}
 }
 
@@ -60,6 +62,13 @@ void Door::Draw() const
 }
 
 bool Door::IsActivated() const { return m_activated; }
+
+void Door::SelectCurse()
+{
+	GameInfo* gameInfo = m_sharedContext->m_gameInfo;
+
+	if (gameInfo->m_reverseMovement == 0)
+}
 
 void Door::Update(const sf::Time& l_time)
 {

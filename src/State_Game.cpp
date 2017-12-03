@@ -84,6 +84,8 @@ void State_Game::Draw()
 	
 	actorManager->Draw();
 
+	window->draw(m_backgroundEdgesSprites);
+
 	sf::Text levelLabel;
 	levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
@@ -109,8 +111,6 @@ void State_Game::Draw()
 	window->draw(spawnedEnemies);
 	window->draw(spawnedProjectiles);
 	window->draw(travelledDistance);
-
-	window->draw(m_backgroundEdgesSprites);
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

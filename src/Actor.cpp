@@ -25,9 +25,6 @@ void Actor::Move(const sf::Time& l_time)
 	Vector2D<float> previousPos = m_position;
 	const Vector2D<float> newPos = m_position + m_direction * m_velocity * l_time.asSeconds();
 
-	if (newPos.DistanceTo(m_sharedContext->m_actorManager->GetNpc()->GetPosition()) <= 100 && m_sharedContext->m_actorManager->GetNpc()->IsActive())
-		return;
-
 	m_position = newPos;
 
 	if (m_orientable)

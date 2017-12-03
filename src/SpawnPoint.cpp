@@ -135,7 +135,8 @@ void SpawnPoint::Activate()
 
 void SpawnPoint::Draw() const
 {
-	Actor::Draw();
+	if (!IsDone())
+		Actor::Draw();
 }
 
 bool SpawnPoint::IsDone() const { return m_maxSpawn == 0; }

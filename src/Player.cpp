@@ -168,7 +168,7 @@ void Player::Move(const sf::Time& l_time)
 
 void Player::Update(const sf::Time& l_time)
 {
-	Actor::Update(l_time);
+	Actor::Update(l_time);	
 
 	if (IsInvulnerable())
 	{

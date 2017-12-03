@@ -5,8 +5,6 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	Actor(p_sharedContext, p_x, p_y),
 	m_target(nullptr)
 {
-	m_direction.Set(1, Utils::randomgen(45, 135), POLAR);
-
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 }
 
@@ -56,7 +54,7 @@ void Enemy::Update(const sf::Time& l_time)
 		player->MakeInvulnerable();
 	}
 
-	if (m_position.X() < 150 || m_position.X() > 1770 || m_position.Y() < 250 || m_position.Y() > 890)
+	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)
 		m_mustDie = true;
 }
 
@@ -70,7 +68,7 @@ void Enemy::Draw() const
 void Enemy::DrawLifebar() const
 {
 	sf::RectangleShape rect;
-	sf::Vector2f barSize = sf::Vector2f(m_sprite.getGlobalBounds().width, 25);
+	sf::Vector2f barSize = sf::Vector2f(m_sprite.getGlobalBounds().width, 5);
 
 	rect.setPosition(m_sprite.getGlobalBounds().left, m_sprite.getGlobalBounds().top - 25);
 

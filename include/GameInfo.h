@@ -13,7 +13,6 @@ struct GameInfo
 	uint16_t m_spawnedProjectiles = 0;
 
 	uint8_t m_reverseMovement = 0;
-	uint8_t m_lowerAttackSpeed = 0;
 	uint8_t m_midLife = 0;
 	uint8_t m_slowerProjectiles = 0;
 	uint8_t m_weakerProjectiles = 0;

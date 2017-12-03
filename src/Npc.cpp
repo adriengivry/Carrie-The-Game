@@ -11,6 +11,14 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_answer = false;
 	m_question = static_cast<QuestionType>(0);
 
+	if (m_sharedContext->m_textureManager->RequireResource("Bubble"))
+	{
+		m_speachBubble.setTexture(*m_sharedContext->m_textureManager->GetResource("Bubble"));
+		m_speachBubble.setPosition(1150, 90);
+		m_speachBubble.setScale(0.6f, 0.6f);
+		Utils::centerOrigin(m_speachBubble);
+	}
+
 	m_talking = false;
 }
 
@@ -39,28 +47,35 @@ void Npc::GenerateQuestion()
 {
 	m_question = static_cast<QuestionType>(Utils::randomgen(0, 2));
 	const uint8_t answer = Utils::randomgen(1, 100);
+
 	if (answer < 50)
 		m_answer = true;
 	else
 		m_answer = false;
 
+	uint16_t goodValue = 0;
+
 	switch (m_question)
 	{
 	case QuestionType::TRAVEL:
-		do m_randomValue = Utils::randomgen(6000, 7000);
-		while (m_randomValue == m_sharedContext->m_gameInfo->m_travelledDistance);
-
+		goodValue = m_sharedContext->m_gameInfo->m_travelledDistance;
 		break;
 
 	case QuestionType::ENEMIES_SPAWNED:
-		do m_randomValue = Utils::randomgen(30, 50);
-		while (m_randomValue == m_sharedContext->m_gameInfo->m_spawnedEnemies);
+		goodValue = m_sharedContext->m_gameInfo->m_spawnedEnemies;
 		break;
 
 	case QuestionType::PROJECTILE_SPAWNED:
-		do m_randomValue = Utils::randomgen(50, 100);
-		while (m_randomValue == m_sharedContext->m_gameInfo->m_spawnedProjectiles);
+		goodValue = m_sharedContext->m_gameInfo->m_spawnedProjectiles;
 		break;
+	}
+
+	if (goodValue == 0)
+		m_randomValue = 1;
+	else
+	{
+		do m_randomValue = Utils::randomgen(goodValue - goodValue / 2, goodValue + goodValue / 2);
+		while (m_randomValue == goodValue);
 	}
 	
 }
@@ -93,16 +108,11 @@ void Npc::Draw() const
 
 void Npc::DrawAffirmation() const
 {
-	sf::RectangleShape rect;
-
-	rect.setSize(sf::Vector2f(1920, 1080));
-	rect.setPosition(0, 0);
-	rect.setFillColor(sf::Color(0, 0, 0, 150));
-
 	sf::Text question;
 	question.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
-	question.setCharacterSize(25);
-	question.setPosition(m_sharedContext->m_wind->GetWindowCenter().x, m_sharedContext->m_wind->GetWindowCenter().y);
+	question.setCharacterSize(20);
+	question.setPosition(1150, 70);
+	question.setFillColor(sf::Color::Black);
 
 	std::string value;
 
@@ -114,7 +124,7 @@ void Npc::DrawAffirmation() const
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("Wow ! You travelled " + value + " pixels !");
+		question.setString("Wow ! You travelled \n" + value + " pixels !");
 		break;
 
 	case QuestionType::ENEMIES_SPAWNED:
@@ -123,7 +133,7 @@ void Npc::DrawAffirmation() const
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("I have counted that " + value + " enemies spawned !");
+		question.setString("I have counted that \n" + value + " enemies spawned !");
 		break;
 
 	case QuestionType::PROJECTILE_SPAWNED:
@@ -132,12 +142,12 @@ void Npc::DrawAffirmation() const
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("Ahahah, you threw " + value + " pieces of chocolate !");
+		question.setString("Ahahah, you threw \n" + value + " pieces of chocolate !");
 		break;
 	}
 
 	Utils::centerOrigin(question);
 
-	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
+	m_sharedContext->m_wind->GetRenderWindow()->draw(m_speachBubble);
 	m_sharedContext->m_wind->GetRenderWindow()->draw(question);
 }

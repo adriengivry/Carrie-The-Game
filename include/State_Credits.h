@@ -29,8 +29,5 @@ private:
 
 	bool m_fastForward;
 
-	sf::Text m_creditLine[CREDIT_NUMBER_OF_LINES];
-
 	sf::Sprite m_backgroundSprite;
-	sf::Sprite m_gameLogoSprite;
 };

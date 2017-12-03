@@ -42,9 +42,11 @@ void Actor::Draw() const
 			sf::Sprite shadow;
 			if (m_sharedContext->m_textureManager->RequireResource("Shadow"))
 			{
+				const float scaleFactor = m_sprite.getGlobalBounds().width / 75.f;
 				shadow.setTexture(*m_sharedContext->m_textureManager->GetResource("Shadow"));
 				shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height - 15);
 				shadow.setColor(sf::Color(255, 255, 255, 100));
+				shadow.setScale(scaleFactor, scaleFactor);
 				Utils::centerOrigin(shadow);
 				m_sharedContext->m_wind->GetRenderWindow()->draw(shadow);
 			}

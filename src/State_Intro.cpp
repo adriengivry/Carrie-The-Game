@@ -33,7 +33,7 @@ void State_Intro::OnCreate()
 	m_text.setCharacterSize(25);
 	m_text.setFillColor(sf::Color(255, 255, 255, m_startTextOpacity));
 	Utils::centerOrigin(m_text);
-	m_text.setPosition(windowCenter.x, windowCenter.y);
+	m_text.setPosition(windowCenter.x, windowCenter.y + 200);
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Intro, "Key_Space", &State_Intro::Continue, this);
@@ -104,7 +104,7 @@ void State_Intro::Update(const sf::Time& l_time)
 
 		m_introSprite.setPosition(
 			m_introSprite.getPosition().x,
-			m_introSprite.getPosition().y - 300 * l_time.asSeconds());
+			m_introSprite.getPosition().y - 100 * l_time.asSeconds());
 
 		if (m_timePassed >= 1.0f)
 		{

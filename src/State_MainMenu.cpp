@@ -23,7 +23,7 @@ void State_MainMenu::OnCreate()
 	m_backgroundSprite.setTexture(*textureManager->GetResource("MainMenu_Bg"));
 	m_gameLogoSprite.setTexture(*textureManager->GetResource("Game_Logo"));
 	Utils::centerOrigin(m_gameLogoSprite);
-	m_gameLogoSprite.setPosition(windowCenter.x, 144);
+	m_gameLogoSprite.setPosition(windowCenter.x, 341.9f);
 
 	m_buttonSize = sf::Vector2f(250.0f,75.0f);
 	m_buttonPos = sf::Vector2f(windowCenter.x, windowCenter.y - m_buttonSize.y + 280);
@@ -130,14 +130,14 @@ void State_MainMenu::Move(EventDetails* l_details)
 
 	switch (keyPressed)
 	{
-	case sf::Keyboard::Up:
+	case sf::Keyboard::W:
 		if (m_selected == 0)
 			m_selected = 2;
 		else
 			--m_selected;
 		break;
 
-	case sf::Keyboard::Down:
+	case sf::Keyboard::S:
 		++m_selected;
 		if (m_selected > 2)
 			m_selected = 0;

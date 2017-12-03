@@ -10,9 +10,9 @@ enum Curses
 
 struct GameInfo
 {
-	const float __CARRIE_SLOW_MULTIPLICATOR = 0.9;
-	const float __PROJECTILE_SLOW_MULTIPLICATOR = 0.9;
-	const float __PROJECTILE_WEAK_MULTIPLICATOR = 0.9;
+	const float __CARRIE_SLOW_MULTIPLICATOR = 0.75;
+	const float __PROJECTILE_SLOW_MULTIPLICATOR = 0.75;
+	const float __PROJECTILE_WEAK_MULTIPLICATOR = 0.75;
 
 	uint16_t m_gameStarted = 0;
 	const bool m_allowMouse = true;

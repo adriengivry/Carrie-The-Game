@@ -40,8 +40,4 @@ private:
 
 	bool m_invulnerable;
 	float m_invulnerableTimer;
-
-	float m_damagesMultiplicator;
-	float m_projectileSpeedMultiplicator;
-	float m_hitrateMultiplicator;
 };

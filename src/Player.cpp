@@ -25,10 +25,6 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_invulnerable = false;
 	m_invulnerableTimer = 0;
 
-	m_damagesMultiplicator = 1;
-	m_projectileSpeedMultiplicator = 1;
-	m_hitrateMultiplicator = 1;
-
 	m_collide = false;
 
 	SetTexture(__PLAYER_TEXTURE);
@@ -202,7 +198,9 @@ void Player::Move(const sf::Time& l_time)
 
 void Player::Update(const sf::Time& l_time)
 {
-	Actor::Update(l_time);	
+	Actor::Update(l_time);
+
+	m_velocity = __PLAYER_SPEED * pow(m_sharedContext->m_gameInfo->__CARRIE_SLOW_MULTIPLICATOR, m_sharedContext->m_gameInfo->m_slowerCarrie);
 
 	if (IsInvulnerable())
 	{
@@ -240,7 +238,9 @@ bool Player::IsInvulnerable() const { return m_invulnerable; }
 
 void Player::Fire(EventDetails* l_details)
 {
-	if (m_sharedContext->m_gameInfo->m_levelCompleted)
+	GameInfo* gameInfo = m_sharedContext->m_gameInfo;
+
+	if (gameInfo->m_levelCompleted)
 		return;
 
 	Vector2D<float> mousePos;
@@ -250,9 +250,9 @@ void Player::Fire(EventDetails* l_details)
 	projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
 
 	Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y());
-	newProjectile->MultiplyDamages(m_damagesMultiplicator);
-	newProjectile->MultiplyHitrate(m_hitrateMultiplicator);
-	newProjectile->MultiplySpeed(m_projectileSpeedMultiplicator);
+
+	newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
+	newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
 
 	m_sharedContext->m_actorManager->AddProjectile(newProjectile);
 }

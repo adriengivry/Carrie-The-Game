@@ -11,9 +11,11 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 
 	SetTexture(__PROJECTILE_TEXTURE);
 
+	m_sprite.scale(0.7f, 0.7f);
+
 	++m_sharedContext->m_gameInfo->m_spawnedProjectiles;
 
-	m_orientable = true;
+	m_orientable = false;
 }
 
 Projectile::~Projectile()
@@ -23,6 +25,8 @@ Projectile::~Projectile()
 void Projectile::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
+
+	m_sprite.rotate(350 * l_time.asSeconds());
 
 	for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
 	{

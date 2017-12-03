@@ -137,6 +137,6 @@ void State_Intro::Continue(EventDetails* l_details)
 void State_Intro::Activate()
 {
 	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
-	soundManager->PlayMusic("Intro");
+	soundManager->PlayMusic("Menu");
 }
 void State_Intro::Deactivate() {}

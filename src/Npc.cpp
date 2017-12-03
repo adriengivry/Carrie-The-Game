@@ -8,6 +8,8 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	SetTexture(__NPC_TEXTURE);
 	Desactivate();
 
+	m_sprite.scale(0.7f, 0.7f);
+
 	m_answer = false;
 	m_question = static_cast<QuestionType>(0);
 
@@ -46,12 +48,7 @@ void Npc::Desactivate()
 void Npc::GenerateQuestion()
 {
 	m_question = static_cast<QuestionType>(Utils::randomgen(0, 2));
-	const uint8_t answer = Utils::randomgen(1, 100);
-
-	if (answer < 50)
-		m_answer = true;
-	else
-		m_answer = false;
+	m_answer = static_cast<bool>(Utils::randomgen(0, 1));
 
 	uint16_t goodValue = 0;
 

@@ -77,7 +77,6 @@ namespace Utils
 
 	inline int randomgen(const int min, const int max)
 	{
-		const int range = max - min;
-		return rand() % range + min;
+		return rand() % (max + 1) + min;
 	}
 }

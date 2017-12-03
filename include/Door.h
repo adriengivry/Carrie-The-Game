@@ -14,7 +14,7 @@ public:
 	void Activate();
 	void Desactivate();
 
-	void Use() const;
+	void Use();
 
 	void Draw() const override;
 

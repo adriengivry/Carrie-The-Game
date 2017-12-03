@@ -29,7 +29,7 @@ void Door::Desactivate()
 	m_activated = false;
 }
 
-void Door::Use() const
+void Door::Use()
 {
 	if (m_answer == m_sharedContext->m_actorManager->GetNpc()->GetAnswer())
 	{

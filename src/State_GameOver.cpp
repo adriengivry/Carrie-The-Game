@@ -26,6 +26,8 @@ void State_GameOver::OnCreate()
 	Utils::centerOrigin(m_text);
 	m_text.setPosition(sf::Vector2f(0 - m_text.getLocalBounds().width / 2, windowCenter.y));
 
+	gameInfo->FullReset();
+
 	evMgr->AddCallback(StateType::GameOver, "Key_Escape", &State_GameOver::MainMenu, this);
 }
 

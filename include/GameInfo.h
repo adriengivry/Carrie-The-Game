@@ -38,4 +38,20 @@ struct GameInfo
 		m_doorPassed = false;
 		m_levelCompleted = false;
 	}
+
+	void FullReset()
+	{
+		m_gameStarted = 0;
+		m_gameOver = false;
+		m_currentLevel = 1;
+		m_doorPassed = false;
+		m_levelCompleted = false;
+		m_spawnedEnemies = 0;
+		m_travelledDistance = 0;
+		m_spawnedProjectiles = 0;
+		m_reverseMovement = false;
+		m_slowerCarrie = 0;
+		m_slowerProjectiles = 0;
+		m_weakerProjectiles = 0;
+	}
 };

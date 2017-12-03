@@ -9,6 +9,7 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity = __JELLYBEAR_SPEED;
+	m_cooldown = __JELLYBEAR_COOLDOWN;
 	
 	if (m_maxLife > 650)
 		m_maxLife = 650;
@@ -19,8 +20,6 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 		m_damages = 8;
 	else
 		m_damages = __JELLYBEAR_DAMAGES * level * 1.05f;
-
-	m_cooldown = __JELLYBEAR_COOLDOWN;
 
 	m_life = m_maxLife;
 }

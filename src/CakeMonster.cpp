@@ -9,6 +9,7 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 	float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity = __CAKEMONSTER_SPEED;
+	m_cooldown = __CAKEMONSTER_COOLDOWN;
 
 	if (m_maxLife > 150)
 		m_maxLife = 150;
@@ -19,8 +20,6 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 		m_damages = 33;
 	else
 		m_damages = __CAKEMONSTER_DAMAGES * level * 1.05f;
-
-	m_cooldown = __CAKEMONSTER_COOLDOWN;
 
 	m_life = m_maxLife;
 	m_timer = 0;

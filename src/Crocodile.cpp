@@ -9,6 +9,7 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 	float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity = __CROCODILE_SPEED;
+	m_cooldown = __CROCODILE_COOLDOWN;
 
 	if (m_maxLife > 350)
 		m_maxLife = 350;
@@ -19,8 +20,6 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 		m_damages = 33;
 	else
 		m_damages = __CROCODILE_DAMAGES * level * 1.05;
-
-	m_cooldown = __CROCODILE_COOLDOWN;
 
 	m_life = m_maxLife;
 	m_timer = 0;
@@ -33,13 +32,24 @@ Crocodile::~Crocodile() {}
 void Crocodile::Update(const sf::Time & l_time)
 {
 	SetTexture(__CROCODILE_TEXTURE);
+	m_direction.Set(0, 0);
 
 	Enemy::Update(l_time);
 }
 
 void Crocodile::Attack()
 {
-	Jump();
+	bool inRange = false;
+
+	float range = m_position.DistanceTo(m_target->GetPosition());
+
+	if (range < 400)
+		inRange = true;
+	else
+		inRange = false;
+
+	if (inRange)
+		Jump();
 
 	Enemy::Attack();
 }
@@ -47,5 +57,7 @@ void Crocodile::Attack()
 void Crocodile::Jump()
 {
 	SetTexture("CrocodileFrontRed");
-	//TODO
+
+	m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
+	m_direction.Normalize();
 }

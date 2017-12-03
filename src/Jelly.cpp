@@ -9,6 +9,7 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 	float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity	= __JELLY_SPEED;
+	m_cooldown = __JELLY_COOLDOWN;
 
 	if (m_maxLife > 450)
 		m_maxLife = 450;
@@ -19,8 +20,6 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 		m_damages = 8;
 	else
 		m_damages = __JELLY_DAMAGES * level * 1.05f;
-
-	m_cooldown = __JELLY_COOLDOWN;
 
 	m_life		=	m_maxLife;
 	m_timer		= 0;

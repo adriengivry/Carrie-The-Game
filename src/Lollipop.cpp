@@ -10,6 +10,8 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 	m_maxLife = __LOLLIPOP_LIFE;
 	m_life = m_maxLife;
 	m_damages = __LOLLIPOP_DAMAGES;
+
+	SetTarget(nullptr);
 }
 
 Lollipop::~Lollipop()

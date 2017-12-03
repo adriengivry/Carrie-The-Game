@@ -28,15 +28,15 @@ void State_Intro::OnCreate()
 	Utils::centerOrigin(m_introSprite);
 	m_introSprite.setPosition(windowSize.x / 2.0f, windowSize.y);
 
-	m_text.setFont(*fontManager->GetResource("Retro"));
-	m_text.setString("Press SPACE to continue");
+	m_text.setFont(*fontManager->GetResource("Retro_Menu"));
+	m_text.setString("PRESS SPACE TO CONTINUE");
 	m_text.setCharacterSize(25);
 	m_text.setFillColor(sf::Color(255, 255, 255, m_startTextOpacity));
 	Utils::centerOrigin(m_text);
-	m_text.setPosition(windowCenter.x, windowCenter.y + 100);
+	m_text.setPosition(windowCenter.x, windowCenter.y);
 
 	// Adding callbacks
-	evMgr->AddCallback(StateType::Intro,"Key_Space",&State_Intro::Continue,this);
+	evMgr->AddCallback(StateType::Intro, "Key_Space", &State_Intro::Continue, this);
 }
 
 void State_Intro::OnDestroy()
@@ -104,7 +104,7 @@ void State_Intro::Update(const sf::Time& l_time)
 
 		m_introSprite.setPosition(
 			m_introSprite.getPosition().x,
-			m_introSprite.getPosition().y - 150 * l_time.asSeconds());
+			m_introSprite.getPosition().y - 300 * l_time.asSeconds());
 
 		if (m_timePassed >= 1.0f)
 		{

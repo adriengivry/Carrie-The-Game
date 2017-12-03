@@ -10,6 +10,7 @@ struct GameInfo
 	bool m_levelCompleted = false;
 	uint16_t m_spawnedEnemies = 0;
 	float m_travelledDistance = 0;
+	uint16_t m_spawnedProjectiles = 0;
 
 	uint8_t m_reverseMovement = 0;
 	uint8_t m_lowerAttackSpeed = 0;
@@ -20,6 +21,7 @@ struct GameInfo
 
 	void Reset()
 	{
+		m_spawnedProjectiles = 0;
 		m_spawnedEnemies = 0;
 		m_travelledDistance = 0;
 		m_gameOver = false;

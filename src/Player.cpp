@@ -212,7 +212,7 @@ bool Player::IsInvulnerable() const { return m_invulnerable; }
 
 void Player::Fire(EventDetails* l_details)
 {
-	if (m_sharedContext->m_actorManager->GetNpc()->IsTalking())
+	if (m_sharedContext->m_gameInfo->m_levelCompleted)
 		return;
 
 	Vector2D<float> mousePos;

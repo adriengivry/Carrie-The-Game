@@ -40,6 +40,8 @@ namespace AGMath
 
 		Vector2D<T> operator+(const Vector2D<T>& p_toAdd);
 		Vector2D<T> operator+=(const Vector2D<T>& p_toAdd);
+		Vector2D<T> operator-(const Vector2D<T>& p_toSub);
+		Vector2D<T> operator-=(const Vector2D<&>& p_toSub);
 		Vector2D<T> operator*(const T& p_coefficient);
 
 		friend std::ostream& operator<<(std::ostream& p_stream, const Vector2D<T>& p_toDisplay)
@@ -49,6 +51,7 @@ namespace AGMath
 		}
 
 		Vector2D<T> Add(const Vector2D<T>& p_toAdd);
+		Vector2D<T> Sub(const Vector2D<T>& p_toSub);
 		void Move(const Vector2D<T>& p_toAdd);
 		float DotProduct(const Vector2D<T>& p_dotProductSecondOperand) const;
 		float CrossProduct(const Vector2D<T>& p_crossProductSecondOperand) const;
@@ -137,6 +140,20 @@ namespace AGMath
 	}
 
 	template <class T>
+	Vector2D<T> Vector2D<T>::operator-(const Vector2D<T>& p_toAdd)
+	{
+		return Add(p_toSub);
+	}
+
+	template <class T>
+	Vector2D<T> Vector2D<T>::operator-=(const Vector2D<T>& p_toAdd)
+	{
+		Vector2D<T> temp(__x, __y);
+		Move(p_toSub);
+		return temp;
+	}
+
+	template <class T>
 	Vector2D<T> Vector2D<T>::operator*(const T& p_coefficient)
 	{
 		Vector2D<T> toReturn;
@@ -151,6 +168,15 @@ namespace AGMath
 		Vector2D<T> toReturn;
 		toReturn.X(__x + p_toAdd.X());
 		toReturn.Y(__y + p_toAdd.Y());
+		return toReturn;
+	}
+
+	template <class T>
+	Vector2D<T> Vector2D<T>::Sub(const Vector2D<T>& p_toAdd)
+	{
+		Vector2D<T> toReturn;
+		toReturn.X(__x - p_toAdd.X());
+		toReturn.Y(__y - p_toAdd.Y());
 		return toReturn;
 	}
 

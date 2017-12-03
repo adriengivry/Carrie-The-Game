@@ -16,6 +16,13 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 
+	void StartCooldown();
+
+	virtual void Attack();
+	void FollowTarget();
+	void CheckCollisions();
+	void CheckCooldown(const sf::Time& l_time);
+
 	void Draw() const override;
 
 	void DrawLifebar() const;
@@ -27,6 +34,8 @@ protected:
 	bool m_followTarget;
 	bool m_damagesOnContact;
 	bool m_isReady;
+
+	bool m_canCollide;
 
 	float m_damages;
 

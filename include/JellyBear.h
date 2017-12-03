@@ -16,4 +16,5 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 
+	void TryToIntercept();
 };

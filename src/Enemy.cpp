@@ -6,7 +6,8 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_target(nullptr),
 	m_followTarget(true),
 	m_damagesOnContact(true),
-	m_isReady(true)
+	m_isReady(true),
+	m_canCollide(true)
 {
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	++m_sharedContext->m_gameInfo->m_spawnedEnemies;
@@ -37,57 +38,77 @@ void Enemy::RemoveLife(const float p_damages)
 
 void Enemy::Update(const sf::Time& l_time)
 {
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
-	bool collide = false;
+	CheckCooldown(l_time);
 
+	if (m_target && m_followTarget)
+		FollowTarget();
+
+	if (m_canCollide)
+		CheckCollisions();
+
+	if (m_isReady)
+		Attack();
+
+	Actor::Update(l_time);	
+}
+
+void Enemy::StartCooldown()
+{
+	m_timer = 0.f;
+	m_isReady = false;
+}
+
+void Enemy::Attack()
+{
+	Player* player = m_sharedContext->m_actorManager->GetPlayer();
+
+	if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
+	{
+		player->RemoveLife(m_damages);
+		StartCooldown();
+	}
+}
+
+void Enemy::FollowTarget()
+{
+	m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
+	m_direction.Normalize();
+}
+
+void Enemy::CheckCollisions()
+{
 	// Hitting wall
 	if (m_position.X() < 70)
-	{
 		m_position.X(70);
-		collide = true;
-	}
 
 	if (m_position.X() > 1850)
-	{
 		m_position.X(1850);
-		collide = true;
-	}
 
 	if (m_position.Y() < 300)
-	{
 		m_position.Y(300);
-		collide = true;
-	}
 
 	if (m_position.Y() > 950)
-	{
 		m_position.Y(950);
-		collide = true;
-	}
-
-	if (collide)
-		return;
 
 	// Out of screen
 	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)
-	{
 		m_mustDie = true;
-		return;
-	}
+}
 
-	if (m_target && m_followTarget)
-	{
-		m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
-		m_direction.Normalize();
-	}
+void Enemy::CheckCooldown(const sf::Time& l_time)
+{
+	if (!m_isReady)
+		m_timer += l_time.asSeconds();
 
-	Actor::Update(l_time);	
+	if (m_timer >= m_cooldown)
+		m_isReady = true;
 }
 
 void Enemy::Draw() const
 {
 	Actor::Draw();
 	DrawLifebar();
+	DrawCooldownBar();
 }
 
 void Enemy::DrawLifebar() const
@@ -119,7 +140,10 @@ void Enemy::DrawCooldownBar() const
 	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
 
 	rect.setFillColor(sf::Color::Blue);
-	barSize.x *= m_timer / m_maxLife;
+
+	if (!m_isReady)
+		barSize.x *= m_timer / m_cooldown;
+
 	rect.setSize(barSize);
 	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
 }

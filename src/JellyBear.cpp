@@ -6,7 +6,7 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 {
 	SetTexture(__JELLYBEAR_TEXTURE);
 
-	float level = m_sharedContext->m_gameInfo->m_currentLevel;
+	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity = __JELLYBEAR_SPEED;
 	
@@ -23,7 +23,6 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	m_cooldown = __JELLYBEAR_COOLDOWN;
 
 	m_life = m_maxLife;
-	m_timer = 0;
 }
 
 JellyBear::~JellyBear()
@@ -32,14 +31,18 @@ JellyBear::~JellyBear()
 
 void JellyBear::Update(const sf::Time & l_time)
 {
-	m_timer += l_time.asSeconds();
-	m_velocity = __JELLYBEAR_SPEED;
+	TryToIntercept();
 
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
+	Enemy::Update(l_time);
+}
+
+void JellyBear::TryToIntercept()
+{
+	m_velocity = __JELLYBEAR_SPEED;
 
 	bool projectileFound = false;
 
-	for (auto it : m_sharedContext->m_actorManager->GetProjectile()) 
+	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
 		const float angle = m_position.AngleTo(it->GetPosition());
 
@@ -51,22 +54,7 @@ void JellyBear::Update(const sf::Time & l_time)
 		else
 			SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	}
-	
+
 	if (projectileFound)
 		m_velocity *= 5;
-
-	m_isReady = m_timer >= m_cooldown;
-
-	if (m_isReady)
-	{
-		if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
-		{
-			player->RemoveLife(m_damages);
-			player->MakeInvulnerable();
-			m_isReady = false;
-		}
-		m_timer = 0;
-	}
-
-	Enemy::Update(l_time);
 }

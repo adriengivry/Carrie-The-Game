@@ -37,7 +37,7 @@ void JellyBear::Update(const sf::Time & l_time)
 	}
 	
 	if (projectileFound)
-		m_velocity *= 3;
+		m_velocity *= 10;
 
 	Enemy::Update(l_time);
 }

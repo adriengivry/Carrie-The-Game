@@ -27,17 +27,33 @@ void JellyBear::Update(const sf::Time & l_time)
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile()) 
 	{
-		if (m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
+		sf::RectangleShape rect;
+		rect.setSize(sf::Vector2f(2000, 1));
+		Utils::centerOrigin(rect);
+		rect.setPosition(it->GetPosition().ToSFVector());
+		rect.setRotation(it->GetDirection().GetAngle());
+
+		sf::RectangleShape rect2;
+		rect2.setSize(sf::Vector2f(2000, 1));
+		Utils::centerOrigin(rect2);
+		rect2.setPosition(m_position.ToSFVector());
+		rect2.setRotation(90 + it->GetDirection().GetAngle());
+
+		sf::RectangleShape rect3;
+
+		//const float angle = m_position.AngleTo(it->GetPosition());
+
+		/*if (angle < 5 && m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
 		{
 			projectileFound = true;
 			SetTarget(it);
 		}
 		else
-			SetTarget(m_sharedContext->m_actorManager->GetPlayer());
+			SetTarget(m_sharedContext->m_actorManager->GetPlayer());*/
 	}
 	
 	if (projectileFound)
-		m_velocity *= 10;
+		m_velocity *= 5;
 
 	Enemy::Update(l_time);
 }

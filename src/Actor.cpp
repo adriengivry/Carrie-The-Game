@@ -46,7 +46,8 @@ void Actor::Draw() const
 			if (m_sharedContext->m_textureManager->RequireResource("Shadow"))
 			{
 				shadow.setTexture(*m_sharedContext->m_textureManager->GetResource("Shadow"));
-				shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height);
+				shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height - 15);
+				shadow.setColor(sf::Color(255, 255, 255, 100));
 				Utils::centerOrigin(shadow);
 				m_sharedContext->m_wind->GetRenderWindow()->draw(shadow);
 			}

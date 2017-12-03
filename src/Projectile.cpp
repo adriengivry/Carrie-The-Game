@@ -31,7 +31,7 @@ void Projectile::Update(const sf::Time& l_time)
 		}
 	}
 
-	if (m_position.X() < 270 || m_position.X() > 1650 || m_position.Y() < 120 || m_position.Y() > 900)
+	if (m_position.X() < 70 || m_position.X() > 1850 || m_position.Y() < 200 || m_position.Y() > 950)
 		m_mustDie = true;
 }
 

@@ -14,7 +14,7 @@ public:
 	void Activate();
 	void Desactivate();
 
-	void Use();
+	void Use() const;
 
 	bool IsActivated() const;
 

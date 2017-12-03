@@ -6,7 +6,7 @@ class Crocodile : public Enemy
 {
 	const std::string	__CROCODILE_TEXTURE = "CrocodileFrontGreen";
 	const float			__CROCODILE_SPEED = 600;
-	const float			__CROCODILE_LIFE = 4;
+	const float			__CROCODILE_LIFE = 20;
 	const float			__CROCODILE_DAMAGES = 8;
 	const float			__CROCODILE_COOLDOWN = 5;
 
@@ -15,6 +15,8 @@ public:
 	~Crocodile();
 
 	void Update(const sf::Time& l_time) override;
+
+	void Attack() override;
 
 	void Jump();
 

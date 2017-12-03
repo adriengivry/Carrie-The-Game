@@ -10,13 +10,13 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 
 	m_velocity = __CAKEMONSTER_SPEED;
 
-	if (m_maxLife > 50)
-		m_maxLife = 50;
+	if (m_maxLife > 150)
+		m_maxLife = 150;
 	else
-		m_maxLife = __CAKEMONSTER_LIFE * (level + 0.5f);
+		m_maxLife = __CAKEMONSTER_LIFE * level * 1.1f;
 
-	if (m_damages > 101)
-		m_damages = 101;
+	if (m_damages > 33)
+		m_damages = 33;
 	else
 		m_damages = __CAKEMONSTER_DAMAGES * level * 1.05f;
 

@@ -10,13 +10,13 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 
 	m_velocity = __CROCODILE_SPEED;
 
-	if (m_maxLife > 230)
-		m_maxLife = 230;
+	if (m_maxLife > 350)
+		m_maxLife = 350;
 	else
-		m_maxLife = __CROCODILE_LIFE * level * 1.15f;
+		m_maxLife = __CROCODILE_LIFE * level * 1.1f;
 
-	if (m_damages > 101)
-		m_damages = 101;
+	if (m_damages > 33)
+		m_damages = 33;
 	else
 		m_damages = __CROCODILE_DAMAGES * level * 1.05;
 
@@ -32,12 +32,20 @@ Crocodile::~Crocodile() {}
 
 void Crocodile::Update(const sf::Time & l_time)
 {
-	Jump();
+	SetTexture(__CROCODILE_TEXTURE);
 
 	Enemy::Update(l_time);
 }
 
+void Crocodile::Attack()
+{
+	Jump();
+
+	Enemy::Attack();
+}
+
 void Crocodile::Jump()
 {
+	SetTexture("CrocodileFrontRed");
 	//TODO
 }

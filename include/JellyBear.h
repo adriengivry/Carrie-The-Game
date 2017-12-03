@@ -6,7 +6,7 @@ class JellyBear : public Enemy
 {
 	const std::string	__JELLYBEAR_TEXTURE = "JellyBearFront";
 	const float			__JELLYBEAR_SPEED = 200;
-	const float			__JELLYBEAR_LIFE = 8;
+	const float			__JELLYBEAR_LIFE = 40;
 	const float			__JELLYBEAR_DAMAGES = 2;
 	const float			__JELLYBEAR_COOLDOWN = 1.6;
 

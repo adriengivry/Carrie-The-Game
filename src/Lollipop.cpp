@@ -10,15 +10,15 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 
 	m_velocity	= __LOLLIPOP_SPEED;
 
-	if (m_maxLife > 50)
-		m_maxLife = 50;
+	if (m_maxLife > 150)
+		m_maxLife = 150;
 	else
-		m_maxLife	= __LOLLIPOP_LIFE * (level + 0.5f);
+		m_maxLife	= __LOLLIPOP_LIFE * level * 1.1f;
 
-	if (m_damages > 52)
-		m_damages = 52;
+	if (m_damages > 16)
+		m_damages = 16;
 	else
-		m_damages = __LOLLIPOP_DAMAGES * level * 1.03f;
+		m_damages = __LOLLIPOP_DAMAGES * level * 1.05f;
 
 	m_cooldown	= __LOLLIPOP_COOLDOWN;
 

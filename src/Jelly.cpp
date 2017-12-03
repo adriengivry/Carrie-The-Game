@@ -10,13 +10,13 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 
 	m_velocity	= __JELLY_SPEED;
 
-	if (m_maxLife > 439)
-		m_maxLife = 439;
+	if (m_maxLife > 450)
+		m_maxLife = 450;
 	else
-		m_maxLife = __JELLY_LIFE * level * 1.05f;
+		m_maxLife = __JELLY_LIFE * level * 1.1f;
 
-	if (m_damages > 20)
-		m_damages = 20;
+	if (m_damages > 8)
+		m_damages = 8;
 	else
 		m_damages = __JELLY_DAMAGES * level * 1.05f;
 

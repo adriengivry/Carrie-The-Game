@@ -10,13 +10,13 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 
 	m_velocity = __JELLYBEAR_SPEED;
 	
-	if (m_maxLife > 665)
-		m_maxLife = 665;
+	if (m_maxLife > 650)
+		m_maxLife = 650;
 	else
-		m_maxLife = __JELLYBEAR_LIFE * level * 1.12;
+		m_maxLife = __JELLYBEAR_LIFE * level * 1.1;
 
-	if (m_damages > 20)
-		m_damages = 20;
+	if (m_damages > 8)
+		m_damages = 8;
 	else
 		m_damages = __JELLYBEAR_DAMAGES * level * 1.05f;
 

@@ -49,11 +49,11 @@ void ActorManager::CleanActors()
 	for (auto it : m_spawnPoints)
 		delete it;
 
-	delete m_player;
-	delete m_npc;
-
 	delete m_doors[0];
 	delete m_doors[1];
+
+	delete m_player;
+	delete m_npc;
 
 	m_spawnPoints.clear();
 	m_enemies.clear();
@@ -110,14 +110,15 @@ void ActorManager::CheckDeads()
 
 void ActorManager::Draw()
 {
+	m_doors[0]->Draw();
+	m_doors[1]->Draw();
+
 	for (auto it : m_spawnPoints)
 		it->Draw();
 
 	for (auto it : m_enemies)
 		it->Draw();
 	
-	m_doors[0]->Draw();
-	m_doors[1]->Draw();
 	m_npc->Draw();
 
 	for (auto it : m_projectiles)

@@ -16,8 +16,7 @@ void State_Game::OnCreate()
 
 	// OnCreate core
 	++gameInfo->m_gameStarted;
-	gameInfo->m_gameOver = false;
-	gameInfo->m_doorPassed = false;
+	gameInfo->Reset();
 
 	textureManager->RequireResource("Game_Bg");
 

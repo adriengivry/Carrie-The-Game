@@ -1,5 +1,11 @@
 #include "SpawnPoint.h"
 #include "StateManager.h"
+#include "Jelly.h"
+#include "JellyBear.h"
+#include "CakeMonster.h"
+#include "Crocodile.h"
+#include "Lollipop.h"
+
 
 SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const float p_secondBeforeActivation) :
 	Actor(p_sharedContext)
@@ -38,6 +44,9 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const float p_secondBefo
 	while (!spawnIsCorrect && tries < 9999);
 
 	m_position = newPos;
+
+	m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
+
 }
 
 SpawnPoint::~SpawnPoint()
@@ -46,7 +55,24 @@ SpawnPoint::~SpawnPoint()
 
 void SpawnPoint::SpawnEnemy()
 {
-	m_sharedContext->m_actorManager->AddEnemy(new Enemy(Actor::m_sharedContext, m_position.X(), m_position.Y()));
+	switch (m_type)
+	{
+	case SpawnerType::JELLY_SPAWNER :
+		m_sharedContext->m_actorManager->AddEnemy(new Jelly(Actor::m_sharedContext, m_position.X(), m_position.Y()));
+		break;
+	case SpawnerType::JELLYBEAR_SPAWNER:
+		m_sharedContext->m_actorManager->AddEnemy(new JellyBear(Actor::m_sharedContext, m_position.X(), m_position.Y()));
+		break;
+	case SpawnerType::LOLLIPOP_SPAWNER:
+		m_sharedContext->m_actorManager->AddEnemy(new Lollipop(Actor::m_sharedContext, m_position.X(), m_position.Y()));
+		break;
+	case SpawnerType::CROCODILE_SPAWNER:
+		m_sharedContext->m_actorManager->AddEnemy(new Crocodile(Actor::m_sharedContext, m_position.X(), m_position.Y()));
+		break;
+	case SpawnerType::CAKEMONSTER_SPAWNER:
+		m_sharedContext->m_actorManager->AddEnemy(new CakeMonster(Actor::m_sharedContext, m_position.X(), m_position.Y()));
+		break;
+	}
 	--m_maxSpawn;
 }
 

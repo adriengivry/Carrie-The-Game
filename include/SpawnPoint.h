@@ -4,7 +4,7 @@
 
 enum class SpawnerType
 {
-	JELLY_SPAWNER,
+	JELLY_SPAWNER = 0,
 	JELLYBEAR_SPAWNER,
 	LOLLIPOP_SPAWNER,
 	CAKEMONSTER_SPAWNER,
@@ -48,5 +48,7 @@ private:
 	float m_secondsBeforeActivation;
 
 	float m_activationTimer;
+
+	SpawnerType m_type;
 
 };

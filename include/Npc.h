@@ -1,6 +1,13 @@
 #pragma once
 #include "Actor.h"
 
+enum class QuestionType
+{
+	TRAVEL = 0,
+	ENEMIES_SPAWNED,
+	PROJECTILE_SPAWNED
+};
+
 class Npc : public Actor
 {
 private:
@@ -14,8 +21,12 @@ public:
 	void Activate();
 	void Desactivate();
 
+	void GenerateQuestion();
+
 	bool IsTalking() const;
 	bool IsActive() const;
+
+	bool GetAnswer() const;
 
 	void Update(const sf::Time& l_time) override;
 	void Draw() const override;
@@ -24,6 +35,11 @@ public:
 
 private:
 	bool m_isActive;
+
+	uint16_t m_randomValue;
+
+	bool m_answer;
+	QuestionType m_question;
 
 	bool m_talking;
 };

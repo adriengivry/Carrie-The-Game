@@ -8,7 +8,7 @@ private:
 	const float			__DOOR_ACTIVATION_ZONE = 60;
 
 public:
-	explicit Door(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
+	explicit Door(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0, const bool p_answer = false);
 	~Door();
 
 	void Activate();
@@ -16,9 +16,13 @@ public:
 
 	void Use() const;
 
+	void Draw() const override;
+
 	bool IsActivated() const;
 
 	void Update(const sf::Time& l_time) override;
 private:
 	bool m_activated;
+
+	bool m_answer;
 };

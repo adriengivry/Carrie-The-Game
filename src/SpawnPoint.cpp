@@ -70,7 +70,6 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 		m_secondsBeforeActivation = __SPAWNPOINT_CAKEMONSTER_WAIT;
 		break;
 	}
-
 }
 
 SpawnPoint::~SpawnPoint()

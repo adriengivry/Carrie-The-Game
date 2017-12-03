@@ -26,10 +26,10 @@ void State_Game::OnCreate()
 
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
 	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 250));
-	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198));
-	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198));
+	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
+	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
 	
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 10; ++i)
 		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
 
 	// Adding callbacks

@@ -1,12 +1,14 @@
 #include "Door.h"
 #include "StateManager.h"
 
-Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y)
+Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, const bool p_answer)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	Desactivate();
 
 	SetTexture(__DOOR_TEXTURE);
+
+	m_answer = p_answer;
 
 	m_gotAShadow = false;
 
@@ -29,8 +31,32 @@ void Door::Desactivate()
 
 void Door::Use() const
 {
-	m_sharedContext->m_gameInfo->m_doorPassed = true;
-	++m_sharedContext->m_gameInfo->m_currentLevel;
+	if (m_answer == m_sharedContext->m_actorManager->GetNpc()->GetAnswer())
+	{
+		m_sharedContext->m_gameInfo->m_doorPassed = true;
+		++m_sharedContext->m_gameInfo->m_currentLevel;
+	}
+	else
+	{
+		exit(0);
+	}
+}
+
+void Door::Draw() const
+{
+	Actor::Draw();
+
+	sf::Text label;
+	label.setCharacterSize(25);
+	label.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
+	label.setPosition(m_position.ToSFVector());
+	if (m_answer)
+		label.setString("TRUE");
+	else
+		label.setString("FALSE");
+	Utils::centerOrigin(label);
+	
+	m_sharedContext->m_wind->GetRenderWindow()->draw(label);
 }
 
 bool Door::IsActivated() const { return m_activated; }

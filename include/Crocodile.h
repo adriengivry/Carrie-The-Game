@@ -16,8 +16,13 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 
-	void Attack() override;
+	bool inRange();
 
 	void Jump();
+
+private:
+	bool m_isJumping;
+
+	float m_jumpTimer;
 
 };

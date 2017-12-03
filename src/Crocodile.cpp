@@ -2,7 +2,8 @@
 #include "StateManager.h"
 
 Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const float p_y) :
-	Enemy(p_sharedContext, p_x, p_y)
+	Enemy(p_sharedContext, p_x, p_y),
+	m_isJumping(false)
 {
 	SetTexture(__CROCODILE_TEXTURE);
 	m_sprite.setScale(1.5f, 1.5f);
@@ -36,8 +37,24 @@ Crocodile::~Crocodile() {}
 void Crocodile::Update(const sf::Time & l_time)
 {
 	SetTexture(__CROCODILE_TEXTURE);
-	m_velocity = __CROCODILE_SPEED;
-	m_direction.Set(0, 0);
+
+	if (m_isJumping)
+	{
+		m_jumpTimer += l_time.asSeconds();
+
+		if (m_jumpTimer >= 0.6f)
+		{
+			m_isJumping = false;
+			m_jumpTimer = 0.0f;
+			m_velocity = __CROCODILE_SPEED;
+			m_direction.Set(0, 0);
+			m_followTarget = true;
+			StartCooldown();
+		}
+	}
+
+	if (m_isReady && !m_isJumping && inRange())
+		Jump();
 
 	if (m_isReady)
 		SetTexture("CrocodileFrontRed");
@@ -45,27 +62,23 @@ void Crocodile::Update(const sf::Time & l_time)
 	Enemy::Update(l_time);
 }
 
-void Crocodile::Attack()
+bool Crocodile::inRange()
 {
-	bool inRange = false;
-
 	const float range = m_position.DistanceTo(m_target->GetPosition());
 
-	if (range < 400)
-		inRange = true;
+	if (range < 500)
+		return true;
 	else
-		inRange = false;
-
-	if (inRange)
-		Jump();
-
-	Enemy::Attack();
+		return false;
 }
 
 void Crocodile::Jump()
 {
-	m_velocity *= 10;
+	m_velocity *= 8;
 
 	m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
 	m_direction.Normalize();
+
+	m_followTarget = false;
+	m_isJumping = true;
 }

@@ -58,7 +58,7 @@ void Enemy::Update(const sf::Time& l_time)
 		player->MakeInvulnerable();
 	}
 
-	if (m_position.X() < 270 || m_position.X() > 1650 || m_position.Y() < 120 || m_position.Y() > 900)
+	if (m_position.X() < 150 || m_position.X() > 1770 || m_position.Y() < 250 || m_position.Y() > 890)
 		m_mustDie = true;
 }
 

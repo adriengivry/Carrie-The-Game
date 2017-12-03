@@ -16,6 +16,9 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 
+	void Attack() override;
+
+	void Dodge();
 	void Shoot();
 
 };

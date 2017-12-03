@@ -27,24 +27,3 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 }
 
 Jelly::~Jelly() {}
-
-void Jelly::Update(const sf::Time & l_time)
-{
-	m_timer += l_time.asSeconds();
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
-
-	m_isReady = m_timer >= m_cooldown;
-
-	if (m_isReady)
-	{
-		if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
-		{
-			player->RemoveLife(m_damages);
-			player->MakeInvulnerable();
-			m_isReady = false;
-		}
-		m_timer = 0;
-	}
-
-	Enemy::Update(l_time);
-}

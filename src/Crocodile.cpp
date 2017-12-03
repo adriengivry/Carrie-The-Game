@@ -28,34 +28,16 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 	m_followTarget = false;
 }
 
-Crocodile::~Crocodile()
-{
-}
+Crocodile::~Crocodile() {}
 
 void Crocodile::Update(const sf::Time & l_time)
 {
-	m_timer += l_time.asSeconds();
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
-
-	m_isReady = m_timer >= m_cooldown;
-
-	if (m_isReady)
-	{
-		Jump(); //TODO
-
-		if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
-		{
-			player->RemoveLife(m_damages);
-			player->MakeInvulnerable();
-			m_isReady = false;
-		}
-		m_timer = 0;
-	}
+	Jump();
 
 	Enemy::Update(l_time);
 }
 
 void Crocodile::Jump()
 {
-	
+	//TODO
 }

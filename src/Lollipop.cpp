@@ -33,17 +33,20 @@ Lollipop::~Lollipop() {}
 
 void Lollipop::Update(const sf::Time & l_time)
 {
-	m_timer += l_time.asSeconds();
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
+	Dodge();
 
-	m_isReady = m_timer >= m_cooldown;
+	Enemy::Update(l_time);
+}
 
-	if (m_isReady)
-	{
-		Shoot(); //TODO
-		m_timer = 0;
-	}
+void Lollipop::Attack()
+{
+	Shoot();
 
+	Enemy::Attack();
+}
+
+void Lollipop::Dodge()
+{
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
 		if (m_position.DistanceTo(it->GetPosition()) <= 400 && !it->MustDie())
@@ -62,11 +65,9 @@ void Lollipop::Update(const sf::Time & l_time)
 			m_direction.Set(0, 0);
 		}
 	}
-
-	Enemy::Update(l_time);
 }
 
 void Lollipop::Shoot()
 {
-	m_isReady = false;
+	//TODO
 }

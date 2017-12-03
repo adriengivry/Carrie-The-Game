@@ -39,7 +39,7 @@ void Lollipop::Update(const sf::Time & l_time)
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
-		if (this->m_position.DistanceTo(it->GetPosition()) <= 400)
+		if (this->m_position.DistanceTo(it->GetPosition()) <= 400 && !it->MustDie())
 		{
 			float angle = m_direction.AngleTo(it->GetPosition());
 

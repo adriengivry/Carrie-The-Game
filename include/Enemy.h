@@ -24,6 +24,7 @@ protected:
 	Actor* m_target;
 	bool m_followTarget;
 	bool m_damagesOnContact;
+	bool m_isReady;
 
 	float m_damages;
 

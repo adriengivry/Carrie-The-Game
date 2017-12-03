@@ -61,6 +61,7 @@ void State_Game::Update(const sf::Time& l_time)
 
 	if (LevelCompleted())
 	{
+		m_stateMgr->GetContext()->m_gameInfo->m_levelCompleted = true;
 		actorManager->GetNpc()->Activate();
 		actorManager->GetDoor(0)->Activate();
 		actorManager->GetDoor(1)->Activate();
@@ -88,6 +89,19 @@ void State_Game::Draw()
 	levelLabel.setPosition(window->getSize().x / 2, 50);
 	Utils::centerOrigin(levelLabel);
 	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(levelLabel);
+
+	sf::Text nbEnemies;
+	nbEnemies.setString("ENEMIES SPAWNED : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedEnemies));
+	nbEnemies.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	nbEnemies.setPosition(0, 0);
+
+	sf::Text travelledDistance;
+	travelledDistance.setString("TRAVELLED DISTANCE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_travelledDistance));
+	travelledDistance.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	travelledDistance.setPosition(0, 50);
+
+	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(nbEnemies);
+	m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(travelledDistance);
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

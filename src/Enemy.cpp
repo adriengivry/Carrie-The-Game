@@ -6,6 +6,7 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_target(nullptr)
 {
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
+	++m_sharedContext->m_gameInfo->m_spawnedEnemies;
 }
 
 Enemy::~Enemy()

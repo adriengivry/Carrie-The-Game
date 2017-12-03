@@ -137,6 +137,12 @@ void Player::Move(const sf::Time& l_time)
 
 	m_direction = direction;
 
+	if (!m_sharedContext->m_gameInfo->m_levelCompleted)
+	{
+		m_sharedContext->m_gameInfo->m_travelledDistance += abs(m_direction.X() * m_velocity * l_time.asSeconds());
+		m_sharedContext->m_gameInfo->m_travelledDistance += abs(m_direction.Y() * m_velocity * l_time.asSeconds());
+	}
+
 	Actor::Move(l_time);
 
 	m_collide = false;

@@ -8,6 +8,8 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y)
 
 	SetTexture(__DOOR_TEXTURE);
 
+	m_gotAShadow = false;
+
 	m_velocity = 0.0f;
 }
 

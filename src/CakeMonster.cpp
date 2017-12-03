@@ -29,27 +29,15 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 	m_damagesOnContact = false;
 }
 
-CakeMonster::~CakeMonster()
+CakeMonster::~CakeMonster() {}
+
+void CakeMonster::Attack()
 {
+	TurretMode();
+	Enemy::Attack();
 }
 
-void CakeMonster::Update(const sf::Time & l_time)
+void CakeMonster::TurretMode()
 {
-	m_timer += l_time.asSeconds();
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
-
-	m_isReady = m_timer >= m_cooldown;
-
-	if (m_isReady)
-	{
-		Shoot(); //TODO Rafale
-		m_timer = 0;
-	}
-
-	Enemy::Update(l_time);
-}
-
-void CakeMonster::Shoot()
-{
-	m_isReady = false;
+	//TODO 
 }

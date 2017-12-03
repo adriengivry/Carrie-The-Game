@@ -25,9 +25,7 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	m_life = m_maxLife;
 }
 
-JellyBear::~JellyBear()
-{
-}
+JellyBear::~JellyBear() {}
 
 void JellyBear::Update(const sf::Time & l_time)
 {

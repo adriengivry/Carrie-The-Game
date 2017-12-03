@@ -116,10 +116,42 @@ void State_Game::Draw()
 	spawnedProjectiles.setCharacterSize(18);
 	spawnedProjectiles.setPosition(0, 40);
 
+
+	// CURSES
+	sf::Text reverseMove;
+	reverseMove.setString("REVERSE MOVE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement));
+	reverseMove.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	reverseMove.setCharacterSize(18);
+	reverseMove.setPosition(0, 80);
+
+	sf::Text slowerCarrie;
+	slowerCarrie.setString("SLOWER CARRIE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerCarrie));
+	slowerCarrie.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	slowerCarrie.setCharacterSize(18);
+	slowerCarrie.setPosition(0, 100);
+
+	sf::Text slowerProjectiles;
+	slowerProjectiles.setString("SLOWER PROJECTILES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles));
+	slowerProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	slowerProjectiles.setCharacterSize(18);
+	slowerProjectiles.setPosition(0, 120);
+
+	sf::Text weakerProjectiles;
+	weakerProjectiles.setString("WEAKER PROJECTILES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles));
+	weakerProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	weakerProjectiles.setCharacterSize(18);
+	weakerProjectiles.setPosition(0, 140);
+
+	// DRAW THINGS
 	window->draw(consoleBackground);
 	window->draw(spawnedEnemies);
 	window->draw(spawnedProjectiles);
 	window->draw(travelledDistance);
+
+	window->draw(reverseMove);
+	window->draw(slowerCarrie);
+	window->draw(slowerProjectiles);
+	window->draw(weakerProjectiles);
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

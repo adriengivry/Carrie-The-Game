@@ -51,22 +51,36 @@ Player::~Player()
 
 void Player::React(EventDetails* l_details)
 {
+	const bool reverseMovement = m_sharedContext->m_gameInfo->m_reverseMovement;
+
 	switch (l_details->m_keyCode)
 	{
 	case sf::Keyboard::A:
-		m_moveLeft = true;
+		if (reverseMovement)
+			m_moveRight = true;
+		else
+			m_moveLeft = true;
 		break;
 
 	case sf::Keyboard::D:
-		m_moveRight = true;
+		if (reverseMovement)
+			m_moveLeft = true;
+		else
+			m_moveRight = true;
 		break;
 
 	case sf::Keyboard::W:
-		m_moveUp = true;
+		if (reverseMovement)
+			m_moveDown = true;
+		else
+			m_moveUp = true;
 		break;
 
 	case sf::Keyboard::S:
-		m_moveDown = true;
+		if (reverseMovement)
+			m_moveUp = true;
+		else
+			m_moveDown = true;
 		break;
 
 	default:
@@ -76,22 +90,36 @@ void Player::React(EventDetails* l_details)
 
 void Player::Unreact(EventDetails* l_details)
 {
+	const bool reverseMovement = m_sharedContext->m_gameInfo->m_reverseMovement;
+
 	switch (l_details->m_keyCode)
 	{
 	case sf::Keyboard::A:
-		m_moveLeft = false;
+		if (reverseMovement)
+			m_moveRight = false;
+		else
+			m_moveLeft = false;
 		break;
 
 	case sf::Keyboard::D:
-		m_moveRight = false;
+		if (reverseMovement)
+			m_moveLeft = false;
+		else
+			m_moveRight = false;
 		break;
 
 	case sf::Keyboard::W:
-		m_moveUp = false;
+		if (reverseMovement)
+			m_moveDown = false;
+		else
+			m_moveUp = false;
 		break;
 
 	case sf::Keyboard::S:
-		m_moveDown = false;
+		if (reverseMovement)
+			m_moveUp = false;
+		else
+			m_moveDown = false;
 		break;
 
 	default:

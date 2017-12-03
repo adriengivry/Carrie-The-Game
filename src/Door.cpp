@@ -63,11 +63,37 @@ void Door::Draw() const
 
 bool Door::IsActivated() const { return m_activated; }
 
-void Door::SelectCurse()
+void Door::SelectCurse() const
 {
 	GameInfo* gameInfo = m_sharedContext->m_gameInfo;
 
-	// if (gameInfo->m_reverseMovement == 0)
+	uint8_t curse;
+		
+	do
+		curse = Utils::randomgen(0, 3);
+	while (curse == REVERSE_MOVEMENT && gameInfo->m_reverseMovement);
+
+	switch (curse)
+	{
+	case REVERSE_MOVEMENT:
+		gameInfo->m_reverseMovement = true;
+		break;
+
+	case SLOWER_CARRIE:
+		++gameInfo->m_slowerCarrie;
+		break;
+
+	case SLOWER_PROJECTILES:
+		++gameInfo->m_slowerProjectiles;
+		break;
+
+	case WEAKER_PROJECTILES:
+		++gameInfo->m_weakerProjectiles;
+		break;
+
+	default:
+		break;
+	}
 }
 
 void Door::Update(const sf::Time& l_time)

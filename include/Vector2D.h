@@ -149,7 +149,9 @@ namespace AGMath
 	Vector2D<T> Vector2D<T>::operator-=(const Vector2D<T>& p_toSub)
 	{
 		Vector2D<T> temp(__x, __y);
-		Move(p_toSub);
+		Vector2D<T> newVector;
+		newVector.Set(-p_toSub.X(), -p_toSub.Y());
+		Move(newVector);
 		return temp;
 	}
 

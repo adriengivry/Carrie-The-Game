@@ -31,14 +31,23 @@ void Lollipop::Update(const sf::Time & l_time)
 
 	Actor::Update(l_time);
 
-	if (this->IsIntersecting(player))
+	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
-		m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
-		m_direction.Normalize();
+		if (this->m_position.DistanceTo(it->GetPosition()) <= 400)
+		{
+			m_direction.Set(it->GetPosition().Y(), -it->GetPosition().X());
+			m_direction.AngleTo(it->GetPosition());
+			m_direction.Normalize();
 
-		m_position -= m_direction * m_velocity * l_time.asSeconds();
+			m_position += m_direction * m_velocity * l_time.asSeconds();
 
-		m_sprite.setPosition(m_position.ToSFVector());
+
+			m_sprite.setPosition(m_position.ToSFVector());
+		}
+		else
+		{
+			m_direction.Set(0, 0);
+		}
 	}
 
 	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)

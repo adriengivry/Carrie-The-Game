@@ -27,7 +27,32 @@ void JellyBear::Update(const sf::Time & l_time)
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile()) 
 	{
-		if (m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
+		//TODO Try intersection between two lines
+		/*sf::RectangleShape rect;
+		rect.setSize(sf::Vector2f(2000, 1));
+		Utils::centerOrigin(rect);
+		rect.setPosition(it->GetPosition().ToSFVector());
+		rect.setRotation(it->GetDirection().GetAngle());
+
+		sf::RectangleShape rect2;
+		rect2.setSize(sf::Vector2f(2000, 1));
+		Utils::centerOrigin(rect2);
+		rect2.setPosition(m_position.ToSFVector());
+		rect2.setRotation(90 + it->GetDirection().GetAngle());
+
+		sf::Rect<float> rect3;
+		rect.getGlobalBounds().intersects(rect2.getGlobalBounds(), rect3);
+
+		Vector2D<float> v(rect3.top, rect3.left);
+
+		m_position = v;
+
+		m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
+		m_sharedContext->m_wind->GetRenderWindow()->draw(rect2);*/
+
+		const float angle = m_position.AngleTo(it->GetPosition());
+
+		if (angle < 5 && m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
 		{
 			projectileFound = true;
 			SetTarget(it);
@@ -37,7 +62,7 @@ void JellyBear::Update(const sf::Time & l_time)
 	}
 	
 	if (projectileFound)
-		m_velocity *= 10;
+		m_velocity *= 5;
 
 	Enemy::Update(l_time);
 }

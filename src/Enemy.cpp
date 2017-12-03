@@ -7,8 +7,6 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 {
 	m_direction.Set(1, Utils::randomgen(45, 135), POLAR);
 
-	SetTexture("Enemy");
-
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 }
 

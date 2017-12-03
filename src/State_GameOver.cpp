@@ -18,7 +18,7 @@ void State_GameOver::OnCreate()
 
 	m_backgroundSprite.setTexture(*textureManager->GetResource("GameOver_Bg"));
 
-	m_text.setFont(*fontManager->GetResource("Retro"));
+	m_text.setFont(*fontManager->GetResource("Retro_Menu"));
 	m_text.setString("GAME OVER");
 	m_text.setCharacterSize(120);
 	m_text.setFillColor(sf::Color::Red);

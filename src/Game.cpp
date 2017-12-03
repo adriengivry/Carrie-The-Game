@@ -13,12 +13,15 @@ Game::Game(): m_window("SFML-GameFramework", sf::Vector2u(1920, 1080)), m_stateM
 	m_context.m_gameInfo = &m_gameInfo;
 
 	m_fontManager.RequireResource("Retro");
+	m_fontManager.RequireResource("Retro_Menu");
+	m_fontManager.RequireResource("Console");
+
 	m_textureManager.RequireResource("Cursor");
 	m_cursor.setTexture(*m_textureManager.GetResource("Cursor"));
 	m_cursor.setScale(0.7f, 0.7f);
 	Utils::ShowCursor(false);
 	m_soundManager.SetAudioManager(&m_audioManager);
-	m_stateManager.SwitchTo(StateType::Game);
+	m_stateManager.SwitchTo(StateType::Intro);
 }
 
 Game::~Game()

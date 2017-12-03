@@ -93,21 +93,30 @@ void State_Game::Draw()
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
 
+	sf::RectangleShape consoleBackground;
+	consoleBackground.setSize(sf::Vector2f(350, 200));
+	consoleBackground.setPosition(0, 0);
+	consoleBackground.setFillColor(sf::Color(0, 0, 0, 200));
+
 	sf::Text spawnedEnemies;
 	spawnedEnemies.setString("SPAWNED ENEMIES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedEnemies));
-	spawnedEnemies.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	spawnedEnemies.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	spawnedEnemies.setCharacterSize(18);
 	spawnedEnemies.setPosition(0, 0);
 
 	sf::Text travelledDistance;
 	travelledDistance.setString("TRAVELLED DISTANCE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_travelledDistance));
-	travelledDistance.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
-	travelledDistance.setPosition(0, 50);
+	travelledDistance.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	travelledDistance.setCharacterSize(18);
+	travelledDistance.setPosition(0, 20);
 
 	sf::Text spawnedProjectiles;
 	spawnedProjectiles.setString("SPAWNED PROJECTILES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedProjectiles));
-	spawnedProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
-	spawnedProjectiles.setPosition(0, 100);
+	spawnedProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	spawnedProjectiles.setCharacterSize(18);
+	spawnedProjectiles.setPosition(0, 40);
 
+	window->draw(consoleBackground);
 	window->draw(spawnedEnemies);
 	window->draw(spawnedProjectiles);
 	window->draw(travelledDistance);

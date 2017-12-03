@@ -23,10 +23,10 @@ void State_MainMenu::OnCreate()
 	m_backgroundSprite.setTexture(*textureManager->GetResource("MainMenu_Bg"));
 	m_gameLogoSprite.setTexture(*textureManager->GetResource("Game_Logo"));
 	Utils::centerOrigin(m_gameLogoSprite);
-	m_gameLogoSprite.setPosition(windowCenter.x, 289);
+	m_gameLogoSprite.setPosition(windowCenter.x, 144);
 
 	m_buttonSize = sf::Vector2f(250.0f,75.0f);
-	m_buttonPos = sf::Vector2f(windowCenter.x, windowCenter.y - m_buttonSize.y + 50);
+	m_buttonPos = sf::Vector2f(windowCenter.x, windowCenter.y - m_buttonSize.y + 280);
 	m_buttonPadding = 10; // in px
 
 	std::string str[3];
@@ -44,7 +44,7 @@ void State_MainMenu::OnCreate()
 		m_rects[i].setOrigin(m_buttonSize.x / 2.0f, m_buttonSize.y / 2.0f);
 		m_rects[i].setPosition(buttonPosition);
 
-		m_labels[i].setFont(*fontManager->GetResource("Retro"));
+		m_labels[i].setFont(*fontManager->GetResource("Retro_Menu"));
 		m_labels[i].setString(sf::String(str[i]));
 		m_labels[i].setCharacterSize(45);
 
@@ -159,7 +159,7 @@ void State_MainMenu::Draw()
 	{
 		if (i == m_selected)
 		{
-			m_labels[i].setFillColor(sf::Color(25, 150, 255));
+			m_labels[i].setFillColor(sf::Color(134, 0, 29));
 		}
 		else
 		{

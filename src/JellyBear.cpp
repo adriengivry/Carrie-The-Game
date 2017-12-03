@@ -19,21 +19,25 @@ JellyBear::~JellyBear()
 
 void JellyBear::Update(const sf::Time & l_time)
 {
+	m_velocity = __JELLYBEAR_SPEED;
+
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
+
+	bool projectileFound = false;
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile()) 
 	{
-		if (m_position.DistanceTo(it->GetPosition()) <= 400 && !it->MustDie())
+		if (m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
 		{
+			projectileFound = true;
 			SetTarget(it);
-			m_velocity *= 10;
 		}
 		else
-		{
 			SetTarget(m_sharedContext->m_actorManager->GetPlayer());
-			m_velocity = __JELLYBEAR_SPEED;
-		}
 	}
+	
+	if (projectileFound)
+		m_velocity *= 3;
 
 	Enemy::Update(l_time);
 }

@@ -26,7 +26,7 @@ void Projectile::Update(const sf::Time& l_time)
 
 	for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
 	{
-		if (IsIntersecting(enemy) && !enemy->MustDie())
+		if (IsIntersecting(enemy) && !MustDie())
 		{
 			m_mustDie = true;
 			enemy->RemoveLife(m_damages);

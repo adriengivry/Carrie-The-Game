@@ -40,8 +40,8 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	while (!spawnIsCorrect && tries < 9999);
 
 	m_position = newPos;
-	// m_type = SpawnerType::JELLYBEAR_SPAWNER;
-	m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
+	m_type = SpawnerType::JELLYBEAR_SPAWNER;
+	//m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
 	switch (m_type)
 	{
 	case SpawnerType::JELLY_SPAWNER:

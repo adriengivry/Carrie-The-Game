@@ -5,7 +5,8 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	Actor(p_sharedContext, p_x, p_y),
 	m_target(nullptr),
 	m_followTarget(true),
-	m_damagesOnContact(true)
+	m_damagesOnContact(true),
+	m_isReady(true)
 {
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	++m_sharedContext->m_gameInfo->m_spawnedEnemies;

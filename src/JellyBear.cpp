@@ -21,9 +21,18 @@ void JellyBear::Update(const sf::Time & l_time)
 {
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
 
-	if (m_target)
+	for (auto it : m_sharedContext->m_actorManager->GetProjectile()) 
 	{
-		// TODO jump on bullet
+		if (m_position.DistanceTo(it->GetPosition()) <= 400 && !it->MustDie())
+		{
+			SetTarget(it);
+			m_velocity *= 10;
+		}
+		else
+		{
+			SetTarget(m_sharedContext->m_actorManager->GetPlayer());
+			m_velocity = __JELLYBEAR_SPEED;
+		}
 	}
 
 	Enemy::Update(l_time);

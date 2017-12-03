@@ -9,8 +9,10 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 	m_velocity	= __LOLLIPOP_SPEED;
 	m_maxLife	= __LOLLIPOP_LIFE;
 	m_damages	= __LOLLIPOP_DAMAGES;
+	m_cooldown	= __LOLLIPOP_COOLDOWN;
 
-	m_life		=	m_maxLife;
+	m_life		= m_maxLife;
+	m_timer		= 0;
 
 	m_followTarget		= false;
 	m_damagesOnContact	= false;
@@ -20,11 +22,13 @@ Lollipop::~Lollipop() {}
 
 void Lollipop::Update(const sf::Time & l_time)
 {
+	m_timer += l_time.asSeconds();
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
 
-	if (m_target)
+	if (m_timer >= m_cooldown)
 	{
-		// TODO throw projectile
+		Shoot(); //TODO
+		m_timer = 0;
 	}
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
@@ -47,4 +51,8 @@ void Lollipop::Update(const sf::Time & l_time)
 	}
 
 	Enemy::Update(l_time);
+}
+
+void Lollipop::Shoot()
+{
 }

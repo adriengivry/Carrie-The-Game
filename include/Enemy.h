@@ -29,4 +29,5 @@ protected:
 
 	float m_maxLife;
 	float m_life;
+	float m_cooldown;
 };

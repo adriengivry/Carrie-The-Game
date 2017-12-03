@@ -80,12 +80,6 @@ void Enemy::Update(const sf::Time& l_time)
 		m_direction.Normalize();
 	}
 
-	if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
-	{
-		player->RemoveLife(m_damages);
-		player->MakeInvulnerable();
-	}
-
 	Actor::Update(l_time);	
 }
 

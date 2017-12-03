@@ -9,8 +9,10 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	m_velocity = __JELLYBEAR_SPEED;
 	m_maxLife = __JELLYBEAR_LIFE;
 	m_damages = __JELLYBEAR_DAMAGES;
+	m_cooldown = __JELLYBEAR_COOLDOWN;
 
 	m_life = m_maxLife;
+	m_timer = 0;
 }
 
 JellyBear::~JellyBear()
@@ -19,6 +21,7 @@ JellyBear::~JellyBear()
 
 void JellyBear::Update(const sf::Time & l_time)
 {
+	m_timer += l_time.asSeconds();
 	m_velocity = __JELLYBEAR_SPEED;
 
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
@@ -63,6 +66,16 @@ void JellyBear::Update(const sf::Time & l_time)
 	
 	if (projectileFound)
 		m_velocity *= 5;
+
+	if (m_timer >= m_cooldown)
+	{
+		if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
+		{
+			player->RemoveLife(m_damages);
+			player->MakeInvulnerable();
+		}
+		m_timer = 0;
+	}
 
 	Enemy::Update(l_time);
 }

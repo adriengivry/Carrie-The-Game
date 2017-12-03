@@ -7,6 +7,7 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_position(p_x, p_y),
 	m_direction(0, 0),
 	m_velocity(__ACTOR_DEFAULT_VELOCITY),
+	m_gotAShadow(true),
 	m_orientable(false),
 	m_mustDie(false) {}
 
@@ -38,7 +39,21 @@ void Actor::Move(const sf::Time& l_time)
 void Actor::Draw() const
 {
 	if (m_textureGetSet)
+	{
+		if (m_gotAShadow)
+		{
+			sf::Sprite shadow;
+			if (m_sharedContext->m_textureManager->RequireResource("Shadow"))
+			{
+				shadow.setTexture(*m_sharedContext->m_textureManager->GetResource("Shadow"));
+				shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height);
+				Utils::centerOrigin(shadow);
+				m_sharedContext->m_wind->GetRenderWindow()->draw(shadow);
+			}
+		}
+
 		m_sharedContext->m_wind->GetRenderWindow()->draw(m_sprite);
+	}
 }
 
 bool Actor::IsIntersecting(Actor* p_otherActor) const

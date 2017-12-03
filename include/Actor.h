@@ -44,6 +44,7 @@ protected:
 	Vector2D<float> m_direction;
 	float m_velocity;
 
+	bool m_gotAShadow;
 	bool m_orientable;
 	bool m_mustDie;
 };

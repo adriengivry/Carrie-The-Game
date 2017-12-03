@@ -68,6 +68,13 @@ namespace Utils
 			rect.top + rect.height / 2.0f);
 	}
 
+	inline void centerOrigin(sf::CircleShape& p_circle)
+	{
+		const sf::FloatRect rect = p_circle.getLocalBounds();
+		p_circle.setOrigin(rect.left + rect.width / 2.0f,
+			rect.top + rect.height / 2.0f);
+	}
+
 	inline int randomgen(const int min, const int max)
 	{
 		const int range = max - min;

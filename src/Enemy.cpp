@@ -3,15 +3,15 @@
 
 Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	Actor(p_sharedContext, p_x, p_y),
-	m_target(nullptr)
+	m_target(nullptr),
+	m_followTarget(true),
+	m_damagesOnContact(true)
 {
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	++m_sharedContext->m_gameInfo->m_spawnedEnemies;
 }
 
-Enemy::~Enemy()
-{
-}
+Enemy::~Enemy() {}
 
 void Enemy::SetTarget(Actor* p_target)
 {
@@ -36,33 +36,37 @@ void Enemy::RemoveLife(const float p_damages)
 
 void Enemy::Update(const sf::Time& l_time)
 {
-	if (m_target)
+	Player* player = m_sharedContext->m_actorManager->GetPlayer();
+
+	// Hitting wall
+	if (m_position.X() < 70 || m_position.X() > 1850 || m_position.Y() < 200 || m_position.Y() > 950)
+		return;
+
+	// Out of screen
+	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)
+	{
+		m_mustDie = true;
+		return;
+	}
+
+	if (m_target && m_followTarget)
 	{
 		m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
 		m_direction.Normalize();
-
-		m_position += m_direction * m_velocity * l_time.asSeconds();
-
-		m_sprite.setPosition(m_position.ToSFVector());
 	}
 
-	Actor::Update(l_time);
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
-
-	if (this->IsIntersecting(player) && !player->IsInvulnerable())
+	if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
 	{
 		player->RemoveLife(m_damages);
 		player->MakeInvulnerable();
 	}
 
-	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)
-		m_mustDie = true;
+	Actor::Update(l_time);	
 }
 
 void Enemy::Draw() const
 {
 	Actor::Draw();
-
 	DrawLifebar();
 }
 

@@ -20,8 +20,10 @@ public:
 
 	void DrawLifebar() const;
 
-protected :
+protected:
 	Actor* m_target;
+	bool m_followTarget;
+	bool m_damagesOnContact;
 
 	float m_damages;
 

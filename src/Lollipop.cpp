@@ -29,14 +29,26 @@ void Lollipop::Update(const sf::Time & l_time)
 		player->MakeInvulnerable();
 	}
 
+	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)
+		m_mustDie = true;
+
 	Actor::Update(l_time);
+	float angle;
+
+	if (m_position.X() < 70 || m_position.X() > 1850 || m_position.Y() < 200 || m_position.Y() > 950)
+		return;
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
 		if (this->m_position.DistanceTo(it->GetPosition()) <= 400)
 		{
-			m_direction.Set(it->GetPosition().Y(), -it->GetPosition().X());
-			m_direction.AngleTo(it->GetPosition());
+			angle = m_direction.AngleTo(it->GetPosition());
+
+			if (angle < 45)
+				m_direction.Set(-it->GetPosition().Y(), it->GetPosition().X());
+			else
+				m_direction.Set(it->GetPosition().Y(), -it->GetPosition().X());
+
 			m_direction.Normalize();
 
 			m_position += m_direction * m_velocity * l_time.asSeconds();
@@ -49,7 +61,4 @@ void Lollipop::Update(const sf::Time & l_time)
 			m_direction.Set(0, 0);
 		}
 	}
-
-	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)
-		m_mustDie = true;
 }

@@ -116,7 +116,6 @@ void State_Game::Draw()
 	spawnedProjectiles.setCharacterSize(18);
 	spawnedProjectiles.setPosition(0, 40);
 
-
 	// CURSES
 	sf::Text reverseMove;
 	reverseMove.setString("REVERSE MOVE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement));
@@ -141,6 +140,19 @@ void State_Game::Draw()
 	weakerProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
 	weakerProjectiles.setCharacterSize(18);
 	weakerProjectiles.setPosition(0, 140);
+
+	// CARRIE LIFE BAR
+	sf::RectangleShape rect;
+	sf::Vector2f barSize = sf::Vector2f(800, 30);
+	rect.setPosition(window->getSize().x / 2, window->getSize().y - 35);
+	rect.setFillColor(sf::Color::White);
+	rect.setSize(barSize);
+	Utils::centerOrigin(rect);
+	window->draw(rect);
+	rect.setFillColor(sf::Color::Red);
+	barSize.x *= m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetLife() / m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetMaxLife();
+	rect.setSize(barSize);
+	window->draw(rect);
 
 	// DRAW THINGS
 	window->draw(consoleBackground);

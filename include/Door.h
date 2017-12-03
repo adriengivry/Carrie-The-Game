@@ -17,6 +17,7 @@ public:
 	void Use();
 
 	void Draw() const override;
+	void DrawLabel() const;
 
 	bool IsActivated() const;
 

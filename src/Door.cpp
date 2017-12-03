@@ -48,16 +48,27 @@ void Door::Draw() const
 {
 	Actor::Draw();
 
+	if (m_activated)
+		DrawLabel();
+}
+
+void Door::DrawLabel() const
+{
 	sf::Text label;
 	label.setCharacterSize(25);
 	label.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
-	label.setPosition(m_position.ToSFVector());
+
+	sf::Vector2f labelPos = m_position.ToSFVector();
+	
+	labelPos.y += 110.0f;
+
+	label.setPosition(labelPos);
 	if (m_answer)
 		label.setString("TRUE");
 	else
 		label.setString("FALSE");
 	Utils::centerOrigin(label);
-	
+
 	m_sharedContext->m_wind->GetRenderWindow()->draw(label);
 }
 

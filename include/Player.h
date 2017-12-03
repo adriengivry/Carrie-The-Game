@@ -21,6 +21,9 @@ public:
 	void StopControl();
 	void Draw() const override;
 
+	float GetMaxLife() const;
+	float GetLife() const;
+
 	void MakeInvulnerable();
 	bool IsInvulnerable() const;
 

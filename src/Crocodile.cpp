@@ -5,8 +5,14 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 	Enemy(p_sharedContext, p_x, p_y)
 {
 	SetTexture(__CROCODILE_TEXTURE);
+	m_sprite.setScale(1.5f, 1.5f);
 
-	float level = m_sharedContext->m_gameInfo->m_currentLevel;
+	m_flippable = true;
+
+	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
+
+	m_shadowOffset = 75;
+	m_shadowScale.Set(1.f, 0.5f);
 
 	m_velocity = __CROCODILE_SPEED;
 	m_cooldown = __CROCODILE_COOLDOWN;
@@ -33,6 +39,9 @@ void Crocodile::Update(const sf::Time & l_time)
 	m_velocity = __CROCODILE_SPEED;
 	m_direction.Set(0, 0);
 
+	if (m_isReady)
+		SetTexture("CrocodileFrontRed");
+
 	Enemy::Update(l_time);
 }
 
@@ -40,7 +49,7 @@ void Crocodile::Attack()
 {
 	bool inRange = false;
 
-	float range = m_position.DistanceTo(m_target->GetPosition());
+	const float range = m_position.DistanceTo(m_target->GetPosition());
 
 	if (range < 400)
 		inRange = true;
@@ -55,8 +64,6 @@ void Crocodile::Attack()
 
 void Crocodile::Jump()
 {
-	SetTexture("CrocodileFrontRed");
-
 	m_velocity *= 10;
 
 	m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);

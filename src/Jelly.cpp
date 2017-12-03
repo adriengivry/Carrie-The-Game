@@ -6,7 +6,9 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 {
 	SetTexture(__JELLY_TEXTURE);
 
-	float level = m_sharedContext->m_gameInfo->m_currentLevel;
+	m_sprite.setScale(1.2f, 1.2f);
+
+	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity	= __JELLY_SPEED;
 	m_cooldown = __JELLY_COOLDOWN;

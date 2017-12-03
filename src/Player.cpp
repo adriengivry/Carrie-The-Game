@@ -27,6 +27,9 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 
 	m_collide = false;
 
+	m_sprite.setScale(0.7f, 0.7f);
+	m_shadowScale.Set(0.8f, 0.8f);
+
 	SetTexture(__PLAYER_TEXTURE);
 }
 
@@ -227,6 +230,9 @@ void Player::Draw() const
 {
 	Actor::Draw();
 }
+
+float Player::GetMaxLife() const { return m_maxLife; }
+float Player::GetLife() const { return m_life; }
 
 void Player::MakeInvulnerable()
 {

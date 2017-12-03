@@ -6,6 +6,10 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 {
 	SetTexture(__JELLYBEAR_TEXTURE);
 
+	m_sprite.setScale(1.5f, 1.5f);
+
+	m_shadowOffset = 40;
+
 	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity = __JELLYBEAR_SPEED;

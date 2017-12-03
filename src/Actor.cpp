@@ -3,11 +3,14 @@
 
 Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) : 
 	m_textureGetSet(false),
+	m_shadowOffset(__DEFAULT_SHADOW_OFFSET),
 	m_sharedContext(p_sharedContext),
 	m_position(p_x, p_y),
 	m_direction(0, 0),
 	m_velocity(__ACTOR_DEFAULT_VELOCITY),
 	m_gotAShadow(true),
+	m_shadowScale(1, 1),
+	m_flippable(false),
 	m_orientable(false),
 	m_mustDie(false) {}
 
@@ -44,15 +47,21 @@ void Actor::Draw() const
 			{
 				const float scaleFactor = m_sprite.getGlobalBounds().width / 75.f;
 				shadow.setTexture(*m_sharedContext->m_textureManager->GetResource("Shadow"));
-				shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height - 15);
+				shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height - m_shadowOffset);
 				shadow.setColor(sf::Color(255, 255, 255, 100));
 				shadow.setScale(scaleFactor, scaleFactor);
+				shadow.scale(m_shadowScale.X(), m_shadowScale.Y());
 				Utils::centerOrigin(shadow);
 				m_sharedContext->m_wind->GetRenderWindow()->draw(shadow);
 			}
 		}
 
-		m_sharedContext->m_wind->GetRenderWindow()->draw(m_sprite);
+		sf::Sprite toDraw = m_sprite;
+
+		if (m_flippable && m_direction.X() >= 0)
+			toDraw.scale(-1, 1);
+
+		m_sharedContext->m_wind->GetRenderWindow()->draw(toDraw);
 	}
 }
 

@@ -32,17 +32,16 @@ void Lollipop::Update(const sf::Time & l_time)
 	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)
 		m_mustDie = true;
 
-	Actor::Update(l_time);
-	float angle;
-
 	if (m_position.X() < 70 || m_position.X() > 1850 || m_position.Y() < 200 || m_position.Y() > 950)
 		return;
+
+	Actor::Update(l_time);
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
 		if (this->m_position.DistanceTo(it->GetPosition()) <= 400)
 		{
-			angle = m_direction.AngleTo(it->GetPosition());
+			float angle = m_direction.AngleTo(it->GetPosition());
 
 			if (angle < 45)
 				m_direction.Set(-it->GetPosition().Y(), it->GetPosition().X());

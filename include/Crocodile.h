@@ -5,7 +5,7 @@
 class Crocodile : public Enemy
 {
 	const std::string	__CROCODILE_TEXTURE = "CrocodileFrontGreen";
-	const float			__CROCODILE_SPEED = 600;
+	const float			__CROCODILE_SPEED = 60;
 	const float			__CROCODILE_LIFE = 20;
 	const float			__CROCODILE_DAMAGES = 8;
 	const float			__CROCODILE_COOLDOWN = 5;

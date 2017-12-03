@@ -23,8 +23,6 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 
 	m_life = m_maxLife;
 	m_timer = 0;
-
-	m_followTarget = false;
 }
 
 Crocodile::~Crocodile() {}
@@ -32,6 +30,7 @@ Crocodile::~Crocodile() {}
 void Crocodile::Update(const sf::Time & l_time)
 {
 	SetTexture(__CROCODILE_TEXTURE);
+	m_velocity = __CROCODILE_SPEED;
 	m_direction.Set(0, 0);
 
 	Enemy::Update(l_time);
@@ -57,6 +56,8 @@ void Crocodile::Attack()
 void Crocodile::Jump()
 {
 	SetTexture("CrocodileFrontRed");
+
+	m_velocity *= 10;
 
 	m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
 	m_direction.Normalize();

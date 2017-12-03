@@ -95,7 +95,7 @@ void Enemy::DrawLifebar() const
 	sf::RectangleShape rect;
 	sf::Vector2f barSize = sf::Vector2f(m_sprite.getGlobalBounds().width, 5);
 
-	rect.setPosition(m_sprite.getGlobalBounds().left, m_sprite.getGlobalBounds().top - 25);
+	rect.setPosition(m_sprite.getGlobalBounds().left, m_sprite.getGlobalBounds().top - 40);
 
 	rect.setFillColor(sf::Color::White);
 	rect.setSize(barSize);
@@ -103,6 +103,23 @@ void Enemy::DrawLifebar() const
 
 	rect.setFillColor(sf::Color::Red);
 	barSize.x *= m_life / m_maxLife;
+	rect.setSize(barSize);
+	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
+}
+
+void Enemy::DrawCooldownBar() const
+{
+	sf::RectangleShape rect;
+	sf::Vector2f barSize = sf::Vector2f(m_sprite.getGlobalBounds().width, 5);
+
+	rect.setPosition(m_sprite.getGlobalBounds().left, m_sprite.getGlobalBounds().top - 20);
+
+	rect.setFillColor(sf::Color::White);
+	rect.setSize(barSize);
+	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
+
+	rect.setFillColor(sf::Color::Blue);
+	barSize.x *= m_timer / m_maxLife;
 	rect.setSize(barSize);
 	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
 }

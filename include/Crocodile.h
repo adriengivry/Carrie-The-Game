@@ -18,7 +18,4 @@ public:
 
 	void Jump();
 
-private:
-	float m_timer;
-
 };

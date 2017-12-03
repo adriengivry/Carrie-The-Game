@@ -20,6 +20,8 @@ public:
 
 	void DrawLifebar() const;
 
+	void DrawCooldownBar() const;
+
 protected:
 	Actor* m_target;
 	bool m_followTarget;
@@ -31,4 +33,5 @@ protected:
 	float m_maxLife;
 	float m_life;
 	float m_cooldown;
+	float m_timer;
 };

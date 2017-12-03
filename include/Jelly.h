@@ -15,7 +15,4 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 
-private:
-	float m_timer;
-
 };

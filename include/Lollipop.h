@@ -17,8 +17,5 @@ public:
 	void Update(const sf::Time& l_time) override;
 
 	void Shoot();
-	
-private:
-	float m_timer;
 
 };

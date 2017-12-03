@@ -18,7 +18,4 @@ public:
 
 	void Shoot();
 
-private:
-	float m_timer;
-
 };

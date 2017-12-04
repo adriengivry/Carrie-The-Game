@@ -18,7 +18,10 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	m_showCooldownBar = true;
 }
 
-JellyBear::~JellyBear() {}
+JellyBear::~JellyBear()
+{
+	m_sharedContext->m_soundManager->PlaySound("Death_Jellybear");
+}
 
 void JellyBear::GenerateStats()
 {

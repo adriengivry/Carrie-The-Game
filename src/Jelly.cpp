@@ -11,7 +11,10 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 	ResetLife();
 }
 
-Jelly::~Jelly() {}
+Jelly::~Jelly()
+{
+	m_sharedContext->m_soundManager->PlaySound("Death_Jelly");
+}
 
 void Jelly::GenerateStats()
 {

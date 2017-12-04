@@ -12,7 +12,10 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 	m_followTarget = false;
 }
 
-CakeMonster::~CakeMonster() {}
+CakeMonster::~CakeMonster()
+{
+	m_sharedContext->m_soundManager->PlaySound("Death_Cakemonster");
+}
 
 void CakeMonster::GenerateStats()
 {

@@ -71,7 +71,7 @@ void State_GameOver::Activate()
 {
 	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
 	soundManager->PauseMusics();
-	soundManager->PlaySound("GameOver");
+	soundManager->PlayMusic("GameOver");;
 	m_stateMgr->Remove(StateType::Game);
 }
 void State_GameOver::Deactivate()

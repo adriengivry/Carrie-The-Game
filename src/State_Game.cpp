@@ -266,7 +266,7 @@ void State_Game::DrawUserInterface()
 	sf::Text curseStack;
 	curseStack.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	curseStack.setFillColor(sf::Color::Black);
-	curseStack.setCharacterSize(20);
+	curseStack.setCharacterSize(15);
 
 
 	for (uint8_t i = 0; i < 4; ++i)
@@ -294,7 +294,7 @@ void State_Game::DrawUserInterface()
 			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles));
 			break;
 		}
-		curseStack.setPosition(m_curseIcon[i].getPosition());
+		curseStack.setPosition(m_curseIcon[i].getPosition() + sf::Vector2f(-25, 0));
 		curseStack.move(0, 20);
 		sf::CircleShape badge;
 		badge.setPosition(curseStack.getPosition());

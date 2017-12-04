@@ -288,6 +288,23 @@ void Player::Fire(EventDetails* l_details)
 	newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
 
 	m_sharedContext->m_actorManager->AddProjectile(newProjectile);
+
+	switch (Utils::randomgen(1, 3))
+	{
+	default:
+	case 1:
+		m_sharedContext->m_soundManager->PlaySound("Shoot_1");
+		break;
+
+	case 2:
+		m_sharedContext->m_soundManager->PlaySound("Shoot_2");
+		break;
+
+	case 3:
+		m_sharedContext->m_soundManager->PlaySound("Shoot_3");
+		break;
+	}
+	
 }
 
 void Player::RemoveLife(const float p_value, const bool p_constantDamages)

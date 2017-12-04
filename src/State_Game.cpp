@@ -252,6 +252,15 @@ void State_Game::DrawUserInterface()
 
 	window->draw(m_backgroundEdgesSprites);
 
+	sf::Sprite filter;
+	if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Filter"))
+	{
+		filter.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Filter"));
+		filter.setPosition(0, 0);
+		filter.setColor(sf::Color(255, 0, 0, 255 - 200 * (m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetLife() / m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetMaxLife())));
+		m_stateMgr->GetContext()->m_wind->GetRenderWindow()->draw(filter);
+	}
+
 	sf::Text levelLabel;
 	levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));

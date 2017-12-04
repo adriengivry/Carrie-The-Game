@@ -10,6 +10,8 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 	ResetLife();
 
 	m_followTarget = false;
+
+	m_shadowOffset = 50;
 }
 
 CakeMonster::~CakeMonster()

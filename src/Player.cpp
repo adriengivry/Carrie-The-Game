@@ -219,6 +219,8 @@ void Player::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
 
+	CorrectMoveBug();
+
 	m_velocity = __PLAYER_SPEED * pow(m_sharedContext->m_gameInfo->__CARRIE_SLOW_MULTIPLICATOR, m_sharedContext->m_gameInfo->m_slowerCarrie);
 
 	if (IsInvulnerable())
@@ -268,6 +270,43 @@ void Player::MakeInvulnerable()
 }
 
 bool Player::IsInvulnerable() const { return m_invulnerable; }
+
+void Player::CorrectMoveBug()
+{
+	const bool reverseMovement = m_sharedContext->m_gameInfo->m_reverseMovement;
+
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		if (reverseMovement)
+			m_moveRight = false;
+		else
+			m_moveLeft = false;
+	}
+	
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		if (reverseMovement)
+			m_moveLeft = false;
+		else
+			m_moveRight = false;
+	}
+	
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		if (reverseMovement)
+			m_moveDown = false;
+		else
+			m_moveUp = false;
+	}
+	
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		if (reverseMovement)
+			m_moveUp = false;
+		else
+			m_moveDown = false;
+	}
+}
 
 void Player::Fire(EventDetails* l_details)
 {

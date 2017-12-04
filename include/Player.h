@@ -27,6 +27,8 @@ public:
 	void MakeInvulnerable();
 	bool IsInvulnerable() const;
 
+	void CorrectMoveBug();
+
 	void Fire(EventDetails* l_details);
 	void RemoveLife(const float p_value, const bool p_constantDamages = false);
 

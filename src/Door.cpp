@@ -36,17 +36,20 @@ void Door::Desactivate()
 
 void Door::Use() const
 {
+	m_sharedContext->m_soundManager->Pause("Game");
 	if (m_answer == m_sharedContext->m_actorManager->GetNpc()->GetAnswer())
 	{
 		m_sharedContext->m_gameInfo->m_getCursed = false;
 		m_sharedContext->m_gameInfo->m_doorPassed = true;
 		++m_sharedContext->m_gameInfo->m_currentLevel;
+		m_sharedContext->m_soundManager->PlaySound("Truth");
 	}
 	else
 	{
 		m_sharedContext->m_gameInfo->m_doorPassed = true;
 		m_sharedContext->m_gameInfo->m_getCursed = true;
 		++m_sharedContext->m_gameInfo->m_currentLevel;
+		m_sharedContext->m_soundManager->PlaySound("Curse");
 		SelectCurse();
 	}
 }

@@ -173,16 +173,16 @@ void Player::Move(const sf::Time& l_time)
 		bool xCollide = false;
 		bool yCollide = false;
 
-		if (m_position.X() < 150)
+		if (m_position.X() < 120)
 		{
-			m_position.X(150);
+			m_position.X(120);
 			m_collide = true;
 			xCollide = true;
 		}
 
-		if (m_position.X() > 1770)
+		if (m_position.X() > 1800)
 		{
-			m_position.X(1770);
+			m_position.X(1800);
 			m_collide = true;
 			xCollide = true;
 		}

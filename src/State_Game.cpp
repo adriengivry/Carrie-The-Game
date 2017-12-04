@@ -89,7 +89,7 @@ void State_Game::OnCreate()
 	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
 	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
 
-	const uint8_t numberOfSpawners = Utils::randomgen(2 + gameInfo->m_currentLevel / 4, 5 + gameInfo->m_currentLevel / 4);
+	const uint8_t numberOfSpawners = 3 + gameInfo->m_currentLevel / 4;
 	
 	for (int i = 0; i < numberOfSpawners; ++i)
 		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
@@ -200,6 +200,7 @@ void State_Game::Update(const sf::Time& l_time)
 
 		if (m_transitionEnd)
 		{
+			m_stateMgr->GetContext()->m_soundManager->PlayMusic("Game");
 			OnDestroy();
 			OnCreate();
 		}

@@ -43,7 +43,7 @@ void Lollipop::Update(const sf::Time & l_time)
 			m_isDodging = false;
 			m_dodgeTimer = 0.0f;
 			m_direction.Set(0, 0);
-			StartCooldown();
+			// StartCooldown();
 		}
 	}
 
@@ -80,5 +80,14 @@ void Lollipop::Dodge()
 
 void Lollipop::Shoot()
 {
-	//TODO
+	Vector2D<float> projectileDirection;
+	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
+
+	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, false);
+	projectile->SetDamages(m_damages);
+	projectile->SetSpeed(m_velocity * 7.f);
+
+	m_sharedContext->m_actorManager->AddProjectile(projectile);
+
+	StartCooldown();
 }

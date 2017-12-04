@@ -54,7 +54,7 @@ void State_Credits::Update(const sf::Time& l_time)
 {
 	const sf::Vector2u windowCenter = m_stateMgr->GetContext()->m_wind->GetWindowCenter();
 
-	const int16_t pixelToScrollPerSecond = m_fastForward ? 300 : 100;
+	const int16_t pixelToScrollPerSecond = m_fastForward ? 500 : 200;
 
 	m_backgroundSprite.move(0, -pixelToScrollPerSecond * l_time.asSeconds());
 

@@ -15,6 +15,7 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	{
 		SetTexture(__PROJECTILE_TEXTURE);
 		++m_sharedContext->m_gameInfo->m_spawnedProjectiles;
+		m_sprite.scale(0.7f, 0.7f);
 	}
 	else
 	{
@@ -22,12 +23,15 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 		{
 			SetTexture(__ENEMY_PROJECTILE_LASER_TEXTURE);
 			m_gotAShadow = false;
+			m_sprite.scale(0.7f, 0.7f);
 		}
 		else
+		{
 			SetTexture(__ENEMY_PROJECTILE_TEXTURE);
+		}
 	}
 
-	m_sprite.scale(0.7f, 0.7f);
+	
 
 	m_orientable = false;
 }
@@ -62,7 +66,7 @@ void Projectile::Update(const sf::Time& l_time)
 		}
 	}
 
-	if (m_position.X() < 70 || m_position.X() > 1850 || m_position.Y() < 200 || m_position.Y() > 950)
+	if (m_position.X() < 50 || m_position.X() > 1870 || m_position.Y() < 200 || m_position.Y() > 1000)
 		m_mustDie = true;
 }
 

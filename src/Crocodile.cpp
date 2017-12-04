@@ -66,10 +66,10 @@ bool Crocodile::inRange() const
 {
 	const float range = m_position.DistanceTo(m_target->GetPosition());
 
-	if (range < 500)
+	if (range < 350)
 		return true;
-	else
-		return false;
+
+	return false;
 }
 
 void Crocodile::Jump()

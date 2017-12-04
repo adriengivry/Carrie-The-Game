@@ -30,6 +30,7 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 		else
 		{
 			SetTexture(__ENEMY_PROJECTILE_TEXTURE);
+			m_sprite.scale(1.2f, 1.2f);
 		}
 	}
 

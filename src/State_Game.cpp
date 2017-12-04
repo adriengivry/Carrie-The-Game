@@ -150,19 +150,19 @@ void State_Game::Update(const sf::Time& l_time)
 			{
 			default:
 			case REVERSE_MOVEMENT:
-				m_curseText.setString("KEYBOARD IS FUCKED UP");
+				m_curseText.setString("YOUR KEYBOARD IS NOW FUCKED UP ;)");
 				break;
 
 			case SLOWER_CARRIE:
-				m_curseText.setString("YOU ARE SLOW !");
+				m_curseText.setString("DO YOU LIKE GLUE? <3");
 				break;
 
 			case SLOWER_PROJECTILES:
-				m_curseText.setString("SLOW CHOCOLATES");
+				m_curseText.setString("TRY TO TO THROW IT FASTER!");
 				break;
 
 			case WEAKER_PROJECTILES:
-				m_curseText.setString("WEAK CHOCOLATES");
+				m_curseText.setString("OUPS! I BROKE YOUR CHOCOLATE SQUARE :)");
 				break;
 			}
 			Utils::centerOrigin(m_curseText);

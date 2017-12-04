@@ -1,7 +1,7 @@
 #include "Projectile.h"
 #include "StateManager.h"
 
-Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, const float p_x, const float p_y)
+Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, const float p_x, const float p_y, const bool p_friendly)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	m_direction = p_direction;
@@ -9,7 +9,12 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	m_damages = __PROJECTILE_DAMAGES;
 	m_hitrate = __PROJECTILE_HITRATE;
 
-	SetTexture(__PROJECTILE_TEXTURE);
+	m_friendly = p_friendly;
+
+	if (m_friendly)
+		SetTexture(__PROJECTILE_TEXTURE);
+	else
+		SetTexture(__ENEMY_PROJECTILE_TEXTURE);
 
 	m_sprite.scale(0.7f, 0.7f);
 
@@ -28,12 +33,23 @@ void Projectile::Update(const sf::Time& l_time)
 
 	m_sprite.rotate(350 * l_time.asSeconds());
 
-	for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
+	if (m_friendly)
 	{
-		if (IsIntersecting(enemy) && !MustDie())
+		for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
+		{
+			if (IsIntersecting(enemy) && !MustDie())
+			{
+				m_mustDie = true;
+				enemy->RemoveLife(m_damages);
+			}
+		}
+	}
+	else
+	{
+		if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()) && !MustDie())
 		{
 			m_mustDie = true;
-			enemy->RemoveLife(m_damages);
+			m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages);
 		}
 	}
 
@@ -54,4 +70,14 @@ void Projectile::MultiplySpeed(const float p_value)
 void Projectile::MultiplyHitrate(const float p_value)
 {
 	m_hitrate *= p_value;
+}
+
+void Projectile::SetDamages(const float p_value)
+{
+	m_damages = p_value;
+}
+
+void Projectile::SetSpeed(const float p_speed)
+{
+	m_velocity = p_speed;
 }

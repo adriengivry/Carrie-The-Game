@@ -6,7 +6,7 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 {
 	SetTexture(__CAKEMONSTER_TEXTURE);
 
-	float level = m_sharedContext->m_gameInfo->m_currentLevel;
+	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity = __CAKEMONSTER_SPEED;
 	m_cooldown = __CAKEMONSTER_COOLDOWN;
@@ -38,5 +38,12 @@ void CakeMonster::Attack()
 
 void CakeMonster::TurretMode()
 {
-	//TODO 
+	Vector2D<float> projectileDirection;
+	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
+
+	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false);
+	projectile->SetDamages(m_damages);
+	projectile->SetSpeed(m_velocity);
+
+	m_sharedContext->m_actorManager->AddProjectile(projectile);
 }

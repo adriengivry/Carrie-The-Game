@@ -37,7 +37,7 @@ void Lollipop::Update(const sf::Time & l_time)
 	{
 		m_dodgeTimer += l_time.asSeconds();
 
-		if (m_isDodging >= 0.1f)
+		if (m_dodgeTimer >= 0.6f)
 		{
 			m_isDodging = false;
 			m_dodgeTimer = 0.0f;
@@ -66,18 +66,18 @@ void Lollipop::Dodge()
 	{
 		if (it->IsFriendly())
 		{
-			const float angle = m_position.AngleTo(it->GetPosition());
-
 			if (m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
 			{
 				projectileFound = true;
 
-				if (angle < 90)
+				int rand = Utils::randomgen(0, 1);
+
+				if (rand == 0)
 				{
 					m_direction.X() = -it->GetDirection().Y();
 					m_direction.Y() = it->GetDirection().X();
 				}		
-				else if (angle > 90)
+				else if (rand == 1)
 				{
 					m_direction.X() = it->GetDirection().Y();
 					m_direction.Y() = -it->GetDirection().X();

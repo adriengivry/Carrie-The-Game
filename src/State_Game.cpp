@@ -290,7 +290,7 @@ void State_Game::DrawUserInterface()
 			break;
 
 		case WEAKER_PROJECTILES:
-			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles));
+			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles));
 			break;
 		}
 		curseStack.setPosition(m_curseIcon[i].getPosition());

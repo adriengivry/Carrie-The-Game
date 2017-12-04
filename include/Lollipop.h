@@ -8,7 +8,7 @@ class Lollipop : public Enemy
 	const float			__LOLLIPOP_SPEED = 80;
 	const float			__LOLLIPOP_LIFE = 10;
 	const float			__LOLLIPOP_DAMAGES = 4;
-	const float			__LOLLIPOP_COOLDOWN = 1.2;
+	const float			__LOLLIPOP_COOLDOWN = 0.6;
 
 public:
 	explicit Lollipop(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);

@@ -23,7 +23,6 @@ public:
 
 private:
 	bool m_isDodging;
-	bool m_inRange;
 
 	float m_dodgeTimer;
 

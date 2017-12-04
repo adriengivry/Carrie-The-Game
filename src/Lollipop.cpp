@@ -3,8 +3,7 @@
 
 Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float p_y) :
 	Enemy(p_sharedContext, p_x, p_y),
-	m_isDodging(false),
-	m_inRange(false)
+	m_isDodging(false)
 {
 	SetTexture(__LOLLIPOP_TEXTURE);
 

@@ -43,4 +43,6 @@ private:
 
 	bool m_invulnerable;
 	float m_invulnerableTimer;
+	float m_invulnerableFlashTimer;
+	bool m_isTransparent;
 };

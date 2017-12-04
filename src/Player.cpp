@@ -27,6 +27,9 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 
 	m_collide = false;
 
+	m_isTransparent = false;
+	m_invulnerableFlashTimer = 0.f;
+
 	m_sprite.setScale(0.7f, 0.7f);
 	m_shadowScale.Set(0.8f, 0.8f);
 
@@ -220,15 +223,26 @@ void Player::Update(const sf::Time& l_time)
 
 	if (IsInvulnerable())
 	{
-		m_sprite.setColor(sf::Color(255, 255, 255, 200));
+		m_invulnerableFlashTimer += l_time.asSeconds();
+		if (m_invulnerableFlashTimer >= 0.1f)
+		{
+			m_isTransparent = !m_isTransparent;
+			m_invulnerableFlashTimer = 0.0f;
+		}
+
 		m_invulnerableTimer += l_time.asSeconds();
 		if (m_invulnerableTimer >= __INVULNERABLE_DURATION)
 			m_invulnerable = false;
 	}
 	else
 	{
-		m_sprite.setColor(sf::Color(255, 255, 255, 255));
+		m_isTransparent = false;
 	}
+
+	if (m_isTransparent)
+		m_sprite.setColor(sf::Color(255, 0, 0, 100));
+	else
+		m_sprite.setColor(sf::Color(255, 255, 255, 255));
 }
 
 void Player::StopControl()
@@ -281,16 +295,13 @@ void Player::RemoveLife(const float p_value, const bool p_constantDamages)
 	if (!IsInvulnerable())
 	{
 		m_life -= p_value;
+		if (!p_constantDamages)
+			MakeInvulnerable();
 
 		if (m_life <= 0)
 		{
 			m_life = 0;
 			m_sharedContext->m_gameInfo->m_gameOver = true;
-		}
-		else
-		{
-			if (!p_constantDamages)
-				MakeInvulnerable();
 		}
 	}
 }

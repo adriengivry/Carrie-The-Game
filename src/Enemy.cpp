@@ -6,11 +6,16 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_target(nullptr),
 	m_followTarget(true),
 	m_damagesOnContact(true),
-	m_isReady(true),
-	m_canCollide(true)
+	m_isSpecialAttackReady(true),
+	m_isSpecialAbilityReady(true),
+	m_canCollide(true),
+	m_showCooldownBar(false)
 {
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	++m_sharedContext->m_gameInfo->m_spawnedEnemies;
+
+	m_specialAttackCooldown = __ENEMY_DEFAULT_COOLDOWN;
+	m_specialAbilityCooldown = __ENEMY_DEFAULT_COOLDOWN;
 }
 
 Enemy::~Enemy() {}
@@ -36,9 +41,25 @@ void Enemy::RemoveLife(const float p_damages)
 	}
 }
 
+void Enemy::SpecialAttack(const sf::Time& l_time)
+{
+	// NO SPECIAL ATTACK (OVERRIDE TO APPLY NEW BEHAVIOR)
+}
+
+void Enemy::SpecialAbility(const sf::Time& l_time)
+{
+	// NO SPECIAL ABILITY (OVERRIDE TO APPLY NEW BEHAVIOR)
+}
+
+void Enemy::ResetLife()
+{
+	m_life = m_maxLife;
+}
+
 void Enemy::Update(const sf::Time& l_time)
 {
-	CheckCooldown(l_time);
+	CheckSepcialAttackCooldown(l_time);
+	CheckSpecialAbilityCooldown(l_time);
 
 	if (m_target && m_followTarget)
 		FollowTarget();
@@ -46,27 +67,37 @@ void Enemy::Update(const sf::Time& l_time)
 	if (m_canCollide)
 		CheckCollisions();
 
-	if (m_isReady)
-		Attack();
+	if (m_isSpecialAttackReady || m_specialAttackCooldown == 0)
+	{
+		SpecialAttack(l_time);
+	}
+
+	if (m_isSpecialAbilityReady || m_specialAbilityCooldown == 0)
+	{
+		SpecialAbility(l_time);
+	}
+
+	Attack();
 
 	Actor::Update(l_time);	
 }
 
-void Enemy::StartCooldown()
+void Enemy::StartSpecialAttackCooldown()
 {
-	m_timer = 0.f;
-	m_isReady = false;
+	m_specialAttackTimer = 0.f;
+	m_isSpecialAttackReady = false;
+}
+
+void Enemy::StartSpecialAbilityCooldown()
+{
+	m_specialAbilityTimer = 0.f;
+	m_isSpecialAbilityReady = false;
 }
 
 void Enemy::Attack()
 {
-	Player* player = m_sharedContext->m_actorManager->GetPlayer();
-
-	if (m_damagesOnContact && this->IsIntersecting(player) && !player->IsInvulnerable())
-	{
-		player->RemoveLife(m_damages);
-		StartCooldown();
-	}
+	if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()) && m_damagesOnContact)
+		m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, false);
 }
 
 void Enemy::FollowTarget()
@@ -95,20 +126,30 @@ void Enemy::CheckCollisions()
 		m_mustDie = true;
 }
 
-void Enemy::CheckCooldown(const sf::Time& l_time)
+void Enemy::CheckSepcialAttackCooldown(const sf::Time& l_time)
 {
-	if (!m_isReady)
-		m_timer += l_time.asSeconds();
+	if (!m_isSpecialAttackReady)
+		m_specialAttackTimer += l_time.asSeconds();
 
-	if (m_timer >= m_cooldown)
-		m_isReady = true;
+	if (m_specialAttackTimer >= m_specialAttackCooldown)
+		m_isSpecialAttackReady = true;
+}
+
+void Enemy::CheckSpecialAbilityCooldown(const sf::Time& l_time)
+{
+	if (!m_isSpecialAbilityReady)
+		m_specialAbilityTimer += l_time.asSeconds();
+
+	if (m_specialAbilityTimer >= m_specialAbilityCooldown)
+		m_isSpecialAbilityReady = true;
 }
 
 void Enemy::Draw() const
 {
 	Actor::Draw();
 	DrawLifebar();
-	DrawCooldownBar();
+	if (m_showCooldownBar && m_specialAbilityCooldown != 0.f)
+		DrawCooldownBar();
 }
 
 void Enemy::DrawLifebar() const
@@ -145,8 +186,8 @@ void Enemy::DrawCooldownBar() const
 
 	rect.setFillColor(sf::Color::Blue);
 
-	if (!m_isReady)
-		barSize.x *= m_timer / m_cooldown;
+	if (!m_isSpecialAbilityReady)
+		barSize.x *= m_specialAbilityTimer / m_specialAbilityCooldown;
 
 	rect.setSize(barSize);
 	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);

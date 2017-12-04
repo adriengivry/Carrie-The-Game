@@ -16,6 +16,8 @@ class SpawnPoint : public Actor
 	const std::string	__SPAWNPOINT_TEXTURE = "SpawnPoint";
 	const float			__DISTANCE_MIN_TO_PLAYER = 400.0f;
 	const float			__DISTANCE_MIN_TO_OTHER_SPAWNPOINT = 150.0f;
+	const float			__DISTANCE_MIN_TO_DOOR = 150.0f;
+
 	//Jelly
 	const int			__SPAWNPOINT_JELLY_MAXSPAWN = 5;
 	const float			__SPAWNPOINT_JELLY_SPAWN_FREQUENCY = 2.0f;

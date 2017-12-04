@@ -6,45 +6,37 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 {
 	SetTexture(__CAKEMONSTER_TEXTURE);
 
-	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
-
-	m_velocity = __CAKEMONSTER_SPEED;
-	m_cooldown = __CAKEMONSTER_COOLDOWN;
-
-	if (m_maxLife > 150)
-		m_maxLife = 150;
-	else
-		m_maxLife = __CAKEMONSTER_LIFE * level * 1.1f;
-
-	if (m_damages > 33)
-		m_damages = 33;
-	else
-		m_damages = __CAKEMONSTER_DAMAGES * level * 1.05f;
-
-	m_life = m_maxLife;
-	m_timer = 0;
+	CakeMonster::GenerateStats();
+	ResetLife();
 
 	m_followTarget = false;
 }
 
 CakeMonster::~CakeMonster() {}
 
-void CakeMonster::Attack()
+void CakeMonster::GenerateStats()
 {
-	TurretMode();
-	Enemy::Attack();
+	m_velocity = __CAKEMONSTER_SPEED;
+	m_specialAttackCooldown = __CAKEMONSTER_SPECIAL_ATTACK_COOLDOWN;
+
+	GENERATE_LIFE(__CAKEMONSTER_LIFE, __CAKEMONSTER_LIFE_INCREMENTATION_COEFFICIENT, __CAKEMONSTER_MAX_LIFE);
+	GENERATE_DAMAGES(__CAKEMONSTER_DAMAGES, __CAKEMONSTER_DAMAGES_INCREMENTATION_COEFFICIENT, __CAKEMONSTER_MAX_DAMAGES);
+
+	m_specialAttackDamages = m_damages / 15.0f;
 }
 
-void CakeMonster::TurretMode()
+void CakeMonster::SpecialAttack(const sf::Time& l_time)
 {
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
 
 	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, true);
-	
+
 	// DAMAGES PER SECOND
-	projectile->SetDamages(m_damages / 60.f);
-	projectile->SetSpeed(m_velocity);
+	projectile->SetDamages(m_specialAttackDamages);
+	projectile->SetSpeed(__CAKEMONSTER_PROJECTILE_SPEED);
 
 	m_sharedContext->m_actorManager->AddProjectile(projectile);
+
+	StartSpecialAttackCooldown();
 }

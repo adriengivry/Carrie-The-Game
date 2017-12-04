@@ -9,9 +9,9 @@ using namespace AGMath;
 
 class Actor
 {
-	const float __ACTOR_DEFAULT_VELOCITY = 250;
-	const std::string __ACTOR_TEXTURE = "Actor";
-	const float __DEFAULT_SHADOW_OFFSET = 15.0f;
+	const float			__ACTOR_DEFAULT_VELOCITY	= 250;
+	const std::string	__ACTOR_TEXTURE				= "Actor";
+	const float			__DEFAULT_SHADOW_OFFSET		= 15.0f;
 
 public:
 	explicit Actor(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
@@ -38,6 +38,7 @@ protected:
 	bool m_textureGetSet;
 	float m_shadowOffset;
 	Vector2D<float> m_shadowScale;
+	Vector2D<float> m_spriteScale;
 
 	bool m_flippable;
 

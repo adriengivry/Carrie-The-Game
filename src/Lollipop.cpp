@@ -2,105 +2,92 @@
 #include "StateManager.h"
 
 Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float p_y) :
-	Enemy(p_sharedContext, p_x, p_y),
-	m_isDodging(false)
+	Enemy(p_sharedContext, p_x, p_y)
 {
 	SetTexture(__LOLLIPOP_TEXTURE);
 
-	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
-
-	m_velocity	= __LOLLIPOP_SPEED;
-	m_cooldown = __LOLLIPOP_COOLDOWN;
-
-	if (m_maxLife > 150)
-		m_maxLife = 150;
-	else
-		m_maxLife	= __LOLLIPOP_LIFE * level * 1.1f;
-
-	if (m_damages > 16)
-		m_damages = 16;
-	else
-		m_damages = __LOLLIPOP_DAMAGES * level * 1.05f;
-
-	m_life		= m_maxLife;
-	m_timer		= 0;
-
-	m_followTarget		= false;
+	Lollipop::GenerateStats();
+	ResetLife();
+	
+	m_followTarget = false;
+	m_isDashing = false;
+	m_dashTimer = 0.0f;
+	m_dashMaxDuration = 0.2f;
+	m_showCooldownBar = true;
 }
 
 Lollipop::~Lollipop() {}
 
-void Lollipop::Update(const sf::Time & l_time)
+void Lollipop::GenerateStats()
 {
-	if (m_isDodging)
+	m_velocity = __LOLLIPOP_SPEED;
+	m_specialAttackCooldown = __LOLLIPOP_SPECIAL_ATTACK_COOLDOWN;
+	m_specialAbilityCooldown = __LOLLIPOP_SPECIAL_ABILITY_COOLDOWN;
+
+	GENERATE_LIFE(__LOLLIPOP_LIFE, __LOLLIPOP_LIFE_INCREMENTATION_COEFFICIENT, __LOLLIPOP_MAX_LIFE);
+	GENERATE_DAMAGES(__LOLLIPOP_DAMAGES, __LOLLIPOP_DAMAGES_INCREMENTATION_COEFFICIENT, __LOLLIPOP_MAX_DAMAGES);
+}
+
+void Lollipop::Update(const sf::Time& l_time)
+{
+	if (m_isDashing)
 	{
-		m_dodgeTimer += l_time.asSeconds();
-
-		if (m_dodgeTimer >= 0.6f)
-		{
-			m_isDodging = false;
-			m_dodgeTimer = 0.0f;
-			m_direction.Set(0, 0);
-		}
+		m_specialAbilityTimer = 0.0f;
+		m_velocity = __LOLLIPOP_DASH_SPEED;
+		m_dashTimer += l_time.asSeconds();
+		if (m_dashTimer >= m_dashMaxDuration)
+			m_isDashing = false;
 	}
-
-	if (!m_isDodging)
-		Dodge();
+	else
+	{
+		m_direction.Set(0, 0);
+		m_velocity = __LOLLIPOP_SPEED;
+	}
 
 	Enemy::Update(l_time);
 }
 
-void Lollipop::Attack()
-{
-	Shoot();
-
-	Enemy::Attack();
-}
-
-void Lollipop::Dodge()
-{
-	bool projectileFound = false;
-
-	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
-	{
-		if (it->IsFriendly())
-		{
-			if (m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
-			{
-				projectileFound = true;
-
-				int rand = Utils::randomgen(0, 1);
-
-				if (rand == 0)
-				{
-					m_direction.X() = -it->GetDirection().Y();
-					m_direction.Y() = it->GetDirection().X();
-				}		
-				else if (rand == 1)
-				{
-					m_direction.X() = it->GetDirection().Y();
-					m_direction.Y() = -it->GetDirection().X();
-				}
-
-				m_direction.Normalize();
-			}
-		}	
-	}
-
-	if (projectileFound)
-		m_isDodging = true;
-}
-
-void Lollipop::Shoot()
+void Lollipop::SpecialAttack(const sf::Time& l_time)
 {
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
 
 	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, false);
 	projectile->SetDamages(m_damages);
-	projectile->SetSpeed(m_velocity * 7.f);
+	projectile->SetSpeed(__LOLLIPOP_PROJECTILE_SPEED);
 
 	m_sharedContext->m_actorManager->AddProjectile(projectile);
 
-	StartCooldown();
+	StartSpecialAttackCooldown();
+}
+
+void Lollipop::SpecialAbility(const sf::Time& l_time)
+{
+	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
+	{
+		if (it->IsFriendly() &&
+			!it->MustDie() &&
+			m_position.DistanceTo(it->GetPosition()) <= __LOLLIPOP_DASH_MIN_DISTANCE)
+		{
+			m_velocity = __LOLLIPOP_DASH_SPEED;
+			const uint8_t rand = Utils::randomgen(0, 1);
+
+			if (!rand)
+			{
+				m_direction.X() = -it->GetDirection().Y();
+				m_direction.Y() = it->GetDirection().X();
+			}
+			else if (rand)
+			{
+				m_direction.X() = it->GetDirection().Y();
+				m_direction.Y() = -it->GetDirection().X();
+			}
+
+			m_direction.Normalize();
+			m_isDashing = true;
+			m_dashTimer = 0.0f;
+			StartSpecialAbilityCooldown();
+			return;
+		}
+	}
 }

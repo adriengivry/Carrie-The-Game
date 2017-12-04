@@ -19,7 +19,9 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 
 	m_active = false;
 
-	m_secondsBeforeActivation = Utils::randomgen(1, 6);
+	m_activationTimer = 0;
+
+	m_secondsBeforeActivation = Utils::randomgen(2, 6);
 
 	m_sprite.setScale(1.2f, 1.2f);
 
@@ -32,11 +34,17 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	do
 	{
 		spawnIsCorrect = true;
-		newPos.Set(Utils::randomgen(250, 1600), Utils::randomgen(300, 700));
+		newPos.Set(Utils::randomgen(250, 1600), Utils::randomgen(325, 950));
 
 		for (auto it : actorManager->GetSpawnPoints())
 			if (newPos.DistanceTo(it->GetPosition()) <= __DISTANCE_MIN_TO_OTHER_SPAWNPOINT && this != it)
 				spawnIsCorrect = false;
+
+		if (newPos.DistanceTo(actorManager->GetDoor(0)->GetPosition()) <= __DISTANCE_MIN_TO_DOOR)
+			spawnIsCorrect = false;
+
+		if (newPos.DistanceTo(actorManager->GetDoor(1)->GetPosition()) <= __DISTANCE_MIN_TO_DOOR)
+			spawnIsCorrect = false;
 
 		if (newPos.DistanceTo(actorManager->GetPlayer()->GetPosition()) <= __DISTANCE_MIN_TO_PLAYER)
 			spawnIsCorrect = false;
@@ -46,8 +54,8 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	while (!spawnIsCorrect && tries < 9999);
 
 	m_position = newPos;
-	// m_type = SpawnerType::CAKEMONSTER_SPAWNER;
-	m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
+	m_type = SpawnerType::LOLLIPOP_SPAWNER;
+	//m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
 	switch (m_type)
 	{
 	case SpawnerType::JELLY_SPAWNER:
@@ -79,6 +87,8 @@ SpawnPoint::~SpawnPoint()
 
 void SpawnPoint::SpawnEnemy()
 {
+	m_timer = 0;
+
 	switch (m_type)
 	{
 	case SpawnerType::JELLY_SPAWNER :
@@ -102,27 +112,24 @@ void SpawnPoint::SpawnEnemy()
 
 void SpawnPoint::Update(const sf::Time & l_time)
 {
-	m_timer += l_time.asSeconds();
+	if (IsActive())
+		m_timer += l_time.asSeconds();
 	
 	if (!IsActive())
+	{
 		m_activationTimer += l_time.asSeconds();
+		if (m_activationTimer >= m_secondsBeforeActivation)
+			Activate();
+	}
 
 	for (auto it : m_sharedContext->m_actorManager->GetEnemies())
-	{
 		if (m_position.DistanceTo(it->GetPosition()) <= 50)
 			m_timer = 0.f;
-	}
-
-	if (m_activationTimer >= m_secondsBeforeActivation)
-		Activate();
-
-	Actor::Update(l_time);
 
 	if (IsActive() && !IsDone() && m_timer >= m_spawnFrequency)
-	{
 		SpawnEnemy();
-		m_timer = 0;
-	}
+
+	Actor::Update(l_time);
 }
 
 void SpawnPoint::ToggleActive()
@@ -132,12 +139,17 @@ void SpawnPoint::ToggleActive()
 
 void SpawnPoint::Desactivate()
 {
-	m_active = false;
+	if (m_active)
+		m_active = false;
 }
 
 void SpawnPoint::Activate()
 {
-	m_active = true;
+	if (!m_active)
+	{
+		m_active = true;
+		m_timer = m_spawnFrequency;
+	}
 }
 
 void SpawnPoint::Draw() const

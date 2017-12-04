@@ -10,6 +10,7 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_velocity(__ACTOR_DEFAULT_VELOCITY),
 	m_gotAShadow(true),
 	m_shadowScale(1, 1),
+	m_spriteScale(1, 1),
 	m_flippable(false),
 	m_orientable(false),
 	m_mustDie(false) {}
@@ -57,6 +58,7 @@ void Actor::Draw() const
 		}
 
 		sf::Sprite toDraw = m_sprite;
+		toDraw.scale(m_spriteScale.X(), m_spriteScale.Y());
 
 		if (m_flippable && m_direction.X() >= 0)
 			toDraw.scale(-1, 1);

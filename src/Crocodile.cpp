@@ -2,83 +2,72 @@
 #include "StateManager.h"
 
 Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const float p_y) :
-	Enemy(p_sharedContext, p_x, p_y),
-	m_isJumping(false)
+	Enemy(p_sharedContext, p_x, p_y)
 {
-	SetTexture(__CROCODILE_TEXTURE);
-	m_sprite.setScale(1.5f, 1.5f);
-
-	m_flippable = true;
-
-	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
-
-	m_shadowOffset = 75;
+	SetTexture(__CROCODILE_TEXTURE_GREEN);
+	m_spriteScale.Set(1.5f, 1.5f);
 	m_shadowScale.Set(1.f, 0.5f);
 
-	m_velocity = __CROCODILE_SPEED;
-	m_cooldown = __CROCODILE_COOLDOWN;
+	m_shadowOffset = 50;
+	m_flippable = true;
 
-	if (m_maxLife > 350)
-		m_maxLife = 350;
-	else
-		m_maxLife = __CROCODILE_LIFE * level * 1.1f;
+	Crocodile::GenerateStats();
+	ResetLife();
 
-	if (m_damages > 33)
-		m_damages = 33;
-	else
-		m_damages = __CROCODILE_DAMAGES * level * 1.05;
-
-	m_life = m_maxLife;
-	m_timer = 0;
+	m_isDashing = false;
+	m_dashTimer = 0.0f;
+	m_dashMaxDuration = 0.4f;
+	m_showCooldownBar = true;
 }
 
 Crocodile::~Crocodile() {}
 
-void Crocodile::Update(const sf::Time & l_time)
+void Crocodile::GenerateStats()
 {
-	SetTexture(__CROCODILE_TEXTURE);
+	m_velocity = __CROCODILE_SPEED;
+	m_specialAbilityCooldown = __CROCODILE_SPECIAL_ABILITY_COOLDOWN;
 
-	if (m_isJumping)
+	GENERATE_LIFE(__CROCODILE_LIFE, __CROCODILE_LIFE_INCREMENTATION_COEFFICIENT, __CROCODILE_MAX_LIFE);
+	GENERATE_DAMAGES(__CROCODILE_DAMAGES, __CROCODILE_DAMAGES_INCREMENTATION_COEFFICIENT, __CROCODILE_MAX_DAMAGES);
+}
+
+void Crocodile::Update(const sf::Time& l_time)
+{
+	if (m_isDashing)
 	{
-		m_jumpTimer += l_time.asSeconds();
-
-		if (m_jumpTimer >= 0.6f)
-		{
-			m_isJumping = false;
-			m_jumpTimer = 0.0f;
-			m_velocity = __CROCODILE_SPEED;
-			m_direction.Set(0, 0);
-			m_followTarget = true;
-			StartCooldown();
-		}
+		SetTexture(__CROCODILE_TEXTURE_RED);
+		m_specialAbilityTimer = 0.0f;
+		m_velocity = __CROCODILE_DASH_SPEED;
+		m_dashTimer += l_time.asSeconds();
+		if (m_dashTimer >= m_dashMaxDuration)
+			m_isDashing = false;
 	}
+	else
+	{
+		m_velocity = __CROCODILE_SPEED;
+		m_followTarget = true;
 
-	if (m_isReady && !m_isJumping && inRange())
-		Jump();
-
-	if (m_isReady)
-		SetTexture("CrocodileFrontRed");
+		if (m_isSpecialAbilityReady)
+			SetTexture(__CROCODILE_TEXTURE_RED);
+		else
+			SetTexture(__CROCODILE_TEXTURE_GREEN);
+	}
 
 	Enemy::Update(l_time);
 }
 
-bool Crocodile::inRange() const
+void Crocodile::SpecialAbility(const sf::Time& l_time)
 {
-	const float range = m_position.DistanceTo(m_target->GetPosition());
+	if (m_position.DistanceTo(m_target->GetPosition()) < __CROCODILE_DASH_MIN_DISTANCE)
+	{
+		m_velocity = __CROCODILE_DASH_SPEED;
 
-	if (range < 350)
-		return true;
+		m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
+		m_direction.Normalize();
 
-	return false;
-}
-
-void Crocodile::Jump()
-{
-	m_velocity *= 8;
-
-	m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);
-	m_direction.Normalize();
-
-	m_followTarget = false;
-	m_isJumping = true;
+		m_followTarget = false;
+		m_isDashing = true;
+		m_dashTimer = 0.0f;
+		StartSpecialAbilityCooldown();
+	}	
 }

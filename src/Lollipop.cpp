@@ -35,18 +35,17 @@ void Lollipop::Update(const sf::Time & l_time)
 {
 	if (m_isDodging)
 	{
-		m_isDodging += l_time.asSeconds();
+		m_dodgeTimer += l_time.asSeconds();
 
-		if (m_dodgeTimer >= 5.f)
+		if (m_isDodging >= 0.1f)
 		{
 			m_isDodging = false;
 			m_dodgeTimer = 0.0f;
 			m_direction.Set(0, 0);
-			// StartCooldown();
 		}
 	}
 
-	if (m_isReady && !m_isDodging)
+	if (!m_isDodging)
 		Dodge();
 
 	Enemy::Update(l_time);
@@ -54,27 +53,43 @@ void Lollipop::Update(const sf::Time & l_time)
 
 void Lollipop::Attack()
 {
-	Shoot();
+	//Shoot();
 
 	Enemy::Attack();
 }
 
 void Lollipop::Dodge()
 {
+	bool projectileFound = false;
+
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
-		if (m_position.DistanceTo(it->GetPosition()) <= 400 && !it->MustDie())
+		if (it->IsFriendly())
 		{
-			if (m_position.X() < it->GetPosition().X())
-				m_direction.Set(1, -m_position.AngleTo(it->GetPosition()) + 90, AGMath::POLAR);
-			else
-				m_direction.Set(1, -m_position.AngleTo(it->GetPosition()) - 90, AGMath::POLAR);
+			const float angle = m_position.AngleTo(it->GetPosition());
 
-			m_direction.Normalize();
+			if (m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
+			{
+				projectileFound = true;
 
-			//m_isDodging = true;
-		}
+				if (angle < 90)
+				{
+					m_direction.X() = -it->GetDirection().Y();
+					m_direction.Y() = it->GetDirection().X();
+				}		
+				else if (angle > 90)
+				{
+					m_direction.X() = it->GetDirection().Y();
+					m_direction.Y() = -it->GetDirection().X();
+				}
+
+				m_direction.Normalize();
+			}
+		}	
 	}
+
+	if (projectileFound)
+		m_isDodging = true;
 }
 
 void Lollipop::Shoot()

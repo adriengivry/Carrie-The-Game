@@ -260,34 +260,7 @@ void State_Game::DrawUserInterface()
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
 
-	sf::RectangleShape consoleBackground;
-	consoleBackground.setSize(sf::Vector2f(350, 80));
-	consoleBackground.setPosition(0, 0);
-	consoleBackground.setFillColor(sf::Color(0, 0, 0, 200));
-
-	sf::Text spawnedEnemies;
-	spawnedEnemies.setString("SPAWNED ENEMIES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedEnemies));
-	spawnedEnemies.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	spawnedEnemies.setCharacterSize(18);
-	spawnedEnemies.setPosition(0, 0);
-
-	sf::Text travelledDistance;
-	travelledDistance.setString("TRAVELLED DISTANCE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_travelledDistance));
-	travelledDistance.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	travelledDistance.setCharacterSize(18);
-	travelledDistance.setPosition(0, 20);
-
-	sf::Text spawnedProjectiles;
-	spawnedProjectiles.setString("SPAWNED PROJECTILES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedProjectiles));
-	spawnedProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	spawnedProjectiles.setCharacterSize(18);
-	spawnedProjectiles.setPosition(0, 40);
-
-	// DRAW THINGS
-	window->draw(consoleBackground);
-	window->draw(spawnedEnemies);
-	window->draw(spawnedProjectiles);
-	window->draw(travelledDistance);
+	DrawConsole();
 
 	sf::Text curseStack;
 	curseStack.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
@@ -335,6 +308,40 @@ void State_Game::DrawUserInterface()
 	}
 }
 
+void State_Game::DrawConsole() const
+{
+	sf::RenderWindow* window = m_stateMgr->GetContext()->m_wind->GetRenderWindow();
+
+	sf::RectangleShape consoleBackground;
+	consoleBackground.setSize(sf::Vector2f(350, 80));
+	consoleBackground.setPosition(0, 0);
+	consoleBackground.setFillColor(sf::Color(0, 0, 0, 200));
+
+	sf::Text spawnedEnemies;
+	spawnedEnemies.setString("SPAWNED ENEMIES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedEnemies));
+	spawnedEnemies.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	spawnedEnemies.setCharacterSize(18);
+	spawnedEnemies.setPosition(0, 0);
+
+	sf::Text travelledDistance;
+	travelledDistance.setString("TRAVELLED DISTANCE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_travelledDistance));
+	travelledDistance.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	travelledDistance.setCharacterSize(18);
+	travelledDistance.setPosition(0, 20);
+
+	sf::Text spawnedProjectiles;
+	spawnedProjectiles.setString("SPAWNED PROJECTILES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedProjectiles));
+	spawnedProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	spawnedProjectiles.setCharacterSize(18);
+	spawnedProjectiles.setPosition(0, 40);
+
+	// DRAW THINGS
+	window->draw(consoleBackground);
+	window->draw(spawnedEnemies);
+	window->draw(spawnedProjectiles);
+	window->draw(travelledDistance);
+}
+
 void State_Game::MainMenu(EventDetails* l_details) const
 {
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
@@ -357,6 +364,7 @@ void State_Game::Activate()
 	soundManager->Pause("Menu");
 	soundManager->PlayMusic("Game", true, true);
 }
+
 void State_Game::Deactivate() {}
 
 void State_Game::GameOver() const

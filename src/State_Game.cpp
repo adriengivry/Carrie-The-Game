@@ -84,6 +84,19 @@ void State_Game::Draw()
 	
 	actorManager->Draw();
 
+	// CARRIE LIFE BAR
+	sf::RectangleShape rect;
+	sf::Vector2f barSize = sf::Vector2f(802, 60);
+	rect.setPosition(window->getSize().x / 2, window->getSize().y - 45);
+	rect.setFillColor(sf::Color::Black);
+	rect.setSize(barSize);
+	Utils::centerOrigin(rect);
+	window->draw(rect);
+	rect.setFillColor(sf::Color::Red);
+	barSize.x *= m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetLife() / m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetMaxLife();
+	rect.setSize(barSize);
+	window->draw(rect);
+
 	window->draw(m_backgroundEdgesSprites);
 
 	sf::Text levelLabel;
@@ -140,19 +153,6 @@ void State_Game::Draw()
 	weakerProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
 	weakerProjectiles.setCharacterSize(18);
 	weakerProjectiles.setPosition(0, 140);
-
-	// CARRIE LIFE BAR
-	sf::RectangleShape rect;
-	sf::Vector2f barSize = sf::Vector2f(800, 30);
-	rect.setPosition(window->getSize().x / 2, window->getSize().y - 35);
-	rect.setFillColor(sf::Color::White);
-	rect.setSize(barSize);
-	Utils::centerOrigin(rect);
-	window->draw(rect);
-	rect.setFillColor(sf::Color::Red);
-	barSize.x *= m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetLife() / m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetMaxLife();
-	rect.setSize(barSize);
-	window->draw(rect);
 
 	// DRAW THINGS
 	window->draw(consoleBackground);

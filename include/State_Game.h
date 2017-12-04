@@ -22,6 +22,7 @@ public:
 	void Update(const sf::Time& l_time) override;
 	void Draw() override;
 	void DrawUserInterface();
+	void DrawConsole() const;
 
 	void MainMenu(EventDetails* l_details) const;
 	void Pause(EventDetails* l_details) const;

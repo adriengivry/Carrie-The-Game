@@ -16,7 +16,10 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 	m_showCooldownBar = true;
 }
 
-Lollipop::~Lollipop() {}
+Lollipop::~Lollipop()
+{
+	m_sharedContext->m_soundManager->PlaySound("Death_Lollipop");
+}
 
 void Lollipop::GenerateStats()
 {

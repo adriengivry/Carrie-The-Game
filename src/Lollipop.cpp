@@ -72,12 +72,12 @@ void Lollipop::SpecialAbility(const sf::Time& l_time)
 			m_velocity = __LOLLIPOP_DASH_SPEED;
 			const uint8_t rand = Utils::randomgen(0, 1);
 
-			if (m_position.AngleTo(it->GetPosition()) < 5)
+			if (rand)
 			{
 				m_direction.X() = -it->GetDirection().Y();
 				m_direction.Y() = it->GetDirection().X();
 			}
-			else if (m_position.AngleTo(it->GetPosition()) > -5)
+			else if (!rand)
 			{
 				m_direction.X() = it->GetDirection().Y();
 				m_direction.Y() = -it->GetDirection().X();

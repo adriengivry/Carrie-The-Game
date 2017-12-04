@@ -21,4 +21,10 @@ public:
 	void Dodge();
 	void Shoot();
 
+private:
+	bool m_isDodging;
+	bool m_inRange;
+
+	float m_dodgeTimer;
+
 };

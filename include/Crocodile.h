@@ -16,7 +16,7 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 
-	bool inRange();
+	bool inRange() const;
 
 	void Jump();
 

@@ -2,7 +2,9 @@
 #include "StateManager.h"
 
 Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float p_y) :
-	Enemy(p_sharedContext, p_x, p_y)
+	Enemy(p_sharedContext, p_x, p_y),
+	m_isDodging(false),
+	m_inRange(false)
 {
 	SetTexture(__LOLLIPOP_TEXTURE);
 
@@ -32,7 +34,21 @@ Lollipop::~Lollipop() {}
 
 void Lollipop::Update(const sf::Time & l_time)
 {
-	Dodge();
+	if (m_isDodging)
+	{
+		m_isDodging += l_time.asSeconds();
+
+		if (m_dodgeTimer >= 5.f)
+		{
+			m_isDodging = false;
+			m_dodgeTimer = 0.0f;
+			m_direction.Set(0, 0);
+			StartCooldown();
+		}
+	}
+
+	if (m_isReady && !m_isDodging)
+		Dodge();
 
 	Enemy::Update(l_time);
 }
@@ -46,24 +62,19 @@ void Lollipop::Attack()
 
 void Lollipop::Dodge()
 {
-	bool isRight = false;
-
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
 		if (m_position.DistanceTo(it->GetPosition()) <= 400 && !it->MustDie())
 		{
-			if (it->GetPosition().X() > m_position.X())
-				isRight = true;
-
-			if (isRight)
-				m_direction.Set(1, m_position.AngleTo(it->GetPosition()) + 90, AGMath::POLAR);
+			if (m_position.X() < it->GetPosition().X())
+				m_direction.Set(1, -m_position.AngleTo(it->GetPosition()) + 90, AGMath::POLAR);
 			else
-				m_direction.Set(1, m_position.AngleTo(it->GetPosition()) - 90, AGMath::POLAR);
+				m_direction.Set(1, -m_position.AngleTo(it->GetPosition()) - 90, AGMath::POLAR);
 
 			m_direction.Normalize();
+
+			//m_isDodging = true;
 		}
-		else
-			m_direction.Set(0, 0);
 	}
 }
 

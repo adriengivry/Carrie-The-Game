@@ -62,7 +62,7 @@ void Crocodile::Update(const sf::Time & l_time)
 	Enemy::Update(l_time);
 }
 
-bool Crocodile::inRange()
+bool Crocodile::inRange() const
 {
 	const float range = m_position.DistanceTo(m_target->GetPosition());
 

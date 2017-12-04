@@ -25,7 +25,6 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 	m_timer = 0;
 
 	m_followTarget = false;
-	m_damagesOnContact = false;
 }
 
 CakeMonster::~CakeMonster() {}
@@ -42,7 +41,9 @@ void CakeMonster::TurretMode()
 	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
 
 	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, true);
-	projectile->SetDamages(m_damages);
+	
+	// DAMAGES PER SECOND
+	projectile->SetDamages(m_damages / 60.f);
 	projectile->SetSpeed(m_velocity);
 
 	m_sharedContext->m_actorManager->AddProjectile(projectile);

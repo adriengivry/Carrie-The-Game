@@ -9,6 +9,8 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	m_damages = __PROJECTILE_DAMAGES;
 	m_hitrate = __PROJECTILE_HITRATE;
 
+	m_constantDamages = p_isLaser;
+
 	m_friendly = p_friendly;
 
 	if (m_friendly)
@@ -62,7 +64,7 @@ void Projectile::Update(const sf::Time& l_time)
 		if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()) && !MustDie())
 		{
 			m_mustDie = true;
-			m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages);
+			m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, m_constantDamages);
 		}
 	}
 

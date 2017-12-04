@@ -276,7 +276,7 @@ void Player::Fire(EventDetails* l_details)
 	m_sharedContext->m_actorManager->AddProjectile(newProjectile);
 }
 
-void Player::RemoveLife(const float p_value)
+void Player::RemoveLife(const float p_value, const bool p_constantDamages)
 {
 	if (!IsInvulnerable())
 	{
@@ -289,9 +289,8 @@ void Player::RemoveLife(const float p_value)
 		}
 		else
 		{
-			MakeInvulnerable();
+			if (!p_constantDamages)
+				MakeInvulnerable();
 		}
 	}
 }
-
-

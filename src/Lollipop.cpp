@@ -7,7 +7,7 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 {
 	SetTexture(__LOLLIPOP_TEXTURE);
 
-	float level = m_sharedContext->m_gameInfo->m_currentLevel;
+	const float level = m_sharedContext->m_gameInfo->m_currentLevel;
 
 	m_velocity	= __LOLLIPOP_SPEED;
 	m_cooldown = __LOLLIPOP_COOLDOWN;
@@ -26,7 +26,6 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 	m_timer		= 0;
 
 	m_followTarget		= false;
-	m_damagesOnContact	= false;
 }
 
 Lollipop::~Lollipop() {}
@@ -53,7 +52,7 @@ void Lollipop::Update(const sf::Time & l_time)
 
 void Lollipop::Attack()
 {
-	//Shoot();
+	Shoot();
 
 	Enemy::Attack();
 }

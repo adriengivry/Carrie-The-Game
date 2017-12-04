@@ -28,7 +28,7 @@ public:
 	bool IsInvulnerable() const;
 
 	void Fire(EventDetails* l_details);
-	void RemoveLife(const float p_value);
+	void RemoveLife(const float p_value, const bool p_constantDamages = false);
 
 private:
 	bool m_moveLeft;

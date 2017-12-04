@@ -71,7 +71,7 @@ void Npc::GenerateQuestion()
 		m_randomValue = 1;
 	else
 	{
-		do m_randomValue = Utils::randomgen(goodValue - goodValue / 2, goodValue + goodValue / 2);
+		do m_randomValue = Utils::randomgen(goodValue - goodValue / 1.5f, goodValue + goodValue / 1.5f);
 		while (m_randomValue == goodValue);
 	}
 	

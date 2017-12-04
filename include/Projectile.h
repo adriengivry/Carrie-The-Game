@@ -29,6 +29,7 @@ public:
 
 private:
 	bool m_friendly;
+	bool m_constantDamages;
 
 	float m_damages;
 	float m_hitrate;

@@ -260,7 +260,8 @@ void State_Game::DrawUserInterface()
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
 
-	DrawConsole();
+	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
+		DrawConsole();
 
 	sf::Text curseStack;
 	curseStack.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));

@@ -46,23 +46,24 @@ void Lollipop::Attack()
 
 void Lollipop::Dodge()
 {
+	bool isRight = false;
+
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
 		if (m_position.DistanceTo(it->GetPosition()) <= 400 && !it->MustDie())
 		{
-			const float angle = m_position.AngleTo(it->GetPosition());
+			if (it->GetPosition().X() > m_position.X())
+				isRight = true;
 
-			if (angle < 45)
-				m_direction.Set(-it->GetPosition().Y(), it->GetPosition().X());
+			if (isRight)
+				m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()) + 90, AGMath::POLAR);
 			else
-				m_direction.Set(it->GetPosition().Y(), -it->GetPosition().X());
+				m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()) - 90, AGMath::POLAR);
 
 			m_direction.Normalize();
 		}
 		else
-		{
 			m_direction.Set(0, 0);
-		}
 	}
 }
 

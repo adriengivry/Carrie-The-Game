@@ -5,7 +5,12 @@
 #include "Enemy.h"
 
 State_Game::State_Game(StateManager* l_stateManager) :
-	BaseState(l_stateManager) {}
+	BaseState(l_stateManager), m_whiteRectOpacity(255),
+	m_sliderPauseTimer(0),
+	m_startTransition(false),
+	m_transitionEnd(false)
+{
+}
 
 State_Game::~State_Game() {}
 
@@ -17,6 +22,41 @@ void State_Game::OnCreate()
 	// OnCreate core
 	++gameInfo->m_gameStarted;
 	gameInfo->Reset();
+
+	m_startTransition = false;
+	m_transitionEnd = false;
+
+	m_transitionSlider.setPosition(0, -1500);
+	m_sliderPauseTimer = 0;
+
+	m_whiteRectOpacity = 255;
+
+	m_whiteRect.setPosition(0, 0);
+	m_whiteRect.setSize(sf::Vector2f(windowSize.x, windowSize.y));
+	m_whiteRect.setFillColor(sf::Color::White);
+
+	m_curseText.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	m_curseText.setPosition(windowCenter.x, -650);
+	m_curseText.setFillColor(sf::Color::Yellow);
+	m_curseText.setCharacterSize(45);
+	m_curseText.setString("");
+
+	for (uint8_t i = 0; i < 4; ++i)
+	{
+		m_curseIcon[i].setPosition(windowCenter.x + 550 + 70 * i, windowSize.y - 40);
+	}
+
+	if (textureManager->RequireResource("Curse_Icon_Reverse"))
+		m_curseIcon[0].setTexture(*textureManager->GetResource("Curse_Icon_Reverse"));
+
+	if (textureManager->RequireResource("Curse_Icon_Slower_Carrie"))
+		m_curseIcon[1].setTexture(*textureManager->GetResource("Curse_Icon_Slower_Carrie"));
+
+	if (textureManager->RequireResource("Curse_Icon_Slower_Projectile"))
+		m_curseIcon[2].setTexture(*textureManager->GetResource("Curse_Icon_Slower_Projectile"));
+
+	if (textureManager->RequireResource("Curse_Icon_Weaker_Projectile"))
+		m_curseIcon[3].setTexture(*textureManager->GetResource("Curse_Icon_Weaker_Projectile"));
 
 	const MapType randomMap = static_cast<MapType>(Utils::randomgen(0, 1));
 	gameInfo->m_mapType = randomMap;
@@ -44,14 +84,14 @@ void State_Game::OnCreate()
 		break;
 	}
 
-	
-
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
 	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 250));
 	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
 	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
+
+	const uint8_t numberOfSpawners = Utils::randomgen(2 + gameInfo->m_currentLevel / 4, 5 + gameInfo->m_currentLevel / 4);
 	
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < numberOfSpawners; ++i)
 		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
 
 	// Adding callbacks
@@ -74,6 +114,17 @@ void State_Game::Update(const sf::Time& l_time)
 	const sf::Vector2u l_windSize = m_stateMgr->GetContext()->m_wind->GetWindowSize();
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
 
+	if (!m_startTransition)
+		if (m_whiteRectOpacity > 0)
+		{
+			m_whiteRectOpacity -= 255 * l_time.asSeconds();
+			if (m_whiteRectOpacity < 0)
+				m_whiteRectOpacity = 0;
+			sf::Color newColor = m_whiteRect.getFillColor();
+			newColor.a = m_whiteRectOpacity;
+			m_whiteRect.setFillColor(newColor);
+		}
+
 	if (!m_stateMgr->GetContext()->m_eventManager->IsFocused())
 		Pause(nullptr);
 	
@@ -90,10 +141,68 @@ void State_Game::Update(const sf::Time& l_time)
 		actorManager->GetDoor(1)->Activate();
 	}
 
-	if (m_stateMgr->GetContext()->m_gameInfo->m_doorPassed)
+	if (m_stateMgr->GetContext()->m_gameInfo->m_doorPassed && !m_startTransition)
 	{
-		OnDestroy();
-		OnCreate();
+		m_startTransition = true;
+		if (m_stateMgr->GetContext()->m_gameInfo->m_getCursed)
+		{
+			switch (m_stateMgr->GetContext()->m_gameInfo->m_curseType)
+			{
+			default:
+			case REVERSE_MOVEMENT:
+				m_curseText.setString("KEYBOARD IS FUCKED UP");
+				break;
+
+			case SLOWER_CARRIE:
+				m_curseText.setString("YOU ARE SLOW !");
+				break;
+
+			case SLOWER_PROJECTILES:
+				m_curseText.setString("SLOW CHOCOLATES");
+				break;
+
+			case WEAKER_PROJECTILES:
+				m_curseText.setString("WEAK CHOCOLATES");
+				break;
+			}
+			Utils::centerOrigin(m_curseText);
+
+			if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Curse_Slider"))
+				m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Curse_Slider"));
+		}
+
+		if (!m_stateMgr->GetContext()->m_gameInfo->m_getCursed)
+			if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Truth_Slider"))
+				m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Truth_Slider"));
+	}
+
+	if (m_startTransition)
+	{
+		if (m_transitionSlider.getPosition().y >= 0)
+		{
+			m_sliderPauseTimer += l_time.asSeconds();
+		}
+		else
+		{
+			m_transitionSlider.move(0, 1250 * l_time.asSeconds());
+			m_curseText.move(0, 1250 * l_time.asSeconds());
+			if (m_transitionSlider.getPosition().y >= 0)
+				m_transitionSlider.setPosition(0, 0);
+		}
+
+		if (m_sliderPauseTimer >= 1.5f)
+		{
+			m_transitionSlider.move(0, -5000 * l_time.asSeconds());
+			m_curseText.move(0, -5000 * l_time.asSeconds());
+			if (m_transitionSlider.getPosition().y <= -1500)
+				m_transitionEnd = true;
+		}
+
+		if (m_transitionEnd)
+		{
+			OnDestroy();
+			OnCreate();
+		}
 	}
 }
 
@@ -105,6 +214,27 @@ void State_Game::Draw()
 	window->draw(m_backgroundSprite);
 	
 	actorManager->Draw();
+
+	DrawUserInterface();
+
+	window->draw(m_whiteRect);
+
+	if (m_startTransition)
+	{
+		if (m_sliderPauseTimer >= 1.5f)
+		{
+			m_whiteRect.setFillColor(sf::Color::White);
+		}
+
+		window->draw(m_transitionSlider);
+		if (m_curseText.getString() != "")
+			window->draw(m_curseText);
+	}
+}
+
+void State_Game::DrawUserInterface()
+{
+	sf::RenderWindow* window = m_stateMgr->GetContext()->m_wind->GetRenderWindow();
 
 	// CARRIE LIFE BAR
 	sf::RectangleShape rect;
@@ -124,12 +254,13 @@ void State_Game::Draw()
 	sf::Text levelLabel;
 	levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
-	levelLabel.setPosition(window->getSize().x / 2, 50);
+	levelLabel.setFillColor(sf::Color::Black);
+	levelLabel.setPosition(window->getSize().x / 2 - 600, window->getSize().y - 40);
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
 
 	sf::RectangleShape consoleBackground;
-	consoleBackground.setSize(sf::Vector2f(350, 200));
+	consoleBackground.setSize(sf::Vector2f(350, 80));
 	consoleBackground.setPosition(0, 0);
 	consoleBackground.setFillColor(sf::Color(0, 0, 0, 200));
 
@@ -151,41 +282,56 @@ void State_Game::Draw()
 	spawnedProjectiles.setCharacterSize(18);
 	spawnedProjectiles.setPosition(0, 40);
 
-	// CURSES
-	sf::Text reverseMove;
-	reverseMove.setString("REVERSE MOVE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement));
-	reverseMove.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	reverseMove.setCharacterSize(18);
-	reverseMove.setPosition(0, 80);
-
-	sf::Text slowerCarrie;
-	slowerCarrie.setString("SLOWER CARRIE : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerCarrie));
-	slowerCarrie.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	slowerCarrie.setCharacterSize(18);
-	slowerCarrie.setPosition(0, 100);
-
-	sf::Text slowerProjectiles;
-	slowerProjectiles.setString("SLOWER PROJECTILES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles));
-	slowerProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	slowerProjectiles.setCharacterSize(18);
-	slowerProjectiles.setPosition(0, 120);
-
-	sf::Text weakerProjectiles;
-	weakerProjectiles.setString("WEAKER PROJECTILES : " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles));
-	weakerProjectiles.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	weakerProjectiles.setCharacterSize(18);
-	weakerProjectiles.setPosition(0, 140);
-
 	// DRAW THINGS
 	window->draw(consoleBackground);
 	window->draw(spawnedEnemies);
 	window->draw(spawnedProjectiles);
 	window->draw(travelledDistance);
 
-	window->draw(reverseMove);
-	window->draw(slowerCarrie);
-	window->draw(slowerProjectiles);
-	window->draw(weakerProjectiles);
+	sf::Text curseStack;
+	curseStack.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	curseStack.setFillColor(sf::Color::Black);
+	curseStack.setCharacterSize(20);
+
+
+	for (uint8_t i = 0; i < 4; ++i)
+	{
+		Utils::centerOrigin(m_curseIcon[i]);
+		window->draw(m_curseIcon[i]);
+		switch (i)
+		{
+		default:
+			break;
+
+		case REVERSE_MOVEMENT:
+			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement));
+			break;
+
+		case SLOWER_CARRIE:
+			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerCarrie));
+			break;
+
+		case SLOWER_PROJECTILES:
+			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles));
+			break;
+
+		case WEAKER_PROJECTILES:
+			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles));
+			break;
+		}
+		curseStack.setPosition(m_curseIcon[i].getPosition());
+		curseStack.move(0, 20);
+		sf::CircleShape badge;
+		badge.setPosition(curseStack.getPosition());
+		badge.setRadius(15);
+		badge.setFillColor(sf::Color::White);
+		badge.setOutlineColor(sf::Color::Black);
+		badge.setOutlineThickness(2);
+		Utils::centerOrigin(badge);
+		window->draw(badge);
+		Utils::centerOrigin(curseStack);
+		window->draw(curseStack);
+	}
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

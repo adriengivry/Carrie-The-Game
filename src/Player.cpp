@@ -128,74 +128,87 @@ void Player::Unreact(EventDetails* l_details)
 
 void Player::Move(const sf::Time& l_time)
 {
-	Vector2D<float> direction;
-
-	if (m_moveLeft)
-		direction.X() -= 1;
-	if (m_moveRight)
-		direction.X() += 1;
-	if (m_moveUp)
-		direction.Y() -= 1;
-	if (m_moveDown)
-		direction.Y() += 1;
-
-	if (abs(direction.X()) + abs(direction.Y()) == 2 && !m_collide)
+	if (!m_sharedContext->m_gameInfo->m_doorPassed)
 	{
-		direction.X() /= 2;
-		direction.Y() /= 2;
-	}
+		Vector2D<float> direction;
 
-	if (direction.X() > 0 && direction.Y() == 0)
-		SetTexture("Right");
-	else if (direction.X() < 0 && direction.Y() == 0)
-		SetTexture("Left");
-	else if (direction.X() == 0 && direction.Y() > 0)
-		SetTexture("Front");
-	else if (direction.X() == 0 && direction.Y() < 0)
-		SetTexture("Back");
-	else if (direction.X() > 0 && direction.Y() > 0)
-		SetTexture("Front_Right");
-	else if(direction.X() < 0 && direction.Y() > 0)
-		SetTexture("Front_Left");
-	else if (direction.X() > 0 && direction.Y() < 0)
-		SetTexture("Back_Right");
-	if (direction.X() < 0 && direction.Y() < 0)
-		SetTexture("Back_Left");
+		if (m_moveLeft)
+			direction.X() -= 1;
+		if (m_moveRight)
+			direction.X() += 1;
+		if (m_moveUp)
+			direction.Y() -= 1;
+		if (m_moveDown)
+			direction.Y() += 1;
 
-	m_direction = direction;
+		if (abs(direction.X()) + abs(direction.Y()) == 2 && !m_collide)
+		{
+			direction.X() /= 2;
+			direction.Y() /= 2;
+		}
 
-	if (!m_sharedContext->m_gameInfo->m_levelCompleted)
-	{
-		m_sharedContext->m_gameInfo->m_travelledDistance += abs(m_direction.X() * m_velocity * l_time.asSeconds());
-		m_sharedContext->m_gameInfo->m_travelledDistance += abs(m_direction.Y() * m_velocity * l_time.asSeconds());
-	}
+		if (direction.X() > 0 && direction.Y() == 0)
+			SetTexture("Right");
+		else if (direction.X() < 0 && direction.Y() == 0)
+			SetTexture("Left");
+		else if (direction.X() == 0 && direction.Y() > 0)
+			SetTexture("Front");
+		else if (direction.X() == 0 && direction.Y() < 0)
+			SetTexture("Back");
+		else if (direction.X() > 0 && direction.Y() > 0)
+			SetTexture("Front_Right");
+		else if (direction.X() < 0 && direction.Y() > 0)
+			SetTexture("Front_Left");
+		else if (direction.X() > 0 && direction.Y() < 0)
+			SetTexture("Back_Right");
+		if (direction.X() < 0 && direction.Y() < 0)
+			SetTexture("Back_Left");
 
-	Actor::Move(l_time);
+		m_direction = direction;
 
-	m_collide = false;
+		Actor::Move(l_time);
 
-	if (m_position.X() < 150)
-	{
-		m_position.X(150);
-		m_collide = true;
-	}
+		m_collide = false;
 
-	if (m_position.X() > 1770)
-	{
-		m_position.X(1770);
-		m_collide = true;
-	}
+		bool xCollide = false;
+		bool yCollide = false;
 
-	if (m_position.Y() < 250)
-	{
-		m_position.Y(250);
-		m_collide = true;
-	}
+		if (m_position.X() < 150)
+		{
+			m_position.X(150);
+			m_collide = true;
+			xCollide = true;
+		}
 
-	if (m_position.Y() > 920)
-	{
-		m_position.Y(920);
-		m_collide = true;
+		if (m_position.X() > 1770)
+		{
+			m_position.X(1770);
+			m_collide = true;
+			xCollide = true;
+		}
+
+		if (m_position.Y() < 250)
+		{
+			m_position.Y(250);
+			m_collide = true;
+			yCollide = true;
+		}
+
+		if (m_position.Y() > 920)
+		{
+			m_position.Y(920);
+			m_collide = true;
+			yCollide = true;
+		}
+
+		if (!m_sharedContext->m_gameInfo->m_levelCompleted)
+		{
+			if (!xCollide)
+				m_sharedContext->m_gameInfo->m_travelledDistance += abs(m_direction.X() * m_velocity * l_time.asSeconds()) / 100;
+
+			if (!yCollide)
+				m_sharedContext->m_gameInfo->m_travelledDistance += abs(m_direction.Y() * m_velocity * l_time.asSeconds()) / 100;
+		}
 	}
 }
 

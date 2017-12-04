@@ -15,7 +15,7 @@ public:
 	void Activate();
 	void Desactivate();
 
-	void Use();
+	void Use() const;
 
 	void Draw() const override;
 	void DrawLabel() const;
@@ -27,6 +27,8 @@ public:
 	void Update(const sf::Time& l_time) override;
 private:
 	bool m_activated;
+
+	bool m_alreadyGetUsed;
 
 	bool m_answer;
 };

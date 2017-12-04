@@ -45,15 +45,18 @@ void JellyBear::TryToIntercept()
 
 	for (auto it : m_sharedContext->m_actorManager->GetProjectile())
 	{
-		const float angle = m_position.AngleTo(it->GetPosition());
-
-		if (angle < 5 && m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
+		if (it->IsFriendly())
 		{
-			projectileFound = true;
-			SetTarget(it);
+			const float angle = m_position.AngleTo(it->GetPosition());
+
+			if (angle < 5 && m_position.DistanceTo(it->GetPosition()) <= 250 && !it->MustDie())
+			{
+				projectileFound = true;
+				SetTarget(it);
+			}
+			else
+				SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 		}
-		else
-			SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	}
 
 	if (projectileFound)

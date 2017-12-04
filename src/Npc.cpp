@@ -16,7 +16,7 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	if (m_sharedContext->m_textureManager->RequireResource("Bubble"))
 	{
 		m_speachBubble.setTexture(*m_sharedContext->m_textureManager->GetResource("Bubble"));
-		m_speachBubble.setPosition(1150, 90);
+		m_speachBubble.setPosition(1100, 90);
 		m_speachBubble.setScale(0.6f, 0.6f);
 		Utils::centerOrigin(m_speachBubble);
 	}
@@ -108,7 +108,7 @@ void Npc::DrawAffirmation() const
 	sf::Text question;
 	question.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
 	question.setCharacterSize(20);
-	question.setPosition(1150, 70);
+	question.setPosition(1100, 70);
 	question.setFillColor(sf::Color::Black);
 
 	std::string value;
@@ -121,7 +121,7 @@ void Npc::DrawAffirmation() const
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("Wow ! You travelled \n" + value + " pixels !");
+		question.setString("Wow ! You travelled \n" + value + " meters !");
 		break;
 
 	case QuestionType::ENEMIES_SPAWNED:
@@ -130,7 +130,7 @@ void Npc::DrawAffirmation() const
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("I have counted that \n" + value + " enemies spawned !");
+		question.setString("Seems that \n" + value + " enemies spawned here !");
 		break;
 
 	case QuestionType::PROJECTILE_SPAWNED:
@@ -139,7 +139,7 @@ void Npc::DrawAffirmation() const
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("Ahahah, you threw \n" + value + " pieces of chocolate !");
+		question.setString("Damn it ! You threw \n" + value + " pieces of chocolate !");
 		break;
 	}
 

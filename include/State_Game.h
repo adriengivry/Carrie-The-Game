@@ -21,12 +21,26 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 	void Draw() override;
+	void DrawUserInterface();
 
 	void MainMenu(EventDetails* l_details) const;
 	void Pause(EventDetails* l_details) const;
 private:
 	sf::Sprite m_backgroundSprite;
 	sf::Sprite m_backgroundEdgesSprites;
+
+	sf::Sprite m_curseIcon[4];
+
+	float m_whiteRectOpacity;
+	sf::RectangleShape m_whiteRect;
+
+	sf::Text m_curseText;
+	float m_sliderPauseTimer;
+
+	sf::Sprite m_transitionSlider;
+
+	bool m_startTransition;
+	bool m_transitionEnd;
 
 	sf::Vector2f m_increment;
 };

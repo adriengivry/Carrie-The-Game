@@ -29,6 +29,8 @@ struct GameInfo
 	uint16_t m_spawnedEnemies = 0;
 	float m_travelledDistance = 0;
 	uint16_t m_spawnedProjectiles = 0;
+	bool m_getCursed = false;
+	uint8_t m_curseType;
 
 	MapType m_mapType;
 
@@ -45,6 +47,7 @@ struct GameInfo
 		m_gameOver = false;
 		m_doorPassed = false;
 		m_levelCompleted = false;
+		m_getCursed = false;
 	}
 
 	void FullReset()
@@ -61,5 +64,6 @@ struct GameInfo
 		m_slowerCarrie = 0;
 		m_slowerProjectiles = 0;
 		m_weakerProjectiles = 0;
+		m_getCursed = false;
 	}
 };

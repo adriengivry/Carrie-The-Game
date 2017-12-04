@@ -22,6 +22,8 @@ public:
 	void MultiplySpeed(const float p_value);
 	void MultiplyHitrate(const float p_value);
 
+	bool IsFriendly() const;
+
 	void SetDamages(const float p_value);
 	void SetSpeed(const float p_speed);
 

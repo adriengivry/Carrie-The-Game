@@ -12,7 +12,10 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	m_friendly = p_friendly;
 
 	if (m_friendly)
+	{
 		SetTexture(__PROJECTILE_TEXTURE);
+		++m_sharedContext->m_gameInfo->m_spawnedProjectiles;
+	}
 	else
 	{
 		if (p_isLaser)
@@ -25,8 +28,6 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	}
 
 	m_sprite.scale(0.7f, 0.7f);
-
-	++m_sharedContext->m_gameInfo->m_spawnedProjectiles;
 
 	m_orientable = false;
 }
@@ -78,6 +79,11 @@ void Projectile::MultiplySpeed(const float p_value)
 void Projectile::MultiplyHitrate(const float p_value)
 {
 	m_hitrate *= p_value;
+}
+
+bool Projectile::IsFriendly() const
+{
+	return m_friendly;
 }
 
 void Projectile::SetDamages(const float p_value)

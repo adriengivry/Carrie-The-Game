@@ -13,6 +13,8 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, con
 
 	m_answer = p_answer;
 
+	m_alreadyGetUsed = false;
+
 	m_gotAShadow = false;
 
 	m_velocity = 0.0f;
@@ -32,16 +34,18 @@ void Door::Desactivate()
 	m_activated = false;
 }
 
-void Door::Use()
+void Door::Use() const
 {
 	if (m_answer == m_sharedContext->m_actorManager->GetNpc()->GetAnswer())
 	{
+		m_sharedContext->m_gameInfo->m_getCursed = false;
 		m_sharedContext->m_gameInfo->m_doorPassed = true;
 		++m_sharedContext->m_gameInfo->m_currentLevel;
 	}
 	else
 	{
 		m_sharedContext->m_gameInfo->m_doorPassed = true;
+		m_sharedContext->m_gameInfo->m_getCursed = true;
 		++m_sharedContext->m_gameInfo->m_currentLevel;
 		SelectCurse();
 	}
@@ -108,15 +112,18 @@ void Door::SelectCurse() const
 	default:
 		break;
 	}
+
+	gameInfo->m_curseType = curse;
 }
 
 void Door::Update(const sf::Time& l_time)
 {
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
 
-	if (m_position.DistanceTo(player->GetPosition()) <= __DOOR_ACTIVATION_ZONE && IsActivated() && player->GetDirection().Y() < 0)
+	if (m_position.DistanceTo(player->GetPosition()) <= __DOOR_ACTIVATION_ZONE && IsActivated() && player->GetDirection().Y() < 0 && !m_alreadyGetUsed)
 	{
 		Use();
+		m_alreadyGetUsed = true;
 	}
 
 	Actor::Update(l_time);

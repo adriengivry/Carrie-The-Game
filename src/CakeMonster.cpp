@@ -41,7 +41,7 @@ void CakeMonster::TurretMode()
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
 
-	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false);
+	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, true);
 	projectile->SetDamages(m_damages);
 	projectile->SetSpeed(m_velocity);
 

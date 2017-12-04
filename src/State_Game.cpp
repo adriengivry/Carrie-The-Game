@@ -18,11 +18,33 @@ void State_Game::OnCreate()
 	++gameInfo->m_gameStarted;
 	gameInfo->Reset();
 
-	textureManager->RequireResource("Game_Bg");
-	textureManager->RequireResource("Background_Edges");
+	const MapType randomMap = static_cast<MapType>(Utils::randomgen(0, 1));
+	gameInfo->m_mapType = randomMap;
+	switch (randomMap)
+	{
+	default:
+		textureManager->RequireResource("Map1_Background");
+		textureManager->RequireResource("Map1_Edges");
+		m_backgroundSprite.setTexture(*textureManager->GetResource("Map1_Background"));
+		m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map1_Edges"));
+		break;
 
-	m_backgroundSprite.setTexture(*textureManager->GetResource("Game_Bg"));
-	m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Background_Edges"));
+	case MapType::MAP1:
+		textureManager->RequireResource("Map1_Background");
+		textureManager->RequireResource("Map1_Edges");
+		m_backgroundSprite.setTexture(*textureManager->GetResource("Map1_Background"));
+		m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map1_Edges"));
+		break;
+
+	case MapType::MAP2:
+		textureManager->RequireResource("Map2_Background");
+		textureManager->RequireResource("Map2_Edges");
+		m_backgroundSprite.setTexture(*textureManager->GetResource("Map2_Background"));
+		m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map2_Edges"));
+		break;
+	}
+
+	
 
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
 	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 250));

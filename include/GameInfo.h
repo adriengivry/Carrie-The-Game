@@ -8,6 +8,12 @@ enum Curses
 	WEAKER_PROJECTILES,
 };
 
+enum class MapType
+{
+	MAP1,
+	MAP2
+};
+
 struct GameInfo
 {
 	const float __CARRIE_SLOW_MULTIPLICATOR = 0.75;
@@ -23,6 +29,8 @@ struct GameInfo
 	uint16_t m_spawnedEnemies = 0;
 	float m_travelledDistance = 0;
 	uint16_t m_spawnedProjectiles = 0;
+
+	MapType m_mapType;
 
 	bool m_reverseMovement;
 	uint8_t m_slowerCarrie = 0;

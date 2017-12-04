@@ -4,7 +4,8 @@
 class Door : public Actor
 {
 private:
-	const std::string	__DOOR_TEXTURE = "Door";
+	const std::string	__MAP_1_DOOR_TEXTURE = "Map1_Door";
+	const std::string	__MAP_2_DOOR_TEXTURE = "Map2_Door";
 	const float			__DOOR_ACTIVATION_ZONE = 80;
 
 public:

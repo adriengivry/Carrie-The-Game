@@ -1,7 +1,7 @@
 #include "Projectile.h"
 #include "StateManager.h"
 
-Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, const float p_x, const float p_y, const bool p_friendly)
+Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, const float p_x, const float p_y, const bool p_friendly, const bool p_isLaser)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	m_direction = p_direction;
@@ -14,7 +14,15 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	if (m_friendly)
 		SetTexture(__PROJECTILE_TEXTURE);
 	else
-		SetTexture(__ENEMY_PROJECTILE_TEXTURE);
+	{
+		if (p_isLaser)
+		{
+			SetTexture(__ENEMY_PROJECTILE_LASER_TEXTURE);
+			m_gotAShadow = false;
+		}
+		else
+			SetTexture(__ENEMY_PROJECTILE_TEXTURE);
+	}
 
 	m_sprite.scale(0.7f, 0.7f);
 

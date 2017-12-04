@@ -6,7 +6,10 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, con
 {
 	Desactivate();
 
-	SetTexture(__DOOR_TEXTURE);
+	if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP1)
+		SetTexture(__MAP_1_DOOR_TEXTURE);
+	else if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP2)
+		SetTexture(__MAP_2_DOOR_TEXTURE);
 
 	m_answer = p_answer;
 

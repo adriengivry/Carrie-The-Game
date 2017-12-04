@@ -19,6 +19,8 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 
 	m_active = false;
 
+	m_secondsBeforeActivation = Utils::randomgen(1, 6);
+
 	m_sprite.setScale(1.2f, 1.2f);
 
 	bool spawnIsCorrect;
@@ -51,27 +53,22 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	case SpawnerType::JELLY_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_JELLY_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_JELLY_MAXSPAWN;
-		m_secondsBeforeActivation = __SPAWNPOINT_JELLY_WAIT;
 		break;
 	case SpawnerType::JELLYBEAR_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_JELLYBEAR_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_JELLYBEAR_MAXSPAWN;
-		m_secondsBeforeActivation = __SPAWNPOINT_JELLYBEAR_WAIT;
 		break;
 	case SpawnerType::LOLLIPOP_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_LOLLIPOP_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_LOLLIPOP_MAXSPAWN;
-		m_secondsBeforeActivation = __SPAWNPOINT_LOLLIPOP_WAIT;
 		break;
 	case SpawnerType::CROCODILE_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_CROCODILE_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_CROCODILE_MAXSPAWN;
-		m_secondsBeforeActivation = __SPAWNPOINT_CROCODILE_WAIT;
 		break;
 	case SpawnerType::CAKEMONSTER_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_CAKEMONSTER_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_CAKEMONSTER_MAXSPAWN;
-		m_secondsBeforeActivation = __SPAWNPOINT_CAKEMONSTER_WAIT;
 		break;
 	}
 }
@@ -109,6 +106,12 @@ void SpawnPoint::Update(const sf::Time & l_time)
 	
 	if (!IsActive())
 		m_activationTimer += l_time.asSeconds();
+
+	for (auto it : m_sharedContext->m_actorManager->GetEnemies())
+	{
+		if (m_position.DistanceTo(it->GetPosition()) <= 50)
+			m_timer = 0.f;
+	}
 
 	if (m_activationTimer >= m_secondsBeforeActivation)
 		Activate();

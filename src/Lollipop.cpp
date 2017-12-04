@@ -56,9 +56,9 @@ void Lollipop::Dodge()
 				isRight = true;
 
 			if (isRight)
-				m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()) + 90, AGMath::POLAR);
+				m_direction.Set(1, m_position.AngleTo(it->GetPosition()) + 90, AGMath::POLAR);
 			else
-				m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()) - 90, AGMath::POLAR);
+				m_direction.Set(1, m_position.AngleTo(it->GetPosition()) - 90, AGMath::POLAR);
 
 			m_direction.Normalize();
 		}

@@ -14,17 +14,14 @@ void State_GameOver::OnCreate()
 	LOAD_UTILITY()
 
 	// OnCreate core
-	textureManager->RequireResource("GameOver_Bg");
-
-	m_backgroundSprite.setTexture(*textureManager->GetResource("GameOver_Bg"));
-
-	m_text.setFont(*fontManager->GetResource("Retro_Menu"));
-	m_text.setString("GAME OVER");
-	m_text.setCharacterSize(120);
-	m_text.setFillColor(sf::Color::Red);
+	if (textureManager->RequireResource("GameOver_Bg"))
+		m_backgroundSprite.setTexture(*textureManager->GetResource("GameOver_Bg"));
 	
-	Utils::centerOrigin(m_text);
-	m_text.setPosition(sf::Vector2f(0 - m_text.getLocalBounds().width / 2, windowCenter.y));
+	if (textureManager->RequireResource("Game_Over_Logo"))
+		m_gameOverSprite.setTexture(*textureManager->GetResource("Game_Over_Logo"));
+
+	Utils::centerOrigin(m_gameOverSprite);
+	m_gameOverSprite.setPosition(sf::Vector2f(0 - m_gameOverSprite.getLocalBounds().width / 2, windowCenter.y));
 
 	gameInfo->FullReset();
 
@@ -49,13 +46,13 @@ void State_GameOver::Update(const sf::Time& l_time)
 
 	const sf::Vector2u windowCenter = m_stateMgr->GetContext()->m_wind->GetWindowCenter();
 
-	if (m_text.getPosition().x < windowCenter.x)
-		m_text.move(1200 * l_time.asSeconds(), 0);
+	if (m_gameOverSprite.getPosition().x < windowCenter.x)
+		m_gameOverSprite.move(1200 * l_time.asSeconds(), 0);
 	else
 		if (m_timePassed >= 4.0f)
-			m_text.move(2000 * l_time.asSeconds(), 0);
+			m_gameOverSprite.move(2000 * l_time.asSeconds(), 0);
 
-	if (m_text.getPosition().x - m_text.getLocalBounds().width / 2 >= windowCenter.x * 2)
+	if (m_gameOverSprite.getPosition().x - m_gameOverSprite.getLocalBounds().width / 2 >= windowCenter.x * 2)
 		MainMenu();
 }
 
@@ -64,7 +61,7 @@ void State_GameOver::Draw()
 	sf::RenderWindow* window = m_stateMgr->GetContext()->m_wind->GetRenderWindow();
 
 	window->draw(m_backgroundSprite);
-	window->draw(m_text);
+	window->draw(m_gameOverSprite);
 }
 
 void State_GameOver::Activate()

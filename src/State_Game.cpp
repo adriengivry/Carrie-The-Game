@@ -275,13 +275,15 @@ void State_Game::DrawUserInterface()
 	sf::Text curseStack;
 	curseStack.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	curseStack.setFillColor(sf::Color::Black);
-	curseStack.setCharacterSize(15);
+	curseStack.setCharacterSize(18);
 
 
 	for (uint8_t i = 0; i < 4; ++i)
 	{
+		bool isEmpty = false;
+
 		Utils::centerOrigin(m_curseIcon[i]);
-		window->draw(m_curseIcon[i]);
+
 		switch (i)
 		{
 		default:
@@ -289,32 +291,44 @@ void State_Game::DrawUserInterface()
 
 		case REVERSE_MOVEMENT:
 			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement));
+			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement == 0;
 			break;
 
 		case SLOWER_CARRIE:
 			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerCarrie));
+			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_slowerCarrie == 0;
 			break;
 
 		case SLOWER_PROJECTILES:
 			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles));
+			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles == 0;
 			break;
 
 		case WEAKER_PROJECTILES:
 			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles));
+			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles == 0;
 			break;
 		}
-		curseStack.setPosition(m_curseIcon[i].getPosition() + sf::Vector2f(-25, 0));
-		curseStack.move(0, 20);
-		sf::CircleShape badge;
-		badge.setPosition(curseStack.getPosition());
-		badge.setRadius(15);
-		badge.setFillColor(sf::Color::White);
-		badge.setOutlineColor(sf::Color::Black);
-		badge.setOutlineThickness(2);
-		Utils::centerOrigin(badge);
-		window->draw(badge);
-		Utils::centerOrigin(curseStack);
-		window->draw(curseStack);
+
+		if (!isEmpty)
+		{
+			window->draw(m_curseIcon[i]);
+
+			curseStack.setPosition(m_curseIcon[i].getPosition() + sf::Vector2f(-25, 0));
+			curseStack.move(0, 20);
+			sf::CircleShape badge;
+			badge.setFillColor(sf::Color(255, 255, 255, 150));
+			badge.setPosition(curseStack.getPosition());
+			badge.setRadius(14);
+
+			if (i != 0)
+			{
+				Utils::centerOrigin(badge);
+				window->draw(badge);
+				Utils::centerOrigin(curseStack);
+				window->draw(curseStack);
+			}
+		}
 	}
 }
 

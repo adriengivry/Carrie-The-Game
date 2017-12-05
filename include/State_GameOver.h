@@ -23,5 +23,5 @@ private:
 
 	sf::Sprite m_backgroundSprite;
 
-	sf::Text m_text;
+	sf::Sprite m_gameOverSprite;
 };

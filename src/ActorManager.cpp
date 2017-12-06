@@ -23,6 +23,11 @@ void ActorManager::AddSpawnPoint(SpawnPoint* p_newSpawnPoint)
 	m_spawnPoints.push_back(p_newSpawnPoint);
 }
 
+void ActorManager::AddActor(std::multimap<uint16_t&, Actor*>& p_actors, Actor* p_actor)
+{
+	p_actors.insert(std::pair<uint16_t&, Actor*>(p_actor->GetZBuffer(), p_actor));
+}
+
 void ActorManager::SetPlayer(Player* p_player)
 {
 	m_player = p_player;
@@ -110,6 +115,8 @@ void ActorManager::CheckDeads()
 
 void ActorManager::Draw()
 {
+	std::multimap<uint16_t&, Actor*> actors;
+
 	m_doors[0]->Draw();
 	m_doors[1]->Draw();
 
@@ -117,14 +124,14 @@ void ActorManager::Draw()
 		it->Draw();
 
 	for (auto it : m_enemies)
-		it->Draw();
-	
-	m_npc->Draw();
-
+		AddActor(actors, it);
+	AddActor(actors, m_npc);
 	for (auto it : m_projectiles)
-		it->Draw();
+		AddActor(actors, it);
+	AddActor(actors, m_player);
 
-	m_player->Draw();
+	for (const auto it : actors)
+		it.second->Draw();
 }
 
 Player* ActorManager::GetPlayer() const { return m_player; }

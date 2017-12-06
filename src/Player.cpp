@@ -214,7 +214,21 @@ void Player::Fire(EventDetails* l_details)
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
 
-	Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y());
+	/*
+	 CARRIE ORIENTED DEPENDING ON HER CHOCOLATE SHOT DIRECTION
+
+	 if (m_position.AngleTo(mousePos) < 45 && m_position.AngleTo(mousePos) >= -45)
+		SetTexture("Carrie_Right");
+	else if (m_position.AngleTo(mousePos) < 45 + 180 && m_position.AngleTo(mousePos) >= -45 - 180)
+		SetTexture("Carrie_Left");
+	else if (m_position.AngleTo(mousePos) <= -45 && m_position.AngleTo(mousePos) >= -135)
+		SetTexture("Carrie_Front");
+	else if (m_position.AngleTo(mousePos) <= 45 && m_position.AngleTo(mousePos) >= 135)
+		SetTexture("Carrie_Back");
+	*/
+	 
+
+	Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y() + 20);
 
 	newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
 	newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));

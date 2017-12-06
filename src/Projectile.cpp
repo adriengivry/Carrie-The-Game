@@ -47,6 +47,8 @@ void Projectile::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
 
+	m_zBuffer += 20;
+
 	if (m_constantlyRotate)
 		m_sprite.rotate(350 * l_time.asSeconds());
 

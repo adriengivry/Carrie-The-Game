@@ -29,6 +29,8 @@ public:
 	Vector2D<float>& GetDirection();
 	sf::Sprite& GetSprite();
 
+	uint16_t& GetZBuffer();
+
 	void SetVelocity(const float p_newVelocity);
 	void SetDirection(const float p_x, const float p_y);
 	void SetDirection(const float p_angle);
@@ -50,6 +52,8 @@ protected:
 
 	Vector2D<float> m_position;
 	Vector2D<float> m_direction;
+
+	uint16_t m_zBuffer;
 
 	float m_velocity;
 	float m_maxVelocity;

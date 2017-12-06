@@ -20,6 +20,8 @@ public:
 	void AddProjectile(Projectile* p_newActor);
 	void AddSpawnPoint(SpawnPoint* p_newSpawnPoint);
 
+	static void AddActor(std::multimap<uint16_t&, Actor*>& p_actors, Actor* p_actor);
+
 	void SetPlayer(Player* p_player);
 	void SetNpc(Npc* p_npc);
 	void SetDoor(const uint8_t p_id, Door* p_door);

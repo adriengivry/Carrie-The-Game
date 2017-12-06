@@ -1,12 +1,13 @@
 #include "Actor.h"
 #include "ActorManager.h"
 
-Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) : 
+Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_textureGetSet(false),
 	m_shadowOffset(__DEFAULT_SHADOW_OFFSET),
 	m_sharedContext(p_sharedContext),
 	m_position(p_x, p_y),
-	m_direction(0, 0),
+	m_direction(0, 0), 
+	m_zBuffer(0),
 	m_velocity(0),
 	m_maxVelocity(__ACTOR_DEFAULT_VELOCITY),
 	m_acceleration(0),
@@ -16,12 +17,16 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_spriteScale(1, 1),
 	m_flippable(false),
 	m_orientable(false),
-	m_mustDie(false) {}
+	m_mustDie(false)
+{
+}
 
 Actor::~Actor() {}
 
 void Actor::Update(const sf::Time& l_time)
 {
+	m_zBuffer = m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height;
+
 	if (m_acceleration != 0)
 	{
 		m_velocity += m_acceleration * l_time.asSeconds();
@@ -145,5 +150,6 @@ void Actor::SetTexture(const std::string p_textureName)
 
 float Actor::GetVelocity() const { return m_velocity; }
 sf::Sprite& Actor::GetSprite() { return m_sprite; }
+uint16_t& Actor::GetZBuffer() { return m_zBuffer; }
 Vector2D<float>& Actor::GetPosition() { return m_position; }
 Vector2D<float>& Actor::GetDirection() { return m_direction; }

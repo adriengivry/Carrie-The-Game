@@ -4,7 +4,7 @@
 
 class CakeMonster : public Enemy
 {
-	const std::string	__CAKEMONSTER_TEXTURE			= "CakeMonsterFront";
+	const std::string	__CAKEMONSTER_TEXTURE			= "CakeMonster_Front";
 	const float			__CAKEMONSTER_SPEED				= 300;
 	const float			__CAKEMONSTER_LIFE				= 10;
 	const float			__CAKEMONSTER_DAMAGES			= 4;
@@ -14,7 +14,7 @@ class CakeMonster : public Enemy
 	const float			__CAKEMONSTER_LIFE_INCREMENTATION_COEFFICIENT = 1.1f;
 	const float			__CAKEMONSTER_DAMAGES_INCREMENTATION_COEFFICIENT = 1.05f;
 
-	const float			__CAKEMONSTER_SPECIAL_ATTACK_COOLDOWN	= 0.02;
+	const float			__CAKEMONSTER_SPECIAL_ATTACK_COOLDOWN	= 0.05;
 	const float			__CAKEMONSTER_PROJECTILE_SPEED			= 300;
 
 public:

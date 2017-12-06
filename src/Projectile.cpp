@@ -11,6 +11,10 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 
 	m_constantDamages = p_isLaser;
 
+	m_constantlyRotate = true;
+
+	m_orientable = false;
+
 	m_friendly = p_friendly;
 
 	if (m_friendly)
@@ -24,7 +28,6 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 		if (p_isLaser)
 		{
 			SetTexture(__ENEMY_PROJECTILE_LASER_TEXTURE);
-			m_gotAShadow = false;
 			m_sprite.scale(0.7f, 0.7f);
 		}
 		else
@@ -33,10 +36,6 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 			m_sprite.scale(1.2f, 1.2f);
 		}
 	}
-
-	
-
-	m_orientable = false;
 }
 
 Projectile::~Projectile()
@@ -47,7 +46,8 @@ void Projectile::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
 
-	m_sprite.rotate(350 * l_time.asSeconds());
+	if (m_constantlyRotate)
+		m_sprite.rotate(350 * l_time.asSeconds());
 
 	if (m_friendly)
 	{

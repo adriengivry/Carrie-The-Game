@@ -42,6 +42,7 @@ protected:
 
 	bool m_flippable;
 
+	sf::Sprite m_shadow;
 	sf::Sprite m_sprite;
 
 	SharedContext* m_sharedContext;

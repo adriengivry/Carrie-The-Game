@@ -22,6 +22,20 @@ void Actor::Update(const sf::Time& l_time)
 	Move(l_time);
 	if (m_textureGetSet)
 		m_sprite.setPosition(m_position.ToSFVector());
+
+	if (m_gotAShadow)
+	{
+		if (m_sharedContext->m_textureManager->RequireResource("Shadow"))
+		{
+			const float scaleFactor = m_sprite.getGlobalBounds().width / 75.f;
+			m_shadow.setTexture(*m_sharedContext->m_textureManager->GetResource("Shadow"));
+			m_shadow.setScale(scaleFactor, scaleFactor);
+			m_shadow.scale(m_shadowScale.X(), m_shadowScale.Y());
+			m_shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height - m_shadowOffset);
+			m_shadow.setColor(sf::Color(255, 255, 255, 100));
+			Utils::centerOrigin(m_shadow);
+		}
+	}
 }
 
 void Actor::Move(const sf::Time& l_time)
@@ -42,25 +56,12 @@ void Actor::Draw() const
 	if (m_textureGetSet)
 	{
 		if (m_gotAShadow)
-		{
-			sf::Sprite shadow;
-			if (m_sharedContext->m_textureManager->RequireResource("Shadow"))
-			{
-				const float scaleFactor = m_sprite.getGlobalBounds().width / 75.f;
-				shadow.setTexture(*m_sharedContext->m_textureManager->GetResource("Shadow"));
-				shadow.setPosition(m_position.X(), m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height - m_shadowOffset);
-				shadow.setColor(sf::Color(255, 255, 255, 100));
-				shadow.setScale(scaleFactor, scaleFactor);
-				shadow.scale(m_shadowScale.X(), m_shadowScale.Y());
-				Utils::centerOrigin(shadow);
-				m_sharedContext->m_wind->GetRenderWindow()->draw(shadow);
-			}
-		}
+			m_sharedContext->m_wind->GetRenderWindow()->draw(m_shadow);
 
 		sf::Sprite toDraw = m_sprite;
 		toDraw.scale(m_spriteScale.X(), m_spriteScale.Y());
 
-		if (m_flippable && m_direction.X() >= 0)
+		if (m_flippable && m_direction.X() < 0)
 			toDraw.scale(-1, 1);
 
 		m_sharedContext->m_wind->GetRenderWindow()->draw(toDraw);

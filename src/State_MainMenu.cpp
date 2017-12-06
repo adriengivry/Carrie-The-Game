@@ -17,11 +17,12 @@ void State_MainMenu::OnCreate()
 	LOAD_UTILITY()
 	
 	// OnCreate core
-	textureManager->RequireResource("MainMenu_Bg");
-	textureManager->RequireResource("Game_Logo");
+	if (textureManager->RequireResource("Menu_Background"))
+		m_backgroundSprite.setTexture(*textureManager->GetResource("Menu_Background"));
 
-	m_backgroundSprite.setTexture(*textureManager->GetResource("MainMenu_Bg"));
-	m_gameLogoSprite.setTexture(*textureManager->GetResource("Game_Logo"));
+	if (textureManager->RequireResource("Game_Logo"))
+		m_gameLogoSprite.setTexture(*textureManager->GetResource("Game_Logo"));
+
 	Utils::centerOrigin(m_gameLogoSprite);
 	m_gameLogoSprite.setPosition(windowCenter.x, 341.9f);
 

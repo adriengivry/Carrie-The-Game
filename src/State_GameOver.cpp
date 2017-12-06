@@ -14,8 +14,8 @@ void State_GameOver::OnCreate()
 	LOAD_UTILITY()
 
 	// OnCreate core
-	if (textureManager->RequireResource("GameOver_Bg"))
-		m_backgroundSprite.setTexture(*textureManager->GetResource("GameOver_Bg"));
+	if (textureManager->RequireResource("Menu_Background"))
+		m_backgroundSprite.setTexture(*textureManager->GetResource("Menu_Background"));
 	
 	if (textureManager->RequireResource("Game_Over_Logo"))
 		m_gameOverSprite.setTexture(*textureManager->GetResource("Game_Over_Logo"));

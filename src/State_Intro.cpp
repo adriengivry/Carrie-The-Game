@@ -20,11 +20,12 @@ void State_Intro::OnCreate()
 	LOAD_UTILITY()
 
 	// OnCreate core
-	textureManager->RequireResource("Intro_Bg");
-	textureManager->RequireResource("Game_Logo");
+	if (textureManager->RequireResource("Menu_Background"))
+		m_backgroundSprite.setTexture(*textureManager->GetResource("Menu_Background"));
 
-	m_backgroundSprite.setTexture(*textureManager->GetResource("Intro_Bg"));
-	m_introSprite.setTexture(*textureManager->GetResource("Game_Logo"));
+	if (textureManager->RequireResource("Game_Logo"))
+		m_introSprite.setTexture(*textureManager->GetResource("Game_Logo"));
+
 	Utils::centerOrigin(m_introSprite);
 	m_introSprite.setPosition(windowSize.x / 2.0f, windowSize.y);
 

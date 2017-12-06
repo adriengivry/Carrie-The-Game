@@ -5,7 +5,7 @@
 
 class Player : public Actor
 {
-	const std::string	__PLAYER_TEXTURE = "Back";
+	const std::string	__PLAYER_TEXTURE = "Carrie_Back";
 	const float			__PLAYER_SPEED	 = 700;
 	const float			__PLAYER_LIFE	 = 100;
 	const float			__INVULNERABLE_DURATION = 0.5f;

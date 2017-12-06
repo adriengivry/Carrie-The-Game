@@ -4,7 +4,7 @@
 class Projectile : public Actor
 {
 private:
-	const std::string __PROJECTILE_TEXTURE = "Projectile";
+	const std::string __PROJECTILE_TEXTURE = "Chocolate";
 	const std::string __ENEMY_PROJECTILE_TEXTURE = "Sugar";
 	const std::string __ENEMY_PROJECTILE_LASER_TEXTURE = "Cream";
 
@@ -30,6 +30,7 @@ public:
 private:
 	bool m_friendly;
 	bool m_constantDamages;
+	bool m_constantlyRotate;
 
 	float m_damages;
 	float m_hitrate;

@@ -4,7 +4,7 @@
 
 class Jelly : public Enemy
 {
-	const std::string	__JELLY_TEXTURE		= "JellyFront";
+	const std::string	__JELLY_TEXTURE		= "Jelly_Front";
 	const float			__JELLY_SPEED		= 100;
 	const float			__JELLY_LIFE		= 30;
 	const float			__JELLY_DAMAGES		= 2;

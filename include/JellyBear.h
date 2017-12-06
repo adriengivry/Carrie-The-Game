@@ -4,7 +4,7 @@
 
 class JellyBear : public Enemy
 {
-	const std::string	__JELLYBEAR_TEXTURE				= "JellyBearFront";
+	const std::string	__JELLYBEAR_TEXTURE				= "JellyBear_Front";
 	const float			__JELLYBEAR_SPEED				= 200;
 	const float			__JELLYBEAR_DASH_SPEED			= 750;
 	const float			__JELLYBEAR_DASH_MIN_DISTANCE	= 250;

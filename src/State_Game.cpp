@@ -35,7 +35,9 @@ void State_Game::OnCreate()
 	m_whiteRect.setSize(sf::Vector2f(windowSize.x, windowSize.y));
 	m_whiteRect.setFillColor(sf::Color::White);
 
-	m_curseText.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
+		m_curseText.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+
 	m_curseText.setPosition(windowCenter.x, -650);
 	m_curseText.setFillColor(sf::Color::Yellow);
 	m_curseText.setCharacterSize(45);
@@ -63,24 +65,27 @@ void State_Game::OnCreate()
 	switch (randomMap)
 	{
 	default:
-		textureManager->RequireResource("Map1_Background");
-		textureManager->RequireResource("Map1_Edges");
-		m_backgroundSprite.setTexture(*textureManager->GetResource("Map1_Background"));
-		m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map1_Edges"));
+		if (textureManager->RequireResource("Map1_Background"))
+			m_backgroundSprite.setTexture(*textureManager->GetResource("Map1_Background"));
+
+		if (textureManager->RequireResource("Map1_Edges"))
+			m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map1_Edges"));
 		break;
 
 	case MapType::MAP1:
-		textureManager->RequireResource("Map1_Background");
-		textureManager->RequireResource("Map1_Edges");
-		m_backgroundSprite.setTexture(*textureManager->GetResource("Map1_Background"));
-		m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map1_Edges"));
+		if (textureManager->RequireResource("Map1_Background"))
+			m_backgroundSprite.setTexture(*textureManager->GetResource("Map1_Background"));
+		
+		if (textureManager->RequireResource("Map1_Edges"))
+			m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map1_Edges"));
 		break;
 
 	case MapType::MAP2:
-		textureManager->RequireResource("Map2_Background");
-		textureManager->RequireResource("Map2_Edges");
-		m_backgroundSprite.setTexture(*textureManager->GetResource("Map2_Background"));
-		m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map2_Edges"));
+		if (textureManager->RequireResource("Map2_Background"))
+			m_backgroundSprite.setTexture(*textureManager->GetResource("Map2_Background"));
+
+		if (textureManager->RequireResource("Map2_Edges"))
+			m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map2_Edges"));
 		break;
 	}
 

@@ -17,9 +17,8 @@ void State_Credits::OnCreate()
 	LOAD_UTILITY()
 
 	// OnCreate core
-	textureManager->RequireResource("Credits_Slide");
-
-	m_backgroundSprite.setTexture(*textureManager->GetResource("Credits_Slide"));
+	if (textureManager->RequireResource("Credits_Slide"))
+		m_backgroundSprite.setTexture(*textureManager->GetResource("Credits_Slide"));
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Credits, "Key_Escape", &State_Credits::MainMenu, this);

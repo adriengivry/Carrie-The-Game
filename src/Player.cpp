@@ -151,21 +151,21 @@ void Player::Move(const sf::Time& l_time)
 		}
 
 		if (direction.X() > 0 && direction.Y() == 0)
-			SetTexture("Right");
+			SetTexture("Carrie_Right");
 		else if (direction.X() < 0 && direction.Y() == 0)
-			SetTexture("Left");
+			SetTexture("Carrie_Left");
 		else if (direction.X() == 0 && direction.Y() > 0)
-			SetTexture("Front");
+			SetTexture("Carrie_Front");
 		else if (direction.X() == 0 && direction.Y() < 0)
-			SetTexture("Back");
+			SetTexture("Carrie_Back");
 		else if (direction.X() > 0 && direction.Y() > 0)
-			SetTexture("Front_Right");
+			SetTexture("Carrie_Front_Right");
 		else if (direction.X() < 0 && direction.Y() > 0)
-			SetTexture("Front_Left");
+			SetTexture("Carrie_Front_Left");
 		else if (direction.X() > 0 && direction.Y() < 0)
-			SetTexture("Back_Right");
+			SetTexture("Carrie_Back_Right");
 		if (direction.X() < 0 && direction.Y() < 0)
-			SetTexture("Back_Left");
+			SetTexture("Carrie_Back_Left");
 
 		m_direction = direction;
 

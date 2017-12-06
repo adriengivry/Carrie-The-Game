@@ -4,8 +4,8 @@
 
 class Crocodile : public Enemy
 {
-	const std::string	__CROCODILE_TEXTURE_GREEN		= "CrocodileFrontGreen";
-	const std::string	__CROCODILE_TEXTURE_RED			= "CrocodileFrontRed";
+	const std::string	__CROCODILE_TEXTURE_GREEN		= "Crocodile_Green_Right";
+	const std::string	__CROCODILE_TEXTURE_RED			= "Crocodile_Red_Right";
 	const float			__CROCODILE_SPEED				= 60;
 	const float			__CROCODILE_DASH_SPEED			= 600;
 	const float			__CROCODILE_DASH_MIN_DISTANCE	= 350;

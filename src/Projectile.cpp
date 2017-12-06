@@ -53,10 +53,10 @@ void Projectile::Update(const sf::Time& l_time)
 	{
 		for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
 		{
-			if (IsIntersecting(enemy) && !MustDie())
+			if (!enemy->IsDead() && IsIntersecting(enemy) && !MustDie())
 			{
 				m_mustDie = true;
-				enemy->RemoveLife(m_damages);
+				enemy->RemoveLife(m_damages, m_direction);
 			}
 		}
 	}

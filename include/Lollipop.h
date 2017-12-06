@@ -6,7 +6,7 @@ class Lollipop : public Enemy
 {
 	const std::string	__LOLLIPOP_TEXTURE				= "Lollipop_Front";
 	const float			__LOLLIPOP_SPEED				= 80;
-	const float			__LOLLIPOP_DASH_SPEED			= 80;
+	const float			__LOLLIPOP_DASH_SPEED			= 120;
 	const float			__LOLLIPOP_DASH_MIN_DISTANCE	= 250;
 	const float			__LOLLIPOP_LIFE					= 10;
 	const float			__LOLLIPOP_DAMAGES				= 4;

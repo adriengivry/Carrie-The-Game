@@ -70,7 +70,17 @@ void Actor::Draw() const
 
 bool Actor::IsIntersecting(Actor* p_otherActor) const
 {
-	return m_position.DistanceTo(p_otherActor->GetPosition()) <= m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2 - (m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2) * 0.2f;
+	sf::Rect<float> otherActorCollider = p_otherActor->GetSprite().getGlobalBounds();
+
+	otherActorCollider.width *= 0.75;
+	otherActorCollider.height *= 0.75;
+
+	otherActorCollider.left += otherActorCollider.width *= 0.75;
+	otherActorCollider.top += otherActorCollider.height *= 0.75;
+
+
+	return m_sprite.getGlobalBounds().intersects(otherActorCollider);
+	// return m_position.DistanceTo(p_otherActor->GetPosition()) <= m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2 - (m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2) * 0.2f;
 }
 
 bool Actor::MustDie() const

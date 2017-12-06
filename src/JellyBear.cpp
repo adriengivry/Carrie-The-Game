@@ -15,7 +15,6 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	m_isDashing = false;
 	m_dashTimer = 0.0f;
 	m_dashMaxDuration = 0.2f;
-	m_showCooldownBar = true;
 }
 
 JellyBear::~JellyBear()

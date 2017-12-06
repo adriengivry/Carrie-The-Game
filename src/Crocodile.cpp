@@ -8,7 +8,8 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 	m_spriteScale.Set(1.5f, 1.5f);
 	m_shadowScale.Set(1.f, 0.5f);
 
-	m_shadowOffset = 50;
+	m_shadowOffset = 0;
+
 	m_flippable = true;
 
 	Crocodile::GenerateStats();
@@ -17,7 +18,6 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 	m_isDashing = false;
 	m_dashTimer = 0.0f;
 	m_dashMaxDuration = 0.4f;
-	m_showCooldownBar = true;
 }
 
 Crocodile::~Crocodile()

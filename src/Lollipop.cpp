@@ -13,7 +13,6 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 	m_isDashing = false;
 	m_dashTimer = 0.0f;
 	m_dashMaxDuration = 0.2f;
-	m_showCooldownBar = true;
 }
 
 Lollipop::~Lollipop()

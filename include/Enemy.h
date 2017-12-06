@@ -24,7 +24,9 @@ public:
 
 	void Kill();
 
-	void RemoveLife(const float p_damages);
+	bool IsDead() const;
+
+	void RemoveLife(const float p_damages, Vector2D<float> p_pushDirection);
 
 	void ResetLife();
 
@@ -47,7 +49,13 @@ protected:
 	Actor* m_target;
 	bool m_followTarget;
 	bool m_damagesOnContact;
+
+	bool m_showLifeBar;
 	bool m_showCooldownBar;
+
+	bool m_isDead;
+	float m_deathTimer;
+	float m_deathDuration;
 
 	bool m_canCollide;
 
@@ -63,4 +71,9 @@ protected:
 	bool m_isSpecialAbilityReady;
 	float m_specialAbilityTimer;
 	float m_specialAbilityCooldown;
+
+	float m_pushMaxVelocity;
+	float m_pushVelocity;
+	float m_pushAcceleration;
+	Vector2D<float> m_pushDirection;
 };

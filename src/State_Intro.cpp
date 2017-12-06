@@ -29,7 +29,9 @@ void State_Intro::OnCreate()
 	Utils::centerOrigin(m_introSprite);
 	m_introSprite.setPosition(windowSize.x / 2.0f, windowSize.y);
 
-	m_text.setFont(*fontManager->GetResource("Retro_Menu"));
+	if (fontManager->RequireResource("Retro_Menu"))
+		m_text.setFont(*fontManager->GetResource("Retro_Menu"));
+
 	m_text.setString("PRESS SPACE TO CONTINUE");
 	m_text.setCharacterSize(25);
 	m_text.setFillColor(sf::Color(255, 255, 255, m_startTextOpacity));

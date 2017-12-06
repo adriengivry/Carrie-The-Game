@@ -106,7 +106,8 @@ void Npc::Draw() const
 void Npc::DrawAffirmation() const
 {
 	sf::Text question;
-	question.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
+	if (m_sharedContext->m_fontManager->RequireResource("Retro"))
+		question.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
 	question.setCharacterSize(20);
 	question.setPosition(1100, 70);
 	question.setFillColor(sf::Color::Black);

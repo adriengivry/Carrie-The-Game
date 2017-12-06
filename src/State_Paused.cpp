@@ -15,7 +15,8 @@ void State_Paused::OnCreate()
 	// OnCreate core
 	SetTransparent(true);
 
-	m_text.setFont(*fontManager->GetResource("Retro_Menu"));
+	if (fontManager->RequireResource("Retro_Menu"))
+		m_text.setFont(*fontManager->GetResource("Retro_Menu"));
 	m_text.setString(sf::String("PAUSED"));
 	m_text.setCharacterSize(70);
 	m_text.setStyle(sf::Text::Bold);

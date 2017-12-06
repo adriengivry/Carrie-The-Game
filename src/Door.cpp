@@ -66,7 +66,8 @@ void Door::DrawLabel() const
 {
 	sf::Text label;
 	label.setCharacterSize(25);
-	label.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
+	if (m_sharedContext->m_fontManager->RequireResource("Retro"))
+		label.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
 
 	sf::Vector2f labelPos = m_position.ToSFVector();
 	

@@ -6,6 +6,7 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 {
 	m_direction = p_direction;
 	m_velocity = __PROJECTILE_SPEED;
+	m_maxVelocity = m_velocity;
 	m_damages = __PROJECTILE_DAMAGES;
 	m_hitrate = __PROJECTILE_HITRATE;
 

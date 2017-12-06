@@ -369,11 +369,19 @@ void State_Game::DrawConsole() const
 	spawnedProjectiles.setCharacterSize(18);
 	spawnedProjectiles.setPosition(0, 40);
 
+	sf::Text playerVelocity;
+	playerVelocity.setString("PLAYER VELOCITY : " + std::to_string(m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetVelocity()));
+	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Console"))
+		playerVelocity.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	playerVelocity.setCharacterSize(18);
+	playerVelocity.setPosition(0, 60);
+
 	// DRAW THINGS
 	window->draw(consoleBackground);
 	window->draw(spawnedEnemies);
 	window->draw(spawnedProjectiles);
 	window->draw(travelledDistance);
+	window->draw(playerVelocity);
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

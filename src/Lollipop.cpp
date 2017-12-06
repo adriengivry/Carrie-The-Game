@@ -23,6 +23,8 @@ Lollipop::~Lollipop()
 void Lollipop::GenerateStats()
 {
 	m_velocity = __LOLLIPOP_SPEED;
+	m_maxVelocity = m_velocity;
+
 	m_specialAttackCooldown = __LOLLIPOP_SPECIAL_ATTACK_COOLDOWN;
 	m_specialAbilityCooldown = __LOLLIPOP_SPECIAL_ABILITY_COOLDOWN;
 

@@ -7,7 +7,10 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_sharedContext(p_sharedContext),
 	m_position(p_x, p_y),
 	m_direction(0, 0),
-	m_velocity(__ACTOR_DEFAULT_VELOCITY),
+	m_velocity(0),
+	m_maxVelocity(__ACTOR_DEFAULT_VELOCITY),
+	m_acceleration(0),
+	m_velocityMultiplicator(1),
 	m_gotAShadow(true),
 	m_shadowScale(1, 1),
 	m_spriteScale(1, 1),
@@ -19,6 +22,20 @@ Actor::~Actor() {}
 
 void Actor::Update(const sf::Time& l_time)
 {
+	if (m_acceleration != 0)
+	{
+		m_velocity += m_acceleration * l_time.asSeconds();
+
+		if (m_velocity > m_maxVelocity)
+			m_velocity = m_maxVelocity;
+
+		if (m_velocity <= 0)
+		{
+			m_velocity = 0;
+			m_acceleration *= -1;
+		}
+	}
+
 	Move(l_time);
 	if (m_textureGetSet)
 		m_sprite.setPosition(m_position.ToSFVector());
@@ -41,7 +58,7 @@ void Actor::Update(const sf::Time& l_time)
 void Actor::Move(const sf::Time& l_time)
 {
 	Vector2D<float> previousPos = m_position;
-	const Vector2D<float> newPos = m_position + m_direction * m_velocity * l_time.asSeconds();
+	const Vector2D<float> newPos = m_position + m_direction * m_velocity * m_velocityMultiplicator * l_time.asSeconds();
 
 	m_position = newPos;
 
@@ -70,17 +87,23 @@ void Actor::Draw() const
 
 bool Actor::IsIntersecting(Actor* p_otherActor) const
 {
+	sf::Rect<float> actorCollider = m_sprite.getGlobalBounds();
+
+	actorCollider.width *= 0.75;
+	actorCollider.height *= 0.75;
+
+	actorCollider.left += actorCollider.width * 0.25 / 2;
+	actorCollider.top += actorCollider.height * 0.25 / 2;
+
 	sf::Rect<float> otherActorCollider = p_otherActor->GetSprite().getGlobalBounds();
 
 	otherActorCollider.width *= 0.75;
 	otherActorCollider.height *= 0.75;
 
-	otherActorCollider.left += otherActorCollider.width *= 0.75;
-	otherActorCollider.top += otherActorCollider.height *= 0.75;
+	otherActorCollider.left += otherActorCollider.width * 0.25 / 2;
+	otherActorCollider.top += otherActorCollider.height * 0.25 / 2;
 
-
-	return m_sprite.getGlobalBounds().intersects(otherActorCollider);
-	// return m_position.DistanceTo(p_otherActor->GetPosition()) <= m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2 - (m_sprite.getGlobalBounds().width / 2 + p_otherActor->GetSprite().getGlobalBounds().width / 2) * 0.2f;
+	return actorCollider.intersects(otherActorCollider);
 }
 
 bool Actor::MustDie() const
@@ -120,6 +143,7 @@ void Actor::SetTexture(const std::string p_textureName)
 	}
 }
 
+float Actor::GetVelocity() const { return m_velocity; }
 sf::Sprite& Actor::GetSprite() { return m_sprite; }
 Vector2D<float>& Actor::GetPosition() { return m_position; }
 Vector2D<float>& Actor::GetDirection() { return m_direction; }

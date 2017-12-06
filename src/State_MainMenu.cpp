@@ -45,7 +45,8 @@ void State_MainMenu::OnCreate()
 		m_rects[i].setOrigin(m_buttonSize.x / 2.0f, m_buttonSize.y / 2.0f);
 		m_rects[i].setPosition(buttonPosition);
 
-		m_labels[i].setFont(*fontManager->GetResource("Retro_Menu"));
+		if (fontManager->RequireResource("Retro_Menu"))
+			m_labels[i].setFont(*fontManager->GetResource("Retro_Menu"));
 		m_labels[i].setString(sf::String(str[i]));
 		m_labels[i].setCharacterSize(45);
 

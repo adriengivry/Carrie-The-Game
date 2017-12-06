@@ -20,6 +20,8 @@ public:
 	void Render();
 	void LateUpdate();
 
+	void ApplyLetterBoxView(const uint16_t p_iWindowWidth, const uint16_t p_iWindowHeight);
+
 	sf::Time GetElapsed() const;
 
 	Window* GetWindow();

@@ -5,17 +5,16 @@
 
 class Player : public Actor
 {
-	const std::string	__PLAYER_TEXTURE = "Carrie_Back";
-	const float			__PLAYER_SPEED	 = 700;
-	const float			__PLAYER_LIFE	 = 100;
+	const std::string	__PLAYER_TEXTURE		= "Carrie_Back";
+	const float			__PLAYER_SPEED			= 700;
+	const float			__PLAYER_ACCELERATION	= 5000;
+	const float			__PLAYER_LIFE			= 100;
 	const float			__INVULNERABLE_DURATION = 0.5f;
 
 public:
 	explicit Player(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
 	~Player();
 
-	void React(EventDetails* l_details);
-	void Unreact(EventDetails* l_details);
 	void Move(const sf::Time& l_time) override;
 	void Update(const sf::Time& l_time) override;
 	void StopControl();
@@ -27,7 +26,7 @@ public:
 	void MakeInvulnerable();
 	bool IsInvulnerable() const;
 
-	void CorrectMoveBug();
+	void CheckControls();
 
 	void Fire(EventDetails* l_details);
 	void RemoveLife(const float p_value, const bool p_constantDamages = false);

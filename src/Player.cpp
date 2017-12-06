@@ -4,20 +4,12 @@
 Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	: Actor(p_sharedContext, p_x, p_y)
 {
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Left", &Player::React, this);
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Right", &Player::React, this);
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Up", &Player::React, this);
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Down", &Player::React, this);
-
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Left_Stop", &Player::Unreact, this);
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Right_Stop", &Player::Unreact, this);
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Up_Stop", &Player::Unreact, this);
-	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Move_Down_Stop", &Player::Unreact, this);
-
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Fire", &Player::Fire, this);
 
 	m_orientable = false;
-	m_velocity = __PLAYER_SPEED;
+	m_maxVelocity = __PLAYER_SPEED;
+
+	m_acceleration = __PLAYER_ACCELERATION;
 
 	m_maxLife = __PLAYER_LIFE;
 	m_life = m_maxLife;
@@ -38,95 +30,7 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 
 Player::~Player()
 {
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Left");
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Right");
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Up");
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Down");
-
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Left_Stop");
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Right_Stop");
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Up_Stop");
-	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Move_Down_Stop");
-
 	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Fire");
-}
-
-void Player::React(EventDetails* l_details)
-{
-	const bool reverseMovement = m_sharedContext->m_gameInfo->m_reverseMovement;
-
-	switch (l_details->m_keyCode)
-	{
-	case sf::Keyboard::A:
-		if (reverseMovement)
-			m_moveRight = true;
-		else
-			m_moveLeft = true;
-		break;
-
-	case sf::Keyboard::D:
-		if (reverseMovement)
-			m_moveLeft = true;
-		else
-			m_moveRight = true;
-		break;
-
-	case sf::Keyboard::W:
-		if (reverseMovement)
-			m_moveDown = true;
-		else
-			m_moveUp = true;
-		break;
-
-	case sf::Keyboard::S:
-		if (reverseMovement)
-			m_moveUp = true;
-		else
-			m_moveDown = true;
-		break;
-
-	default:
-		break;
-	}
-}
-
-void Player::Unreact(EventDetails* l_details)
-{
-	const bool reverseMovement = m_sharedContext->m_gameInfo->m_reverseMovement;
-
-	switch (l_details->m_keyCode)
-	{
-	case sf::Keyboard::A:
-		if (reverseMovement)
-			m_moveRight = false;
-		else
-			m_moveLeft = false;
-		break;
-
-	case sf::Keyboard::D:
-		if (reverseMovement)
-			m_moveLeft = false;
-		else
-			m_moveRight = false;
-		break;
-
-	case sf::Keyboard::W:
-		if (reverseMovement)
-			m_moveDown = false;
-		else
-			m_moveUp = false;
-		break;
-
-	case sf::Keyboard::S:
-		if (reverseMovement)
-			m_moveUp = false;
-		else
-			m_moveDown = false;
-		break;
-
-	default:
-		break;
-	}
 }
 
 void Player::Move(const sf::Time& l_time)
@@ -150,6 +54,14 @@ void Player::Move(const sf::Time& l_time)
 			direction.Y() /= 2;
 		}
 
+		if (m_moveLeft || m_moveRight || m_moveDown || m_moveUp)
+		{
+			m_direction = direction;
+		}
+		else
+			m_acceleration = abs(m_acceleration) * -1;
+
+
 		if (direction.X() > 0 && direction.Y() == 0)
 			SetTexture("Carrie_Right");
 		else if (direction.X() < 0 && direction.Y() == 0)
@@ -166,8 +78,6 @@ void Player::Move(const sf::Time& l_time)
 			SetTexture("Carrie_Back_Right");
 		if (direction.X() < 0 && direction.Y() < 0)
 			SetTexture("Carrie_Back_Left");
-
-		m_direction = direction;
 
 		Actor::Move(l_time);
 
@@ -218,10 +128,10 @@ void Player::Move(const sf::Time& l_time)
 void Player::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
+	
+	CheckControls();
 
-	CorrectMoveBug();
-
-	m_velocity = __PLAYER_SPEED * pow(m_sharedContext->m_gameInfo->__CARRIE_SLOW_MULTIPLICATOR, m_sharedContext->m_gameInfo->m_slowerCarrie);
+	m_velocityMultiplicator = pow(m_sharedContext->m_gameInfo->__CARRIE_SLOW_MULTIPLICATOR, m_sharedContext->m_gameInfo->m_slowerCarrie);
 
 	if (IsInvulnerable())
 	{
@@ -271,40 +181,23 @@ void Player::MakeInvulnerable()
 
 bool Player::IsInvulnerable() const { return m_invulnerable; }
 
-void Player::CorrectMoveBug()
+void Player::CheckControls()
 {
 	const bool reverseMovement = m_sharedContext->m_gameInfo->m_reverseMovement;
 
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (!reverseMovement)
 	{
-		if (reverseMovement)
-			m_moveRight = false;
-		else
-			m_moveLeft = false;
+		m_moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+		m_moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+		m_moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+		m_moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
 	}
-	
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	else
 	{
-		if (reverseMovement)
-			m_moveLeft = false;
-		else
-			m_moveRight = false;
-	}
-	
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		if (reverseMovement)
-			m_moveDown = false;
-		else
-			m_moveUp = false;
-	}
-	
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		if (reverseMovement)
-			m_moveUp = false;
-		else
-			m_moveDown = false;
+		m_moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+		m_moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+		m_moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+		m_moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
 	}
 }
 

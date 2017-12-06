@@ -25,6 +25,8 @@ JellyBear::~JellyBear()
 void JellyBear::GenerateStats()
 {
 	m_velocity					= __JELLYBEAR_SPEED;
+	m_maxVelocity				= m_velocity;
+
 	m_specialAbilityCooldown	= __JELLYBEAR_SPECIAL_ABILITY_COOLDOWN;
 
 	GENERATE_LIFE(__JELLYBEAR_LIFE, __JELLYBEAR_LIFE_INCREMENTATION_COEFFICIENT, __JELLYBEAR_MAX_LIFE);

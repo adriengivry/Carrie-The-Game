@@ -24,6 +24,7 @@ public:
 	bool IsIntersecting(Actor* p_otherActor) const;
 	bool MustDie() const;
 
+	float GetVelocity() const;
 	Vector2D<float>& GetPosition();
 	Vector2D<float>& GetDirection();
 	sf::Sprite& GetSprite();
@@ -49,7 +50,11 @@ protected:
 
 	Vector2D<float> m_position;
 	Vector2D<float> m_direction;
+
 	float m_velocity;
+	float m_maxVelocity;
+	float m_acceleration;
+	float m_velocityMultiplicator;
 
 	bool m_gotAShadow;
 	bool m_orientable;

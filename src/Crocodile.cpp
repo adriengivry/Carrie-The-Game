@@ -28,6 +28,8 @@ Crocodile::~Crocodile()
 void Crocodile::GenerateStats()
 {
 	m_velocity = __CROCODILE_SPEED;
+	m_maxVelocity = m_velocity;
+
 	m_specialAbilityCooldown = __CROCODILE_SPECIAL_ABILITY_COOLDOWN;
 
 	GENERATE_LIFE(__CROCODILE_LIFE, __CROCODILE_LIFE_INCREMENTATION_COEFFICIENT, __CROCODILE_MAX_LIFE);

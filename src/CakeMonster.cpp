@@ -22,6 +22,8 @@ CakeMonster::~CakeMonster()
 void CakeMonster::GenerateStats()
 {
 	m_velocity = __CAKEMONSTER_SPEED;
+	m_maxVelocity = m_velocity;
+
 	m_specialAttackCooldown = __CAKEMONSTER_SPECIAL_ATTACK_COOLDOWN;
 
 	GENERATE_LIFE(__CAKEMONSTER_LIFE, __CAKEMONSTER_LIFE_INCREMENTATION_COEFFICIENT, __CAKEMONSTER_MAX_LIFE);

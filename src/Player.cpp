@@ -130,7 +130,7 @@ void Player::Move(const sf::Time& l_time)
 
 void Player::CheckFire()
 {
-	if (m_fireOn && m_fireTimer >= m_fireCooldown)
+	if (m_fireOn && m_fireTimer >= m_fireCooldown && !m_sharedContext->m_gameInfo->m_levelCompleted)
 	{
 		m_fireTimer = 0;
 		GameInfo* gameInfo = m_sharedContext->m_gameInfo;

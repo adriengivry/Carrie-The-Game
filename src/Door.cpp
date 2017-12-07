@@ -58,28 +58,44 @@ void Door::Draw() const
 {
 	Actor::Draw();
 
-	if (m_activated)
+	if (m_sharedContext->m_gameInfo->m_questionAsked)
 		DrawLabel();
 }
 
 void Door::DrawLabel() const
 {
+	sf::RectangleShape rect;
+	rect.setFillColor(sf::Color(0, 0, 0, 125));
+	rect.setSize(sf::Vector2f(300, 50));
+
 	sf::Text label;
-	label.setCharacterSize(25);
+	label.setCharacterSize(35);
+	label.setFillColor(sf::Color::White);
 	if (m_sharedContext->m_fontManager->RequireResource("Retro"))
 		label.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
 
 	sf::Vector2f labelPos = m_position.ToSFVector();
 	
-	labelPos.y += 110.0f;
+	labelPos.y += 130.0f;
 
 	label.setPosition(labelPos);
 	if (m_answer)
-		label.setString("TRUE");
+	{
+		label.setFillColor(sf::Color::White);
+		label.setString("YES IT'S TRUE");
+	}
 	else
-		label.setString("FALSE");
+	{
+		label.setFillColor(sf::Color::White);
+		label.setString("GO TO HELL LIAR!");
+	}
+
+	rect.setPosition(label.getPosition());
+
+	Utils::centerOrigin(rect);
 	Utils::centerOrigin(label);
 
+	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
 	m_sharedContext->m_wind->GetRenderWindow()->draw(label);
 }
 

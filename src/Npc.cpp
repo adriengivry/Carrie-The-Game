@@ -5,8 +5,17 @@
 Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	: Actor(p_sharedContext, p_x, p_y)
 {
-	SetTexture(__NPC_TEXTURE);
+	SetTexture(__NPC_TEXTURE_2);
 	Desactivate();
+
+	m_questionMarkRotationInc = 30;
+
+	m_talkingTimer = 0;
+	m_currentFrame = 0;
+	m_talkingFrameDuration = 0.1f;
+
+	m_speachTimer = 0;
+	m_speachDuration = 2.0f;
 
 	m_sprite.scale(0.7f, 0.7f);
 
@@ -16,9 +25,17 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	if (m_sharedContext->m_textureManager->RequireResource("Bubble"))
 	{
 		m_speachBubble.setTexture(*m_sharedContext->m_textureManager->GetResource("Bubble"));
-		m_speachBubble.setPosition(1100, 90);
-		m_speachBubble.setScale(0.6f, 0.6f);
+		m_speachBubble.setPosition(1100, 100);
+		m_speachBubble.setScale(0.7f, 0.7f);
 		Utils::centerOrigin(m_speachBubble);
+	}
+
+	if (m_sharedContext->m_textureManager->RequireResource("Question_Mark"))
+	{
+		m_questionMark.setTexture(*m_sharedContext->m_textureManager->GetResource("Question_Mark"));
+		m_questionMark.setPosition(1020, 115);
+		m_questionMark.setScale(0.5f, 0.5f);
+		Utils::centerOrigin(m_questionMark);
 	}
 
 	m_talking = false;
@@ -83,13 +100,55 @@ bool Npc::GetAnswer() const { return m_answer; }
 
 void Npc::Update(const sf::Time& l_time)
 {
-	m_talking = false;
+	if (m_position.DistanceTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()) <= __TALK_DISTANCE && m_isActive)
+	{
+		m_talking = true;
+		m_sharedContext->m_gameInfo->m_questionAsked = true;
+	}
 
 	if (m_isActive)
+	{
 		Actor::Update(l_time);
+		if (m_talking)
+		{
+			if (m_speachTimer <= m_speachDuration)
+			{
+				m_speachTimer += l_time.asSeconds();
+				m_talkingTimer += l_time.asSeconds();
+				if (m_talkingTimer >= m_talkingFrameDuration)
+				{
+					m_talkingTimer = 0;
+					if (m_currentFrame == 0)
+					{
+						SetTexture(__NPC_TEXTURE_2);
+						m_currentFrame = 1;
+					}
+					else if (m_currentFrame == 1)
+					{
+						SetTexture(__NPC_TEXTURE_1);
+						m_currentFrame = 0;
+					}
+				}
+			}
+			else
+			{
+				SetTexture(__NPC_TEXTURE_2);
+			}
+		}
+		else
+		{
+			SetTexture(__NPC_TEXTURE_2);
 
-	if (m_position.DistanceTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()) <= __TALK_DISTANCE)
-		m_talking = true;
+			m_questionMark.rotate(m_questionMarkRotationInc * l_time.asSeconds());
+
+			const uint16_t rotation = m_questionMark.getRotation();
+
+			if (rotation >= 5 && rotation < 180 && m_questionMarkRotationInc > 0)
+				m_questionMarkRotationInc = -abs(m_questionMarkRotationInc);
+			else if (rotation <= 355 && rotation >= 180 && m_questionMarkRotationInc < 0)
+				m_questionMarkRotationInc = abs(m_questionMarkRotationInc);
+		}
+	}
 }
 
 void Npc::Draw() const
@@ -98,8 +157,10 @@ void Npc::Draw() const
 	{
 		Actor::Draw();
 
-		if (m_talking)
+		if (m_talking || m_sharedContext->m_gameInfo->m_questionAsked)
 			DrawAffirmation();
+		else if (!m_sharedContext->m_gameInfo->m_questionAsked)
+			m_sharedContext->m_wind->GetRenderWindow()->draw(m_questionMark);
 	}
 }
 
@@ -108,8 +169,8 @@ void Npc::DrawAffirmation() const
 	sf::Text question;
 	if (m_sharedContext->m_fontManager->RequireResource("Retro"))
 		question.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));
-	question.setCharacterSize(20);
-	question.setPosition(1100, 70);
+	question.setCharacterSize(22);
+	question.setPosition(1100, 80);
 	question.setFillColor(sf::Color::Black);
 
 	std::string value;
@@ -131,7 +192,7 @@ void Npc::DrawAffirmation() const
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("Seems that \n" + value + " enemies spawned here !");
+		question.setString("Seems that " + value + " enemies\nspawned here !");
 		break;
 
 	case QuestionType::PROJECTILE_SPAWNED:

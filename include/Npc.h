@@ -11,8 +11,9 @@ enum class QuestionType
 class Npc : public Actor
 {
 private:
-	const std::string __NPC_TEXTURE = "Npc";
-	const float __TALK_DISTANCE = 5000;
+	const std::string __NPC_TEXTURE_1 = "Npc_Front_Opened_Mouth";
+	const std::string __NPC_TEXTURE_2 = "Npc_Front_Closed_Mouth";
+	const float __TALK_DISTANCE = 100;
 
 public:
 	explicit Npc(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
@@ -38,9 +39,19 @@ private:
 
 	uint16_t m_randomValue;
 
+	float m_talkingTimer;
+	uint8_t m_currentFrame;
+	float m_talkingFrameDuration;
+
+	float m_speachTimer;
+	float m_speachDuration;
+
 	bool m_answer;
 	QuestionType m_question;
 
+	float m_questionMarkRotationInc;
+
+	sf::Sprite m_questionMark;
 	sf::Sprite m_speachBubble;
 
 	bool m_talking;

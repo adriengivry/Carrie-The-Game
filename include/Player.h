@@ -16,6 +16,7 @@ public:
 	~Player();
 
 	void Move(const sf::Time& l_time) override;
+	void CheckFire();
 	void Update(const sf::Time& l_time) override;
 	void StopControl();
 	void Draw() const override;
@@ -29,6 +30,8 @@ public:
 	void CheckControls();
 
 	void Fire(EventDetails* l_details);
+	void Unfire(EventDetails* l_details);
+
 	void RemoveLife(const float p_value, const bool p_constantDamages = false);
 
 private:
@@ -41,6 +44,10 @@ private:
 
 	float m_maxLife;
 	float m_life;
+
+	bool m_fireOn;
+	float m_fireTimer;
+	float m_fireCooldown;
 
 	float m_reorienteTimer;
 

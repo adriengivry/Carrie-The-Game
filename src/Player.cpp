@@ -5,6 +5,7 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Fire", &Player::Fire, this);
+	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Unfire", &Player::Unfire, this);
 
 	m_orientable = false;
 	m_maxVelocity = __PLAYER_SPEED;
@@ -27,12 +28,17 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_sprite.setScale(0.7f, 0.7f);
 	m_shadowScale.Set(0.8f, 0.8f);
 
+	m_fireOn = false;
+	m_fireTimer = 0;
+	m_fireCooldown = 0.2f;
+
 	SetTexture(__PLAYER_TEXTURE);
 }
 
 Player::~Player()
 {
 	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Fire");
+	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Unfire");
 }
 
 void Player::Move(const sf::Time& l_time)
@@ -122,13 +128,77 @@ void Player::Move(const sf::Time& l_time)
 	}
 }
 
+void Player::CheckFire()
+{
+	if (m_fireOn && m_fireTimer >= m_fireCooldown)
+	{
+		m_fireTimer = 0;
+		GameInfo* gameInfo = m_sharedContext->m_gameInfo;
+		Vector2D<float> mousePos;
+		mousePos.Set(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
+
+		Vector2D<float> projectileDirection;
+		projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
+
+		std::cout << projectileDirection.GetAngle() << std::endl;
+
+		if (projectileDirection.X() >= 0.f && projectileDirection.Y() <= 0.5f  && projectileDirection.Y() >= -0.5f)
+		{
+			SetTexture("Carrie_Right");
+			m_reorienteTimer = 0;
+		}
+		else if (projectileDirection.X() < 0.f &&  projectileDirection.Y() <= 0.5f  && projectileDirection.Y() >= -0.5f)
+		{
+			SetTexture("Carrie_Left");
+			m_reorienteTimer = 0;
+		}
+		else if (projectileDirection.Y() >= 0.f && projectileDirection.X() <= 0.5f  && projectileDirection.X() >= -0.5f)
+		{
+			SetTexture("Carrie_Front");
+			m_reorienteTimer = 0;
+		}
+		else if (projectileDirection.Y() < 0.f && projectileDirection.X() <= 0.5f  && projectileDirection.X() >= -0.5f)
+		{
+			SetTexture("Carrie_Back");
+			m_reorienteTimer = 0;
+		}
+
+
+		Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y() + 20);
+
+		newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
+		newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
+
+		m_sharedContext->m_actorManager->AddProjectile(newProjectile);
+
+		switch (Utils::randomgen(1, 3))
+		{
+		default:
+		case 1:
+			m_sharedContext->m_soundManager->PlaySound("Shoot_1");
+			break;
+
+		case 2:
+			m_sharedContext->m_soundManager->PlaySound("Shoot_2");
+			break;
+
+		case 3:
+			m_sharedContext->m_soundManager->PlaySound("Shoot_3");
+			break;
+		}
+	}
+}
+
 void Player::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
 
 	if (m_reorienteTimer < 10.f)
 		m_reorienteTimer += l_time.asSeconds();
+
+	m_fireTimer += l_time.asSeconds();
 	
+	CheckFire();
 	CheckControls();
 
 	m_velocityMultiplicator = pow(m_sharedContext->m_gameInfo->__CARRIE_SLOW_MULTIPLICATOR, m_sharedContext->m_gameInfo->m_slowerCarrie);
@@ -203,64 +273,12 @@ void Player::CheckControls()
 
 void Player::Fire(EventDetails* l_details)
 {
-	GameInfo* gameInfo = m_sharedContext->m_gameInfo;
+	m_fireOn = true;
+}
 
-	if (gameInfo->m_levelCompleted)
-		return;
-
-	Vector2D<float> mousePos;
-	mousePos.Set(l_details->m_mouse.x, l_details->m_mouse.y);
-
-	Vector2D<float> projectileDirection;
-	projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
-
-	std::cout << projectileDirection.GetAngle() << std::endl;
-
-	if (projectileDirection.X() >= 0.f && projectileDirection.Y() <= 0.5f  && projectileDirection.Y() >= -0.5f)
-	{
-		SetTexture("Carrie_Right");
-		m_reorienteTimer = 0;
-	}
-	else if (projectileDirection.X() < 0.f &&  projectileDirection.Y() <= 0.5f  && projectileDirection.Y() >= -0.5f)
-	{
-		SetTexture("Carrie_Left");
-		m_reorienteTimer = 0;
-	}
-	else if (projectileDirection.Y() >= 0.f && projectileDirection.X() <= 0.5f  && projectileDirection.X() >= -0.5f)
-	{
-		SetTexture("Carrie_Front");
-		m_reorienteTimer = 0;
-	}
-	else if (projectileDirection.Y() < 0.f && projectileDirection.X() <= 0.5f  && projectileDirection.X() >= -0.5f)
-	{
-		SetTexture("Carrie_Back");
-		m_reorienteTimer = 0;
-	}
-	 
-
-	Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y() + 20);
-
-	newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
-	newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
-
-	m_sharedContext->m_actorManager->AddProjectile(newProjectile);
-
-	switch (Utils::randomgen(1, 3))
-	{
-	default:
-	case 1:
-		m_sharedContext->m_soundManager->PlaySound("Shoot_1");
-		break;
-
-	case 2:
-		m_sharedContext->m_soundManager->PlaySound("Shoot_2");
-		break;
-
-	case 3:
-		m_sharedContext->m_soundManager->PlaySound("Shoot_3");
-		break;
-	}
-	
+void Player::Unfire(EventDetails* l_details)
+{
+	m_fireOn = false;
 }
 
 void Player::RemoveLife(const float p_value, const bool p_constantDamages)

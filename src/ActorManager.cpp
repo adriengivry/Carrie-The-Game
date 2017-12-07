@@ -116,22 +116,18 @@ void ActorManager::CheckDeads()
 void ActorManager::Draw()
 {
 	std::multimap<uint16_t&, Actor*> actors;
+	AddActor(actors, m_npc);
+	AddActor(actors, m_player);
+	for (auto it : m_enemies)		AddActor(actors, it);
+	for (auto it : m_projectiles)	AddActor(actors, it);
 
+	// ALWAYS DRAW UNDER EVERY OTHER ACTORS
+	for (auto it : m_spawnPoints)	it->Draw();
 	m_doors[0]->Draw();
 	m_doors[1]->Draw();
 
-	for (auto it : m_spawnPoints)
-		it->Draw();
-
-	for (auto it : m_enemies)
-		AddActor(actors, it);
-	AddActor(actors, m_npc);
-	for (auto it : m_projectiles)
-		AddActor(actors, it);
-	AddActor(actors, m_player);
-
-	for (const auto it : actors)
-		it.second->Draw();
+	// DRAW RESPECTING THEIR ZBUFFER
+	for (const auto it : actors)	it.second->Draw();
 }
 
 Player* ActorManager::GetPlayer() const { return m_player; }

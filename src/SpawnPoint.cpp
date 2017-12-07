@@ -53,7 +53,9 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	}
 	while (!spawnIsCorrect && tries < 9999);
 
+	m_futurePosition = newPos;
 	m_position = newPos;
+	m_position.Y(-100);
 	// m_type = SpawnerType::CAKEMONSTER_SPAWNER;
 	m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
 	switch (m_type)
@@ -113,11 +115,20 @@ void SpawnPoint::SpawnEnemy()
 void SpawnPoint::Update(const sf::Time & l_time)
 {
 	if (IsActive())
+	{
 		m_timer += l_time.asSeconds();
+		m_position = m_futurePosition;
+	}
+
 	
 	if (!IsActive())
 	{
 		m_activationTimer += l_time.asSeconds();
+		if (m_activationTimer >= m_secondsBeforeActivation - 1 && m_position.Y() < m_futurePosition.Y())
+		{
+			m_position.Y() += 1500 * l_time.asSeconds();
+		}
+		
 		if (m_activationTimer >= m_secondsBeforeActivation)
 			Activate();
 	}

@@ -57,6 +57,8 @@ private:
 
 	bool m_active;
 
+	Vector2D<float> m_futurePosition;
+
 	float m_spawnFrequency;
 	float m_timer;
 

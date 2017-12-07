@@ -52,23 +52,50 @@ void Projectile::Update(const sf::Time& l_time)
 	if (m_constantlyRotate)
 		m_sprite.rotate(350 * l_time.asSeconds());
 
-	if (m_friendly)
+	if (!MustDie())
 	{
-		for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
+		if (m_friendly)
 		{
-			if (!enemy->IsDead() && IsIntersecting(enemy) && !MustDie())
+			for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
+			{
+				if (!enemy->IsDead() && IsIntersecting(enemy) && !MustDie())
+				{
+					m_mustDie = true;
+					enemy->RemoveLife(m_damages, m_direction);
+				}
+			}
+
+			for (auto projectile : m_sharedContext->m_actorManager->GetProjectile())
+			{
+				if (!projectile->IsFriendly() && IsIntersecting(projectile))
+				{
+					if (!projectile->DealsConstantDamages())
+					{
+						projectile->Kill();
+						m_sprite.scale(1.3f, 1.3f);
+						m_damages *= 1.3f;
+					}
+					else
+					{
+						m_velocityMultiplicator *= 1 - 0.9 * l_time.asSeconds();
+						m_damages *= 1 - 0.9 * l_time.asSeconds();
+						m_sprite.scale(1 - 0.9 * l_time.asSeconds(), 1 - 0.9 * l_time.asSeconds());
+					}
+				}
+			}
+
+			if (m_sprite.getScale().x <= 0.1f)
 			{
 				m_mustDie = true;
-				enemy->RemoveLife(m_damages, m_direction);
 			}
 		}
-	}
-	else
-	{
-		if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()) && !MustDie())
+		else
 		{
-			m_mustDie = true;
-			m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, m_constantDamages);
+			if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()))
+			{
+				m_mustDie = true;
+				m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, m_constantDamages);
+			}
 		}
 	}
 
@@ -91,9 +118,19 @@ void Projectile::MultiplyHitrate(const float p_value)
 	m_hitrate *= p_value;
 }
 
+void Projectile::Kill()
+{
+	m_mustDie = true;
+}
+
 bool Projectile::IsFriendly() const
 {
 	return m_friendly;
+}
+
+bool Projectile::DealsConstantDamages() const
+{
+	return m_constantDamages;
 }
 
 void Projectile::SetDamages(const float p_value)

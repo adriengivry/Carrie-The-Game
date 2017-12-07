@@ -22,7 +22,10 @@ public:
 	void MultiplySpeed(const float p_value);
 	void MultiplyHitrate(const float p_value);
 
+	void Kill();
+
 	bool IsFriendly() const;
+	bool DealsConstantDamages() const;
 
 	void SetDamages(const float p_value);
 	void SetSpeed(const float p_speed);

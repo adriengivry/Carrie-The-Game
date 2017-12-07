@@ -22,7 +22,7 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_specialAbilityCooldown = __ENEMY_DEFAULT_COOLDOWN;
 
 	m_pushAcceleration = -1000;
-	m_pushMaxVelocity = 500;
+	m_pushMaxVelocity = 300;
 	m_pushVelocity = 0;
 	m_pushDirection.Set(0, 0);
 }

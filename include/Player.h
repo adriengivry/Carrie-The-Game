@@ -42,6 +42,8 @@ private:
 	float m_maxLife;
 	float m_life;
 
+	float m_reorienteTimer;
+
 	bool m_invulnerable;
 	float m_invulnerableTimer;
 	float m_invulnerableFlashTimer;

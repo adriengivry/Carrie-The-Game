@@ -17,6 +17,8 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_invulnerable = false;
 	m_invulnerableTimer = 0;
 
+	m_reorienteTimer = 0;
+
 	m_collide = false;
 
 	m_isTransparent = false;
@@ -57,27 +59,22 @@ void Player::Move(const sf::Time& l_time)
 		if (m_moveLeft || m_moveRight || m_moveDown || m_moveUp)
 		{
 			m_direction = direction;
+			m_acceleration = abs(m_acceleration);
 		}
 		else
 			m_acceleration = abs(m_acceleration) * -1;
 
-
-		if (direction.X() > 0 && direction.Y() == 0)
-			SetTexture("Carrie_Right");
-		else if (direction.X() < 0 && direction.Y() == 0)
-			SetTexture("Carrie_Left");
-		else if (direction.X() == 0 && direction.Y() > 0)
-			SetTexture("Carrie_Front");
-		else if (direction.X() == 0 && direction.Y() < 0)
-			SetTexture("Carrie_Back");
-		else if (direction.X() > 0 && direction.Y() > 0)
-			SetTexture("Carrie_Front_Right");
-		else if (direction.X() < 0 && direction.Y() > 0)
-			SetTexture("Carrie_Front_Left");
-		else if (direction.X() > 0 && direction.Y() < 0)
-			SetTexture("Carrie_Back_Right");
-		if (direction.X() < 0 && direction.Y() < 0)
-			SetTexture("Carrie_Back_Left");
+		if (m_reorienteTimer >= 0.25f)
+		{
+			if (direction.X() > 0 && direction.Y() == 0)		SetTexture("Carrie_Right");
+			else if (direction.X() < 0 && direction.Y() == 0)	SetTexture("Carrie_Left");
+			else if (direction.X() == 0 && direction.Y() > 0)	SetTexture("Carrie_Front");
+			else if (direction.X() == 0 && direction.Y() < 0)	SetTexture("Carrie_Back");
+			else if (direction.X() > 0 && direction.Y() > 0)	SetTexture("Carrie_Front_Right");
+			else if (direction.X() < 0 && direction.Y() > 0)	SetTexture("Carrie_Front_Left");
+			else if (direction.X() > 0 && direction.Y() < 0)	SetTexture("Carrie_Back_Right");
+			else if (direction.X() < 0 && direction.Y() < 0)	SetTexture("Carrie_Back_Left");
+		}
 
 		Actor::Move(l_time);
 
@@ -128,6 +125,9 @@ void Player::Move(const sf::Time& l_time)
 void Player::Update(const sf::Time& l_time)
 {
 	Actor::Update(l_time);
+
+	if (m_reorienteTimer < 10.f)
+		m_reorienteTimer += l_time.asSeconds();
 	
 	CheckControls();
 
@@ -214,18 +214,28 @@ void Player::Fire(EventDetails* l_details)
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
 
-	/*
-	 CARRIE ORIENTED DEPENDING ON HER CHOCOLATE SHOT DIRECTION
+	std::cout << projectileDirection.GetAngle() << std::endl;
 
-	 if (m_position.AngleTo(mousePos) < 45 && m_position.AngleTo(mousePos) >= -45)
+	if (projectileDirection.X() >= 0.f && projectileDirection.Y() <= 0.5f  && projectileDirection.Y() >= -0.5f)
+	{
 		SetTexture("Carrie_Right");
-	else if (m_position.AngleTo(mousePos) < 45 + 180 && m_position.AngleTo(mousePos) >= -45 - 180)
+		m_reorienteTimer = 0;
+	}
+	else if (projectileDirection.X() < 0.f &&  projectileDirection.Y() <= 0.5f  && projectileDirection.Y() >= -0.5f)
+	{
 		SetTexture("Carrie_Left");
-	else if (m_position.AngleTo(mousePos) <= -45 && m_position.AngleTo(mousePos) >= -135)
+		m_reorienteTimer = 0;
+	}
+	else if (projectileDirection.Y() >= 0.f && projectileDirection.X() <= 0.5f  && projectileDirection.X() >= -0.5f)
+	{
 		SetTexture("Carrie_Front");
-	else if (m_position.AngleTo(mousePos) <= 45 && m_position.AngleTo(mousePos) >= 135)
+		m_reorienteTimer = 0;
+	}
+	else if (projectileDirection.Y() < 0.f && projectileDirection.X() <= 0.5f  && projectileDirection.X() >= -0.5f)
+	{
 		SetTexture("Carrie_Back");
-	*/
+		m_reorienteTimer = 0;
+	}
 	 
 
 	Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y() + 20);

@@ -51,6 +51,9 @@ private:
 
 	float m_reorienteTimer;
 
+	float m_xScaleIncrement;
+	float m_yScaleIncrement;
+
 	bool m_invulnerable;
 	float m_invulnerableTimer;
 	float m_invulnerableFlashTimer;

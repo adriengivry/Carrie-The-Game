@@ -19,7 +19,7 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 	m_shadowOffset = 50;
 }
 
-CakeMonster::~CakeMonster()
+void CakeMonster::OnDeath()
 {
 	m_sharedContext->m_soundManager->PlaySound("Death_Cakemonster");
 }
@@ -43,7 +43,7 @@ void CakeMonster::SpecialAttack(const sf::Time& l_time)
 	{
 		Vector2D<float> projectileDirection;
 		projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
-		Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, true);
+		Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), false, true);
 		projectile->SetDamages(m_specialAttackDamages);
 		projectile->SetSpeed(__CAKEMONSTER_PROJECTILE_SPEED);
 		m_sharedContext->m_actorManager->AddProjectile(projectile);

@@ -21,7 +21,9 @@ class Crocodile : public Enemy
 
 public:
 	explicit Crocodile(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
-	~Crocodile();
+	~Crocodile() {}
+
+	void OnDeath() override;
 
 	void GenerateStats() override;
 

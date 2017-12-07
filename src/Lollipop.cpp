@@ -15,7 +15,7 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 	m_dashMaxDuration = 0.2f;
 }
 
-Lollipop::~Lollipop()
+void Lollipop::OnDeath()
 {
 	m_sharedContext->m_soundManager->PlaySound("Death_Lollipop");
 }
@@ -56,7 +56,7 @@ void Lollipop::SpecialAttack(const sf::Time& l_time)
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
 
-	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, false);
+	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), false, false);
 	projectile->SetDamages(m_damages);
 	projectile->SetSpeed(__LOLLIPOP_PROJECTILE_SPEED);
 

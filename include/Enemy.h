@@ -15,6 +15,8 @@ public:
 	explicit Enemy(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
 	~Enemy();
 
+	virtual void OnDeath() = 0;
+
 	virtual void GenerateStats() = 0;
 	virtual void SpecialAttack(const sf::Time& l_time);
 	virtual void SpecialAbility(const sf::Time& l_time);

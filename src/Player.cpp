@@ -32,6 +32,9 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_fireTimer = 0;
 	m_fireCooldown = 0.2f;
 
+	m_xScaleIncrement = 1.5f;
+	m_yScaleIncrement = 1.5f;
+
 	SetTexture(__PLAYER_TEXTURE);
 }
 
@@ -164,7 +167,7 @@ void Player::CheckFire()
 		}
 
 
-		Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y() + 20);
+		Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y() + 20);
 
 		newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
 		newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
@@ -225,6 +228,32 @@ void Player::Update(const sf::Time& l_time)
 		m_sprite.setColor(sf::Color(255, 0, 0, 100));
 	else
 		m_sprite.setColor(sf::Color(255, 255, 255, 255));
+
+	if (m_moveLeft || m_moveRight || m_moveUp || m_moveDown)
+	{
+		if (m_moveUp || m_moveDown)
+		{
+			m_spriteScale.Y() += m_yScaleIncrement * l_time.asSeconds();
+
+			if (m_spriteScale.Y() >= 1.1f && m_yScaleIncrement > 0)
+				m_yScaleIncrement = -abs(m_yScaleIncrement);
+			else if (m_spriteScale.Y() <= 0.9f && m_yScaleIncrement < 0)
+				m_yScaleIncrement = abs(m_yScaleIncrement);
+		}
+		else if (m_moveLeft || m_moveRight)
+		{
+			m_spriteScale.X() += m_xScaleIncrement * l_time.asSeconds();
+
+			if (m_spriteScale.X() >= 1.1f && m_xScaleIncrement > 0)
+				m_xScaleIncrement = -abs(m_xScaleIncrement);
+			else if (m_spriteScale.X() <= 0.9f && m_xScaleIncrement < 0)
+				m_xScaleIncrement = abs(m_xScaleIncrement);
+		}
+	}
+	else
+	{
+		m_spriteScale.Set(1.f, 1.f);
+	}
 }
 
 void Player::StopControl()

@@ -13,7 +13,7 @@ private:
 	const float __PROJECTILE_HITRATE = 100;
 
 public:
-	explicit Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, const float p_x = 0, const float p_y = 0, const bool p_friendly = true, const bool p_isLaser = false);
+	explicit Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, Actor* p_source, const float p_x = 0, const float p_y = 0, const bool p_friendly = true, const bool p_isLaser = false);
 	~Projectile();
 
 	void Update(const sf::Time& l_time) override;
@@ -23,6 +23,8 @@ public:
 	void MultiplyHitrate(const float p_value);
 
 	void Kill();
+
+	Actor* GetSource() const;
 
 	bool IsFriendly() const;
 	bool DealsConstantDamages() const;
@@ -34,6 +36,8 @@ private:
 	bool m_friendly;
 	bool m_constantDamages;
 	bool m_constantlyRotate;
+
+	Actor* m_source;
 
 	float m_damages;
 	float m_hitrate;

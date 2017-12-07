@@ -17,9 +17,9 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	m_dashMaxDuration = 0.2f;
 }
 
-JellyBear::~JellyBear()
+void JellyBear::OnDeath()
 {
-	m_sharedContext->m_soundManager->PlaySound("Death_Jellybear");
+	m_sharedContext->m_soundManager->PlaySound("Death_Jelly");
 }
 
 void JellyBear::GenerateStats()

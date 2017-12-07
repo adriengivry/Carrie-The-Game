@@ -1,7 +1,7 @@
 #include "Projectile.h"
 #include "StateManager.h"
 
-Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, const float p_x, const float p_y, const bool p_friendly, const bool p_isLaser)
+Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, Actor* p_source, const float p_x, const float p_y, const bool p_friendly, const bool p_isLaser)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	m_direction = p_direction;
@@ -9,6 +9,8 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	m_maxVelocity = m_velocity;
 	m_damages = __PROJECTILE_DAMAGES;
 	m_hitrate = __PROJECTILE_HITRATE;
+
+	m_source = p_source;
 
 	m_constantDamages = p_isLaser;
 
@@ -91,6 +93,14 @@ void Projectile::Update(const sf::Time& l_time)
 		}
 		else
 		{
+			for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
+			{
+				if (!enemy->IsDead() && IsIntersecting(enemy) && !MustDie() && enemy != m_source)
+				{
+					m_mustDie = true;
+				}
+			}
+
 			if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()))
 			{
 				m_mustDie = true;
@@ -121,6 +131,11 @@ void Projectile::MultiplyHitrate(const float p_value)
 void Projectile::Kill()
 {
 	m_mustDie = true;
+}
+
+Actor* Projectile::GetSource() const
+{
+	return m_source;
 }
 
 bool Projectile::IsFriendly() const

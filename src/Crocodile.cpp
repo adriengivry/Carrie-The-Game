@@ -20,7 +20,7 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 	m_dashMaxDuration = 0.4f;
 }
 
-Crocodile::~Crocodile()
+void Crocodile::OnDeath()
 {
 	m_sharedContext->m_soundManager->PlaySound("Death_Crocodile");
 }

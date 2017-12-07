@@ -25,6 +25,8 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_pushMaxVelocity = 300;
 	m_pushVelocity = 0;
 	m_pushDirection.Set(0, 0);
+
+	m_sprite.setScale(0.1f, 0.1f);
 }
 
 Enemy::~Enemy() {}
@@ -51,10 +53,11 @@ void Enemy::RemoveLife(const float p_damages, const Vector2D<float> p_pushDirect
 	m_pushVelocity = m_pushMaxVelocity;
 	m_pushDirection = p_pushDirection;
 
-	if (m_life <= 0)
+	if (m_life <= 0 && !m_isDead)
 	{
 		m_life = 0;
 		m_isDead = true;
+		OnDeath();
 	}
 }
 
@@ -77,6 +80,15 @@ void Enemy::Update(const sf::Time& l_time)
 {
 	if (m_mustDie)
 		return;
+
+	if (m_sprite.getScale().x < 1)
+	{
+		m_sprite.setScale(m_sprite.getScale().x + 5 * l_time.asSeconds(), m_sprite.getScale().y + 5 * l_time.asSeconds());
+	}
+	else
+	{
+		m_sprite.setScale(1.f, 1.f);
+	}
 
 	Actor::Update(l_time);
 

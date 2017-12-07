@@ -177,6 +177,12 @@ void Enemy::Attack()
 		m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, false);
 }
 
+float Enemy::CalculateStat(const float p_baseValue, const float p_valueIncrement, const float p_maxValue) const
+{
+	const float result = p_baseValue * pow(p_valueIncrement, m_sharedContext->m_gameInfo->m_currentLevel);
+	return result > p_maxValue ? p_maxValue : result;
+}
+
 void Enemy::FollowTarget()
 {
 	m_direction.Set(1, m_position.AngleTo(m_target->GetPosition()), AGMath::POLAR);

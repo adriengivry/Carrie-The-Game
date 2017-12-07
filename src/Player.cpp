@@ -2,7 +2,9 @@
 #include "StateManager.h"
 
 Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
-	: Actor(p_sharedContext, p_x, p_y)
+	: Actor(p_sharedContext, p_x, p_y),
+	m_maxLife(m_sharedContext->m_gameInfo->m_playerMaxLife),
+	m_life(m_sharedContext->m_gameInfo->m_playerLife)
 {
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Fire", &Player::Fire, this);
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Unfire", &Player::Unfire, this);
@@ -11,9 +13,6 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_maxVelocity = __PLAYER_SPEED;
 
 	m_acceleration = __PLAYER_ACCELERATION;
-
-	m_maxLife = __PLAYER_LIFE;
-	m_life = m_maxLife;
 
 	m_invulnerable = false;
 	m_invulnerableTimer = 0;

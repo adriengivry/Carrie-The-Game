@@ -9,14 +9,14 @@ class Lollipop : public Enemy
 	const float			__LOLLIPOP_DASH_SPEED			= 400;
 	const float			__LOLLIPOP_DASH_MIN_DISTANCE	= 250;
 	const float			__LOLLIPOP_LIFE					= 10;
-	const float			__LOLLIPOP_DAMAGES				= 4;
 	const float			__LOLLIPOP_MAX_LIFE				= 150;
-	const float			__LOLLIPOP_MAX_DAMAGES			= 16;
+	const float			__LOLLIPOP_DAMAGES				= 4;
+	const float			__LOLLIPOP_MAX_DAMAGES			= 10;
 
 	const float			__LOLLIPOP_SPECIAL_ABILITY_COOLDOWN = 0.5f;
 
-	const float			__LOLLIPOP_LIFE_INCREMENTATION_COEFFICIENT		= 1.1f;
-	const float			__LOLLIPOP_DAMAGES_INCREMENTATION_COEFFICIENT	= 1.05f;
+	const float			__LOLLIPOP_LIFE_INCREMENTATION_COEFFICIENT		= 1.14499756f;
+	const float			__LOLLIPOP_DAMAGES_INCREMENTATION_COEFFICIENT	= 1.04688023f;
 
 	const float			__LOLLIPOP_SPECIAL_ATTACK_COOLDOWN	= 1.2;
 	const float			__LOLLIPOP_PROJECTILE_SPEED			= 560;

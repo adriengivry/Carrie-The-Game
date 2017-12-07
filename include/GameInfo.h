@@ -20,6 +20,10 @@ struct GameInfo
 	const float __CARRIE_SLOW_MULTIPLICATOR = 0.8f;
 	const float __PROJECTILE_SLOW_MULTIPLICATOR = 0.8f;
 	const float __PROJECTILE_WEAK_MULTIPLICATOR = 0.8f;
+	const float __PLAYER_LIFE = 100;
+
+	float m_playerMaxLife = __PLAYER_LIFE;
+	float m_playerLife = __PLAYER_LIFE;
 
 	uint16_t m_gameStarted = 0;
 	const bool m_allowMouse = true;
@@ -73,5 +77,7 @@ struct GameInfo
 		m_reducedPrecision = 0;
 		m_getCursed = false;
 		m_questionAsked = false;
+		m_playerMaxLife = __PLAYER_LIFE;
+		m_playerLife = __PLAYER_LIFE;
 	}
 };

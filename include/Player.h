@@ -8,7 +8,6 @@ class Player : public Actor
 	const std::string	__PLAYER_TEXTURE		= "Carrie_Back";
 	const float			__PLAYER_SPEED			= 700;
 	const float			__PLAYER_ACCELERATION	= 5000;
-	const float			__PLAYER_LIFE			= 100;
 	const float			__INVULNERABLE_DURATION = 0.5f;
 
 public:
@@ -42,8 +41,8 @@ private:
 
 	bool m_collide;
 
-	float m_maxLife;
-	float m_life;
+	float& m_maxLife;
+	float& m_life;
 
 	bool m_fireOn;
 	float m_fireTimer;

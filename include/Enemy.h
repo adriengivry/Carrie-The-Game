@@ -2,12 +2,6 @@
 
 #include "Actor.h"
 
-#define GENERATE_LIFE(base_life, life_inc, max)\
-	m_maxLife = m_maxLife > max	? max : base_life * m_sharedContext->m_gameInfo->m_currentLevel * life_inc;
-
-#define GENERATE_DAMAGES(base_damages, damages_inc, max)\
-	m_damages = m_damages > max	? max : base_damages * m_sharedContext->m_gameInfo->m_currentLevel * damages_inc;
-
 class Enemy : public Actor
 {
 	const float __ENEMY_DEFAULT_COOLDOWN = 0.0f;
@@ -21,6 +15,8 @@ public:
 	virtual void SpecialAttack(const sf::Time& l_time);
 	virtual void SpecialAbility(const sf::Time& l_time);
 	virtual void Attack();
+
+	float CalculateStat(const float p_baseValue, const float p_valueIncrement, const float p_maxValue) const;
 
 	void SetTarget(Actor* p_target);
 

@@ -10,12 +10,12 @@ class Crocodile : public Enemy
 	const float			__CROCODILE_DASH_SPEED			= 600;
 	const float			__CROCODILE_DASH_MIN_DISTANCE	= 350;
 	const float			__CROCODILE_LIFE				= 20;
+	const float			__CROCODILE_MAX_LIFE			= 300;
 	const float			__CROCODILE_DAMAGES				= 8;
-	const float			__CROCODILE_MAX_LIFE			= 350;
-	const float			__CROCODILE_MAX_DAMAGES			= 33;
+	const float			__CROCODILE_MAX_DAMAGES			= 20;
 
-	const float			__CROCODILE_LIFE_INCREMENTATION_COEFFICIENT = 1.1f;
-	const float			__CROCODILE_DAMAGES_INCREMENTATION_COEFFICIENT = 1.05f;
+	const float			__CROCODILE_LIFE_INCREMENTATION_COEFFICIENT = 1.14499756f;
+	const float			__CROCODILE_DAMAGES_INCREMENTATION_COEFFICIENT = 1.04688023f;
 
 	const float			__CROCODILE_SPECIAL_ABILITY_COOLDOWN = 5;
 

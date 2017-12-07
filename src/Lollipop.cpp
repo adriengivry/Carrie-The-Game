@@ -28,8 +28,8 @@ void Lollipop::GenerateStats()
 	m_specialAttackCooldown = __LOLLIPOP_SPECIAL_ATTACK_COOLDOWN;
 	m_specialAbilityCooldown = __LOLLIPOP_SPECIAL_ABILITY_COOLDOWN;
 
-	GENERATE_LIFE(__LOLLIPOP_LIFE, __LOLLIPOP_LIFE_INCREMENTATION_COEFFICIENT, __LOLLIPOP_MAX_LIFE);
-	GENERATE_DAMAGES(__LOLLIPOP_DAMAGES, __LOLLIPOP_DAMAGES_INCREMENTATION_COEFFICIENT, __LOLLIPOP_MAX_DAMAGES);
+	m_maxLife = CalculateStat(__LOLLIPOP_LIFE, __LOLLIPOP_LIFE_INCREMENTATION_COEFFICIENT, __LOLLIPOP_MAX_LIFE);
+	m_damages = CalculateStat(__LOLLIPOP_DAMAGES, __LOLLIPOP_DAMAGES_INCREMENTATION_COEFFICIENT, __LOLLIPOP_MAX_DAMAGES);
 }
 
 void Lollipop::Update(const sf::Time& l_time)
@@ -54,7 +54,7 @@ void Lollipop::Update(const sf::Time& l_time)
 void Lollipop::SpecialAttack(const sf::Time& l_time)
 {
 	Vector2D<float> projectileDirection;
-	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
+	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()) + Utils::randomgen(0, 10) - 5, POLAR);
 
 	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), false, false);
 	projectile->SetDamages(m_damages);

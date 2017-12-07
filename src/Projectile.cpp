@@ -79,16 +79,14 @@ void Projectile::Update(const sf::Time& l_time)
 					}
 					else
 					{
-						m_velocityMultiplicator *= 1 - 0.9 * l_time.asSeconds();
-						m_damages *= 1 - 0.9 * l_time.asSeconds();
-						m_sprite.scale(1 - 0.9 * l_time.asSeconds(), 1 - 0.9 * l_time.asSeconds());
+						if (m_sprite.getScale().x >= 0.2f)
+						{
+							m_velocityMultiplicator *= 1 - 0.9 * l_time.asSeconds();
+							m_damages *= 1 - 0.9 * l_time.asSeconds();
+							m_sprite.scale(1 - 0.9 * l_time.asSeconds(), 1 - 0.9 * l_time.asSeconds());
+						}
 					}
 				}
-			}
-
-			if (m_sprite.getScale().x <= 0.1f)
-			{
-				m_mustDie = true;
 			}
 		}
 		else

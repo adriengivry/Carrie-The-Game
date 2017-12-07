@@ -37,7 +37,7 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 		newPos.Set(Utils::randomgen(250, 1600), Utils::randomgen(325, 950));
 
 		for (auto it : actorManager->GetSpawnPoints())
-			if (newPos.DistanceTo(it->GetPosition()) <= __DISTANCE_MIN_TO_OTHER_SPAWNPOINT && this != it)
+			if (newPos.DistanceTo(it->GetFuturePosition()) <= __DISTANCE_MIN_TO_OTHER_SPAWNPOINT && this != it)
 				spawnIsCorrect = false;
 
 		if (newPos.DistanceTo(actorManager->GetDoor(0)->GetPosition()) <= __DISTANCE_MIN_TO_DOOR)
@@ -114,6 +114,8 @@ void SpawnPoint::SpawnEnemy()
 
 void SpawnPoint::Update(const sf::Time & l_time)
 {
+	m_gotAShadow = false;
+
 	if (IsActive())
 	{
 		m_timer += l_time.asSeconds();
@@ -126,6 +128,7 @@ void SpawnPoint::Update(const sf::Time & l_time)
 		m_activationTimer += l_time.asSeconds();
 		if (m_activationTimer >= m_secondsBeforeActivation - 1 && m_position.Y() < m_futurePosition.Y())
 		{
+			m_gotAShadow = true;
 			m_position.Y() += 1500 * l_time.asSeconds();
 		}
 		
@@ -141,11 +144,19 @@ void SpawnPoint::Update(const sf::Time & l_time)
 		SpawnEnemy();
 
 	Actor::Update(l_time);
+
+	if (!IsActive() && m_activationTimer >= m_secondsBeforeActivation - 1)
+		m_shadow.setPosition(m_futurePosition.ToSFVector() + sf::Vector2f(0, 20));
 }
 
 void SpawnPoint::ToggleActive()
 {
 	m_active = !m_active;
+}
+
+Vector2D<float> SpawnPoint::GetFuturePosition() const
+{
+	return m_futurePosition;
 }
 
 void SpawnPoint::Desactivate()
@@ -165,6 +176,9 @@ void SpawnPoint::Activate()
 
 void SpawnPoint::Draw() const
 {
+	if (!IsActive())
+		m_sharedContext->m_wind->GetRenderWindow()->draw(m_shadow);
+
 	if (!IsDone())
 		Actor::Draw();
 }

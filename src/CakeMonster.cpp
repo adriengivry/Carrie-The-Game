@@ -11,6 +11,11 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 
 	m_followTarget = false;
 
+	m_attackState = AttackState::ATTACK;
+
+	m_fireTimer = 0;
+	m_reloadTimer = 0;
+
 	m_shadowOffset = 50;
 }
 
@@ -34,16 +39,42 @@ void CakeMonster::GenerateStats()
 
 void CakeMonster::SpecialAttack(const sf::Time& l_time)
 {
-	Vector2D<float> projectileDirection;
-	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
+	if (m_attackState == AttackState::ATTACK)
+	{
+		Vector2D<float> projectileDirection;
+		projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
+		Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, true);
+		projectile->SetDamages(m_specialAttackDamages);
+		projectile->SetSpeed(__CAKEMONSTER_PROJECTILE_SPEED);
+		m_sharedContext->m_actorManager->AddProjectile(projectile);
+		StartSpecialAttackCooldown();
+	}
+}
 
-	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, m_position.X(), m_position.Y(), false, true);
+void CakeMonster::Update(const sf::Time& l_time)
+{
+	Enemy::Update(l_time);
 
-	// DAMAGES PER SECOND
-	projectile->SetDamages(m_specialAttackDamages);
-	projectile->SetSpeed(__CAKEMONSTER_PROJECTILE_SPEED);
+	switch (m_attackState)
+	{
+	case AttackState::RELOAD:
+		m_reloadTimer += l_time.asSeconds();
+		if (m_reloadTimer >= __CAKEMONSTER_RELOAD_DURATION)
+		{
+			m_attackState = AttackState::ATTACK;
+			m_fireTimer = 0;
+		}
+		break;
 
-	m_sharedContext->m_actorManager->AddProjectile(projectile);
+	case AttackState::ATTACK:
+		m_fireTimer += l_time.asSeconds();	
 
-	StartSpecialAttackCooldown();
+		if (m_fireTimer >= __CAKEMONSTER_FIRE_DURATION)
+		{
+			m_attackState = AttackState::RELOAD;
+			m_reloadTimer = 0;
+		}
+		break;
+	}
+
 }

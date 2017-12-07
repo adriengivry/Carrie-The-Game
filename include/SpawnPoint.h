@@ -45,6 +45,8 @@ public:
 	void Activate();
 	void ToggleActive();
 
+	Vector2D<float> GetFuturePosition() const;
+
 	void SpawnEnemy();
 
 	void Update(const sf::Time& l_time) override;

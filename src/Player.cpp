@@ -138,7 +138,7 @@ void Player::CheckFire()
 		mousePos.Set(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
 
 		Vector2D<float> projectileDirection;
-		projectileDirection.Set(1, m_position.AngleTo(mousePos), POLAR);
+		projectileDirection.Set(1, m_position.AngleTo(mousePos) + Utils::randomgen(0, 14 * gameInfo->m_reducedPrecision) - 7 * gameInfo->m_reducedPrecision, POLAR);
 
 		std::cout << projectileDirection.GetAngle() << std::endl;
 

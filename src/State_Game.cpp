@@ -43,9 +43,9 @@ void State_Game::OnCreate()
 	m_curseText.setCharacterSize(45);
 	m_curseText.setString("");
 
-	for (uint8_t i = 0; i < 4; ++i)
+	for (uint8_t i = 0; i < 5; ++i)
 	{
-		m_curseIcon[i].setPosition(windowCenter.x + 550 + 70 * i, windowSize.y - 40);
+		m_curseIcon[i].setPosition(windowCenter.x + 500 + 70 * i, windowSize.y - 40);
 	}
 
 	if (textureManager->RequireResource("Curse_Icon_Reverse"))
@@ -59,6 +59,9 @@ void State_Game::OnCreate()
 
 	if (textureManager->RequireResource("Curse_Icon_Weaker_Projectile"))
 		m_curseIcon[3].setTexture(*textureManager->GetResource("Curse_Icon_Weaker_Projectile"));
+
+	if (textureManager->RequireResource("Curse_Icon_Reduced_Precision"))
+		m_curseIcon[4].setTexture(*textureManager->GetResource("Curse_Icon_Reduced_Precision"));
 
 	const MapType randomMap = static_cast<MapType>(Utils::randomgen(0, 1));
 	gameInfo->m_mapType = randomMap;
@@ -156,11 +159,11 @@ void State_Game::Update(const sf::Time& l_time)
 			{
 			default:
 			case REVERSE_MOVEMENT:
-				m_curseText.setString("YOUR KEYBOARD IS NOW FUCKED UP ;)");
+				m_curseText.setString("YOUR KEYBOARD IS NOW FUCKED UP!");
 				break;
 
 			case SLOWER_CARRIE:
-				m_curseText.setString("DO YOU LIKE GLUE? <3");
+				m_curseText.setString("DO YOU LIKE GLUE?");
 				break;
 
 			case SLOWER_PROJECTILES:
@@ -168,7 +171,11 @@ void State_Game::Update(const sf::Time& l_time)
 				break;
 
 			case WEAKER_PROJECTILES:
-				m_curseText.setString("OUPS! I BROKE YOUR CHOCOLATE SQUARE :)");
+				m_curseText.setString("OUPS! I BROKE YOUR CHOCOLATE SQUARE");
+				break;
+
+			case REDUCED_PRECISION:
+				m_curseText.setString("ARE YOU DRUNK?");
 				break;
 			}
 			Utils::centerOrigin(m_curseText);
@@ -286,7 +293,7 @@ void State_Game::DrawUserInterface()
 	curseStack.setCharacterSize(18);
 
 
-	for (uint8_t i = 0; i < 4; ++i)
+	for (uint8_t i = 0; i < 5; ++i)
 	{
 		bool isEmpty = false;
 
@@ -315,6 +322,11 @@ void State_Game::DrawUserInterface()
 		case WEAKER_PROJECTILES:
 			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles));
 			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles == 0;
+			break;
+
+		case REDUCED_PRECISION:
+			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reducedPrecision));
+			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_reducedPrecision == 0;
 			break;
 		}
 

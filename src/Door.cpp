@@ -108,7 +108,13 @@ void Door::SelectCurse() const
 	uint8_t curse;
 		
 	do
-		curse = Utils::randomgen(0, 3);
+	{
+		curse = Utils::randomgen(0, 4);
+		if (curse == 0)
+			if (Utils::randomgen(0, 2) != 0)
+				curse = Utils::randomgen(0, 4);
+	}
+
 	while (curse == REVERSE_MOVEMENT && gameInfo->m_reverseMovement);
 
 	switch (curse)
@@ -129,6 +135,10 @@ void Door::SelectCurse() const
 		++gameInfo->m_weakerProjectiles;
 		break;
 
+	case REDUCED_PRECISION:
+		++gameInfo->m_reducedPrecision;
+		break;
+
 	default:
 		break;
 	}
@@ -140,7 +150,7 @@ void Door::Update(const sf::Time& l_time)
 {
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
 
-	if (m_position.DistanceTo(player->GetPosition()) <= __DOOR_ACTIVATION_ZONE && IsActivated() && player->GetDirection().Y() < 0 && !m_alreadyGetUsed)
+	if (m_sharedContext->m_gameInfo->m_questionAsked && m_position.DistanceTo(player->GetPosition()) <= __DOOR_ACTIVATION_ZONE && IsActivated() && player->GetDirection().Y() < 0 && !m_alreadyGetUsed)
 	{
 		Use();
 		m_alreadyGetUsed = true;

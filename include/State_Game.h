@@ -30,7 +30,7 @@ private:
 	sf::Sprite m_backgroundSprite;
 	sf::Sprite m_backgroundEdgesSprites;
 
-	sf::Sprite m_curseIcon[4];
+	sf::Sprite m_curseIcon[5];
 
 	float m_whiteRectOpacity;
 	sf::RectangleShape m_whiteRect;

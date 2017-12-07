@@ -6,6 +6,7 @@ enum Curses
 	SLOWER_CARRIE,
 	SLOWER_PROJECTILES,
 	WEAKER_PROJECTILES,
+	REDUCED_PRECISION
 };
 
 enum class MapType
@@ -41,6 +42,7 @@ struct GameInfo
 	uint8_t m_slowerCarrie = 0;
 	uint8_t m_slowerProjectiles = 0;
 	uint8_t m_weakerProjectiles = 0;
+	uint8_t m_reducedPrecision = 0;
 
 	void Reset()
 	{
@@ -68,6 +70,7 @@ struct GameInfo
 		m_slowerCarrie = 0;
 		m_slowerProjectiles = 0;
 		m_weakerProjectiles = 0;
+		m_reducedPrecision = 0;
 		m_getCursed = false;
 		m_questionAsked = false;
 	}

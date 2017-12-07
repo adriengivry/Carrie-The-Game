@@ -13,7 +13,7 @@ class Npc : public Actor
 private:
 	const std::string __NPC_TEXTURE_1 = "Npc_Front_Opened_Mouth";
 	const std::string __NPC_TEXTURE_2 = "Npc_Front_Closed_Mouth";
-	const float __TALK_DISTANCE = 100;
+	const float __TALK_DISTANCE = 150;
 
 public:
 	explicit Npc(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);

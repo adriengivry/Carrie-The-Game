@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Utilities.h"
 
 Window::Window()
 { 
@@ -36,19 +37,17 @@ void Window::Create()
 {
 	sf::Uint32 style;
 
-	if (m_isResizable) 
-		style = sf::Style::Default;
-	else
-		style = sf::Style::Close;
-
-	if(m_isFullscreen)
-		style = sf::Style::Fullscreen;
+	if (m_isResizable)		style = sf::Style::Default;
+	else					style = sf::Style::Close;
+	if(m_isFullscreen)		style = sf::Style::Fullscreen;
 
 	m_window.create(sf::VideoMode(m_windowSize.x,m_windowSize.y,32),m_windowTitle,style);
-
 	m_window.setVerticalSyncEnabled(m_isVSyncOn);
-
 	m_window.setFramerateLimit(m_frameRateLimit);
+
+	sf::Image icon;
+	if (icon.loadFromFile(Utils::loadAsset("icon/carrie.png")))
+		m_window.setIcon(70, 70, icon.getPixelsPtr());
 }
 
 void Window::BeginDraw() { m_window.clear(sf::Color(0, 0, 0)); }

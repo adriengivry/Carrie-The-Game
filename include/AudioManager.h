@@ -11,7 +11,7 @@ public:
 	{
 		sf::SoundBuffer* sound = new sf::SoundBuffer();
 		if (!sound->loadFromFile(
-			l_path))
+			Utils::loadAsset(l_path)))
 		{
 			delete sound;
 			sound = nullptr;

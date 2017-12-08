@@ -40,12 +40,12 @@ namespace Utils
 
 	inline std::string loadAsset(const std::string p_path)
 	{
-		return "../assets/" + p_path;
+		return GetWorkingDirectory() + "assets/" + p_path;
 	}
 
 	inline std::string loadConfig(const std::string p_path)
 	{
-		return "../config/" + p_path;
+		return loadAsset("config/" + p_path);
 	}
 
 	inline void centerOrigin(sf::Sprite& p_sprite)

@@ -40,14 +40,14 @@
     <Filter Include="Source Files\Entities">
       <UniqueIdentifier>{1844caf6-efa8-48a7-812f-6d64d0b513b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\config">
-      <UniqueIdentifier>{dbc600d8-09c2-42e3-b9d8-bdb61901e2b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Entities\Enemies">
       <UniqueIdentifier>{fc9e4363-19ba-450c-95db-47e587e227e2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Entities\Enemies">
       <UniqueIdentifier>{8f0d2b2e-6483-4f60-8305-65da4b5ed375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\config">
+      <UniqueIdentifier>{bfc8a30f-d296-4be7-addb-96ba51eafcdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -227,20 +227,36 @@
     <ClInclude Include="..\include\Lollipop.h">
       <Filter>Header Files\Entities\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\config\fonts.cfg">
-      <Filter>Resource Files\config</Filter>
-    </None>
-    <None Include="..\config\keys.cfg">
-      <Filter>Resource Files\config</Filter>
-    </None>
-    <None Include="..\config\textures.cfg">
-      <Filter>Resource Files\config</Filter>
-    </None>
-    <None Include="..\config\audio.cfg">
-      <Filter>Resource Files\config</Filter>
-    </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="..\assets\config\audio.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="..\assets\config\fonts.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="..\assets\config\keys.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+    <None Include="..\assets\config\textures.cfg">
+      <Filter>Resource Files\config</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Carrie-The-Game.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\assets\icon\carrie.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ public:
 	{
 		sf::Font* font = new sf::Font();
 		if (!font->loadFromFile(
-			l_path))
+			Utils::loadAsset(l_path)))
 		{
 			delete font;
 			font = nullptr;

@@ -66,6 +66,8 @@ void State_MainMenu::OnCreate()
 	evMgr->AddCallback(StateType::MainMenu, "Key_Space", &State_MainMenu::Validate, this);
 	evMgr->AddCallback(StateType::MainMenu, "Move_Up", &State_MainMenu::Move, this);
 	evMgr->AddCallback(StateType::MainMenu, "Move_Down", &State_MainMenu::Move, this);
+	evMgr->AddCallback(StateType::MainMenu, "Move_Up_Alternative", &State_MainMenu::Move, this);
+	evMgr->AddCallback(StateType::MainMenu, "Move_Down_Alternative", &State_MainMenu::Move, this);
 }
 
 void State_MainMenu::OnDestroy() {
@@ -79,6 +81,8 @@ void State_MainMenu::OnDestroy() {
 	evMgr->RemoveCallback(StateType::MainMenu, "Key_Space");
 	evMgr->RemoveCallback(StateType::MainMenu, "Move_Up");
 	evMgr->RemoveCallback(StateType::MainMenu, "Move_Down");
+	evMgr->RemoveCallback(StateType::MainMenu, "Move_Up_Alternative");
+	evMgr->RemoveCallback(StateType::MainMenu, "Move_Down_Alternative");
 }
 
 void State_MainMenu::Activate(){
@@ -152,6 +156,7 @@ void State_MainMenu::Move(EventDetails* l_details)
 
 	switch (keyPressed)
 	{
+	case sf::Keyboard::Up:
 	case sf::Keyboard::W:
 		if (m_selected == 0)
 			m_selected = 2;
@@ -159,6 +164,7 @@ void State_MainMenu::Move(EventDetails* l_details)
 			--m_selected;
 		break;
 
+	case sf::Keyboard::Down:
 	case sf::Keyboard::S:
 		++m_selected;
 		if (m_selected > 2)

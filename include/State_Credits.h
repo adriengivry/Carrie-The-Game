@@ -6,7 +6,7 @@
 
 class State_Credits : public BaseState
 {
-	const uint16_t __PIXEL_TO_SCROLL_PER_SECOND_DEFAULT = 500;
+	const uint16_t __PIXEL_TO_SCROLL_PER_SECOND_DEFAULT = 750;
 	const uint16_t __PIXEL_ACCELERATION_PER_SECOND = 100;
 public:
 	explicit State_Credits(StateManager* l_stateManager);

@@ -59,7 +59,7 @@ void State_MainMenu::OnCreate()
 	// Adding callbacks
 	if (m_stateMgr->GetContext()->m_gameInfo->m_allowMouse)
 	{
-		evMgr->AddCallback(StateType::MainMenu, "Mouse_Left", &State_MainMenu::Validate, this);
+		evMgr->AddCallback(StateType::MainMenu, "Mouse_Left", &State_MainMenu::MouseValidate, this);
 		evMgr->AddCallback(StateType::MainMenu, "Mouse_Move", &State_MainMenu::MouseMoved, this);
 	}
 	evMgr->AddCallback(StateType::MainMenu, "Key_Return", &State_MainMenu::Validate, this);
@@ -82,9 +82,9 @@ void State_MainMenu::OnDestroy() {
 }
 
 void State_MainMenu::Activate(){
-	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
-	soundManager->Pause("Game");
-	soundManager->PlayMusic("Menu");
+	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;
+	audioManager->Pause("Game");
+	audioManager->PlayMusic("Menu");
 
 	m_selected = 0;
 
@@ -116,7 +116,7 @@ void State_MainMenu::MouseMoved(EventDetails* l_details)
 
 void State_MainMenu::Validate(EventDetails* l_details) const
 {
-	m_stateMgr->GetContext()->m_soundManager->PlaySound("Validate");
+	m_stateMgr->GetContext()->m_audioManager->PlaySound("Validate");
 
 	if (m_selected == 0)
 		Play();
@@ -124,6 +124,26 @@ void State_MainMenu::Validate(EventDetails* l_details) const
 		Credits();
 	else if (m_selected == 2)
 		Exit();
+}
+
+void State_MainMenu::MouseValidate(EventDetails* l_details) const
+{
+	sf::RenderWindow* window = m_stateMgr->GetContext()->m_wind->GetRenderWindow();
+	bool hovering = false;
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (sf::Mouse::getPosition(*window).x >= m_rects[i].getPosition().x - m_rects[i].getSize().x / 2
+			&& sf::Mouse::getPosition(*window).x <= m_rects[i].getPosition().x + m_rects[i].getSize().x / 2
+			&& sf::Mouse::getPosition(*window).y >= m_rects[i].getPosition().y - m_rects[i].getSize().y / 2
+			&& sf::Mouse::getPosition(*window).y <= m_rects[i].getPosition().y + m_rects[i].getSize().y / 2)
+		{
+			hovering = true;
+		}
+	}
+
+	if (hovering)
+		Validate();
 }
 
 void State_MainMenu::Move(EventDetails* l_details)

@@ -78,9 +78,6 @@
     <ClCompile Include="..\src\EventManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SoundManager.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\StateManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
@@ -156,9 +153,6 @@
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AudioManager.h">
-      <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\SoundManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\include\StateManager.h">

@@ -30,7 +30,6 @@ private:
 	TextureManager m_textureManager;
 	FontManager m_fontManager;
 	AudioManager m_audioManager;
-	SoundManager m_soundManager;
 	ActorManager m_actorManager;
 	GameInfo m_gameInfo;
 	sf::Clock m_clock;

@@ -4,7 +4,8 @@
 
 State_Credits::State_Credits(StateManager* l_stateManager) :
 	BaseState(l_stateManager),
-	m_timePassed(0.0f),
+	m_timePassed(0.0f), 
+	m_pixelToScrollPerSeconds(0),
 	m_fastForward(false)
 {
 }
@@ -51,14 +52,26 @@ void State_Credits::FastForwardStop(EventDetails* l_details)
 
 void State_Credits::Update(const sf::Time& l_time)
 {
-	const sf::Vector2u windowCenter = m_stateMgr->GetContext()->m_wind->GetWindowCenter();
-
-	const int16_t pixelToScrollPerSecond = m_fastForward ? 500 : 200;
-
-	m_backgroundSprite.move(0, -pixelToScrollPerSecond * l_time.asSeconds());
-
 	if (m_backgroundSprite.getPosition().y <= -3844)
-		MainMenu(nullptr);
+	{
+		m_timePassed += l_time.asSeconds();
+		if (m_timePassed >= 1.0f)
+			MainMenu();
+	}
+	else
+	{
+		if (m_pixelToScrollPerSeconds >= __PIXEL_ACCELERATION_PER_SECOND)
+			m_pixelToScrollPerSeconds = __PIXEL_ACCELERATION_PER_SECOND;
+		else
+			m_pixelToScrollPerSeconds += __PIXEL_ACCELERATION_PER_SECOND * l_time.asSeconds();
+
+		float pixelToScrollPerSecond = m_pixelToScrollPerSeconds;
+
+		if (m_fastForward)
+			pixelToScrollPerSecond *= 2.5f;
+
+		m_backgroundSprite.move(0, -pixelToScrollPerSecond * l_time.asSeconds());
+	}
 }
 
 void State_Credits::Draw() 

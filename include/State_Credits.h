@@ -6,8 +6,8 @@
 
 class State_Credits : public BaseState
 {
-	const int sCREDIT_LINE_PADDING = 40;
-	const int sCREDIT_LINE_CHARACTER_SIZE = 35;
+	const uint16_t __PIXEL_TO_SCROLL_PER_SECOND_DEFAULT = 500;
+	const uint16_t __PIXEL_ACCELERATION_PER_SECOND = 100;
 public:
 	explicit State_Credits(StateManager* l_stateManager);
 	~State_Credits();
@@ -26,6 +26,8 @@ public:
 	void Draw() override;
 private:
 	float m_timePassed;
+
+	float m_pixelToScrollPerSeconds;
 
 	bool m_fastForward;
 

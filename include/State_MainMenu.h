@@ -23,6 +23,7 @@ public:
 
 	void MouseMoved(EventDetails* l_details);
 	void Validate(EventDetails* l_details = nullptr) const;
+	void MouseValidate(EventDetails* l_details = nullptr) const;
 	void Move(EventDetails* l_details);
 
 private:

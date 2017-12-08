@@ -142,8 +142,6 @@ void Player::CheckFire()
 		Vector2D<float> projectileDirection;
 		projectileDirection.Set(1, m_position.AngleTo(mousePos) + Utils::randomgen(0, 14 * gameInfo->m_reducedPrecision) - 7 * gameInfo->m_reducedPrecision, POLAR);
 
-		std::cout << projectileDirection.GetAngle() << std::endl;
-
 		if (projectileDirection.X() >= 0.f && projectileDirection.Y() <= 0.5f  && projectileDirection.Y() >= -0.5f)
 		{
 			SetTexture("Carrie_Right");
@@ -177,15 +175,15 @@ void Player::CheckFire()
 		{
 		default:
 		case 1:
-			m_sharedContext->m_soundManager->PlaySound("Shoot_1");
+			m_sharedContext->m_audioManager->PlaySound("Shoot_1");
 			break;
 
 		case 2:
-			m_sharedContext->m_soundManager->PlaySound("Shoot_2");
+			m_sharedContext->m_audioManager->PlaySound("Shoot_2");
 			break;
 
 		case 3:
-			m_sharedContext->m_soundManager->PlaySound("Shoot_3");
+			m_sharedContext->m_audioManager->PlaySound("Shoot_3");
 			break;
 		}
 	}

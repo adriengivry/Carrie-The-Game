@@ -66,13 +66,13 @@ void State_GameOver::Draw()
 
 void State_GameOver::Activate()
 {
-	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
-	soundManager->PauseMusics();
-	soundManager->PlaySound("GameOver");
+	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;
+	audioManager->PauseMusics();
+	audioManager->PlaySound("GameOver");
 	m_stateMgr->Remove(StateType::Game);
 }
 void State_GameOver::Deactivate()
 {
-	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
-	soundManager->ClearAll();
+	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;
+	audioManager->ClearAll();
 }

@@ -13,7 +13,7 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 
 void Jelly::OnDeath()
 {
-	m_sharedContext->m_soundManager->PlaySound("Death_Jelly");
+	m_sharedContext->m_audioManager->PlaySound("Death_Jelly");
 }
 
 void Jelly::GenerateStats()

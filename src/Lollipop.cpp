@@ -17,7 +17,7 @@ Lollipop::Lollipop(SharedContext * p_sharedContext, const float p_x, const float
 
 void Lollipop::OnDeath()
 {
-	m_sharedContext->m_soundManager->PlaySound("Death_Lollipop");
+	m_sharedContext->m_audioManager->PlaySound("Death_Lollipop");
 }
 
 void Lollipop::GenerateStats()

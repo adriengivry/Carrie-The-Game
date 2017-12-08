@@ -10,7 +10,6 @@ class StateManager;
 	TextureManager* textureManager = m_stateMgr->GetContext()->m_textureManager;\
 	FontManager* fontManager = m_stateMgr->GetContext()->m_fontManager;\
 	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;\
-	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;\
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;\
 	GameInfo* gameInfo = m_stateMgr->GetContext()->m_gameInfo;\
 	EventManager* evMgr = m_stateMgr->GetContext()->m_eventManager;

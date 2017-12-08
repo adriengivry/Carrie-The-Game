@@ -213,7 +213,7 @@ void State_Game::Update(const sf::Time& l_time)
 
 		if (m_transitionEnd)
 		{
-			m_stateMgr->GetContext()->m_soundManager->PlayMusic("Game");
+			m_stateMgr->GetContext()->m_audioManager->PlayMusic("Game");
 			OnDestroy();
 			OnCreate();
 		}
@@ -415,9 +415,9 @@ void State_Game::Pause(EventDetails* l_details) const
 
 void State_Game::Activate()
 {
-	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
-	soundManager->Pause("Menu");
-	soundManager->PlayMusic("Game", true, true);
+	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;
+	audioManager->Pause("Menu");
+	audioManager->PlayMusic("Game");
 }
 
 void State_Game::Deactivate() {}

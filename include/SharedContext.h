@@ -3,7 +3,7 @@
 #include "EventManager.h"
 #include "TextureManager.h"
 #include "FontManager.h"
-#include "SoundManager.h"
+#include "AudioManager.h"
 #include "GameInfo.h"
 
 class ActorManager;
@@ -16,7 +16,6 @@ struct SharedContext
 		m_textureManager(nullptr),
 		m_fontManager(nullptr),
 		m_audioManager(nullptr),
-		m_soundManager(nullptr),
 		m_actorManager(nullptr),
 		m_gameInfo(nullptr)
 	{}
@@ -25,7 +24,6 @@ struct SharedContext
 	TextureManager* m_textureManager;
 	FontManager* m_fontManager;
 	AudioManager* m_audioManager;
-	SoundManager* m_soundManager;
 	ActorManager* m_actorManager;
 	GameInfo* m_gameInfo;
 };

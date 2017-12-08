@@ -131,7 +131,7 @@ void State_Intro::Continue(EventDetails* l_details)
 {
 	if (m_timePassed >= 2.5f)
 	{
-		m_stateMgr->GetContext()->m_soundManager->PlaySound("Validate");
+		m_stateMgr->GetContext()->m_audioManager->PlaySound("Validate");
 		m_continue = true;
 		m_timePassed = 0;
 	}
@@ -139,7 +139,7 @@ void State_Intro::Continue(EventDetails* l_details)
 
 void State_Intro::Activate()
 {
-	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
-	soundManager->PlayMusic("Menu");
+	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;
+	audioManager->PlayMusic("Menu");
 }
 void State_Intro::Deactivate() {}

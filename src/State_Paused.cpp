@@ -52,8 +52,8 @@ void State_Paused::Unpause(EventDetails* l_details) const
 
 void State_Paused::Activate()
 {
-	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
-	soundManager->Pause("Game");
+	AudioManager* audioManager = m_stateMgr->GetContext()->m_audioManager;
+	audioManager->Pause("Game");
 }
 
 void State_Paused::Deactivate() {}

@@ -42,7 +42,6 @@
     <ClCompile Include="..\src\CakeMonster.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Projectile.cpp" />
-    <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\SpawnPoint.cpp" />
     <ClCompile Include="..\src\StateManager.cpp" />
     <ClCompile Include="..\src\State_Credits.cpp" />
@@ -75,7 +74,6 @@
     <ClInclude Include="..\include\resource.h" />
     <ClInclude Include="..\include\ResourceManager.h" />
     <ClInclude Include="..\include\SharedContext.h" />
-    <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\SpawnPoint.h" />
     <ClInclude Include="..\include\StateManager.h" />
     <ClInclude Include="..\include\State_Credits.h" />

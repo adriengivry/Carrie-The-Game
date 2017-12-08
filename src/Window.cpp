@@ -37,9 +37,8 @@ void Window::Create()
 {
 	sf::Uint32 style;
 
-	if (m_isResizable)		style = sf::Style::Default;
-	else					style = sf::Style::Close;
-	if(m_isFullscreen)		style = sf::Style::Fullscreen;
+	if		(m_isFullscreen)	style = sf::Style::Fullscreen;
+	else if (!m_isResizable)	style = sf::Style::Close;
 
 	m_window.create(sf::VideoMode(m_windowSize.x,m_windowSize.y,32),m_windowTitle,style);
 	m_window.setVerticalSyncEnabled(m_isVSyncOn);
@@ -48,6 +47,36 @@ void Window::Create()
 	sf::Image icon;
 	if (icon.loadFromFile(Utils::loadAsset("icon/carrie.png")))
 		m_window.setIcon(70, 70, icon.getPixelsPtr());
+}
+
+void Window::ApplyLetterBoxView(const uint16_t p_iWindowWidth, const uint16_t p_iWindowHeight)
+{
+	sf::View view = m_window.getView();
+
+	const float windowRatio = p_iWindowWidth / static_cast<float>(p_iWindowHeight);
+	const float viewRatio = view.getSize().x / view.getSize().y;
+	float sizeX = 1.0f;
+	float sizeY = 1.0f;
+	float posX = 0.0f;
+	float posY = 0.0f;
+	bool horizontalSpacing = true;
+
+	if (windowRatio < viewRatio)
+		horizontalSpacing = false;
+
+	if (horizontalSpacing)
+	{
+		sizeX = viewRatio / windowRatio;
+		posX = (1 - sizeX) / 2.0f;
+	}
+	else
+	{
+		sizeY = windowRatio / viewRatio;
+		posY = (1 - sizeY) / 2.0f;
+	}
+
+	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
+	this->m_window.setView(view);
 }
 
 void Window::BeginDraw() { m_window.clear(sf::Color(0, 0, 0)); }

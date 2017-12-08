@@ -47,10 +47,10 @@ void State_GameOver::Update(const sf::Time& l_time)
 	const sf::Vector2u windowCenter = m_stateMgr->GetContext()->m_wind->GetWindowCenter();
 
 	if (m_gameOverSprite.getPosition().x < windowCenter.x)
-		m_gameOverSprite.move(1200 * l_time.asSeconds(), 0);
+		m_gameOverSprite.move(2000 * l_time.asSeconds(), 0);
 	else
-		if (m_timePassed >= 4.0f)
-			m_gameOverSprite.move(2000 * l_time.asSeconds(), 0);
+		if (m_timePassed >= 2.0f)
+			m_gameOverSprite.move(2500 * l_time.asSeconds(), 0);
 
 	if (m_gameOverSprite.getPosition().x - m_gameOverSprite.getLocalBounds().width / 2 >= windowCenter.x * 2)
 		MainMenu();
@@ -68,7 +68,7 @@ void State_GameOver::Activate()
 {
 	SoundManager* soundManager = m_stateMgr->GetContext()->m_soundManager;
 	soundManager->PauseMusics();
-	soundManager->PlayMusic("GameOver");;
+	soundManager->PlaySound("GameOver");
 	m_stateMgr->Remove(StateType::Game);
 }
 void State_GameOver::Deactivate()

@@ -62,32 +62,3 @@ void Game::LateUpdate()
 	m_stateManager.ProcessRequests();
 	RestartClock();
 }
-
-void Game::ApplyLetterBoxView(const uint16_t p_iWindowWidth, const uint16_t p_iWindowHeight)
-{
-	const float windowRatio = p_iWindowWidth / static_cast<float>(p_iWindowHeight);
-	const float viewRatio = m_window.GetRenderWindow()->getView().getSize().x / static_cast<float>(this->m_window.GetRenderWindow()->getView().getSize().y);
-	float sizeX = 1.0f;
-	float sizeY = 1.0f;
-	float posX = 0.0f;
-	float posY = 0.0f;
-	bool horizontalSpacing = true;
-
-	if (windowRatio < viewRatio)
-		horizontalSpacing = false;
-
-	if (horizontalSpacing)
-	{
-		sizeX = viewRatio / windowRatio;
-		posX = (1 - sizeX) / 2.0f;
-	}
-	else
-	{
-		sizeY = windowRatio / viewRatio;
-		posY = (1 - sizeY) / 2.0f;
-	}
-
-	sf::View view;
-	view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
-	m_window.GetRenderWindow()->setView(this->m_window.GetRenderWindow()->getView());
-}

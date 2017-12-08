@@ -25,6 +25,8 @@ public:
 	void ToggleFullscreen(EventDetails* l_details);
 	void Close(EventDetails* l_details = nullptr);
 
+	void ApplyLetterBoxView(const uint16_t p_iWindowWidth, const uint16_t p_iWindowHeight);
+
 	sf::RenderWindow* GetRenderWindow();
 	EventManager* GetEventManager();
 	sf::Vector2u GetWindowSize() const;

@@ -34,24 +34,6 @@
     <Filter Include="Header Files\Tools">
       <UniqueIdentifier>{e052265f-c6fa-4e03-bea3-5700dd0dd9fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\audio">
-      <UniqueIdentifier>{5f226c6c-1615-4266-bbd6-4d3eb5d1212a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\fonts">
-      <UniqueIdentifier>{545a6c73-dcb9-4aa4-a306-cb496b37506c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\textures">
-      <UniqueIdentifier>{6856b99f-348d-4aa3-9978-f9f407c1edeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\textures\cursors">
-      <UniqueIdentifier>{e305ff7a-d816-410c-8506-39a6cf5a59e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\audio\sounds">
-      <UniqueIdentifier>{a8cf5c71-2f22-4072-9a2e-9e1e6e6e803d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\audio\musics">
-      <UniqueIdentifier>{d4f1502c-c3bf-4ef8-a1a3-e63b0ad170a3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{4d3d1d4c-0c00-42c5-a3a7-27d306872961}</UniqueIdentifier>
     </Filter>
@@ -60,6 +42,12 @@
     </Filter>
     <Filter Include="Resource Files\config">
       <UniqueIdentifier>{dbc600d8-09c2-42e3-b9d8-bdb61901e2b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Enemies">
+      <UniqueIdentifier>{fc9e4363-19ba-450c-95db-47e587e227e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities\Enemies">
+      <UniqueIdentifier>{8f0d2b2e-6483-4f60-8305-65da4b5ed375}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +96,6 @@
     <ClCompile Include="..\src\ActorManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Enemy.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Projectile.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
@@ -123,20 +108,23 @@
     <ClCompile Include="..\src\SpawnPoint.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Jelly.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Lollipop.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\JellyBear.cpp">
-      <Filter>Source Files\Entities</Filter>
+    <ClCompile Include="..\src\CakeMonster.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Crocodile.cpp">
-      <Filter>Source Files\Entities</Filter>
+      <Filter>Source Files\Entities\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CakeMonster.cpp">
-      <Filter>Source Files\Entities</Filter>
+    <ClCompile Include="..\src\Enemy.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Jelly.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\JellyBear.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Lollipop.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +197,6 @@
     <ClInclude Include="..\include\ActorManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Enemy.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Projectile.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
@@ -224,96 +209,26 @@
     <ClInclude Include="..\include\SpawnPoint.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Jelly.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Lollipop.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\JellyBear.h">
-      <Filter>Header Files\Entities</Filter>
+    <ClInclude Include="..\include\CakeMonster.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Crocodile.h">
-      <Filter>Header Files\Entities</Filter>
+      <Filter>Header Files\Entities\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\CakeMonster.h">
-      <Filter>Header Files\Entities</Filter>
+    <ClInclude Include="..\include\Enemy.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Jelly.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\JellyBear.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Lollipop.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\assets\textures\cursors\yellow.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\black.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\blue.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\brown.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\green.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\grey.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\light_blue.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\light_green.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\orange.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\red.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\sepia.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\cursors\white.png">
-      <Filter>Resource Files\textures\cursors</Filter>
-    </Image>
-    <Image Include="..\assets\textures\Mushroom.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="..\assets\textures\background.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="..\assets\textures\game_logo.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-    <Image Include="..\assets\textures\space_craft.png">
-      <Filter>Resource Files\textures</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\assets\fonts\arial.ttf">
-      <Filter>Resource Files\fonts</Filter>
-    </Font>
-    <Font Include="..\assets\fonts\retro.ttf">
-      <Filter>Resource Files\fonts</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\assets\audio\musics\intro.ogg">
-      <Filter>Resource Files\audio\musics</Filter>
-    </None>
-    <None Include="..\assets\audio\musics\menu.ogg">
-      <Filter>Resource Files\audio\musics</Filter>
-    </None>
-    <None Include="..\assets\audio\musics\game.ogg">
-      <Filter>Resource Files\audio\musics</Filter>
-    </None>
-    <None Include="..\assets\audio\musics\gameover.ogg">
-      <Filter>Resource Files\audio\musics</Filter>
-    </None>
-    <None Include="..\assets\audio\sounds\validate.ogg">
-      <Filter>Resource Files\audio\sounds</Filter>
-    </None>
     <None Include="..\config\fonts.cfg">
       <Filter>Resource Files\config</Filter>
     </None>

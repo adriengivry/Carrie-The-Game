@@ -81,33 +81,6 @@
     <ClInclude Include="..\include\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\assets\textures\background.png" />
-    <Image Include="..\assets\textures\cursors\black.png" />
-    <Image Include="..\assets\textures\cursors\blue.png" />
-    <Image Include="..\assets\textures\cursors\brown.png" />
-    <Image Include="..\assets\textures\cursors\green.png" />
-    <Image Include="..\assets\textures\cursors\grey.png" />
-    <Image Include="..\assets\textures\cursors\light_blue.png" />
-    <Image Include="..\assets\textures\cursors\light_green.png" />
-    <Image Include="..\assets\textures\cursors\orange.png" />
-    <Image Include="..\assets\textures\cursors\red.png" />
-    <Image Include="..\assets\textures\cursors\sepia.png" />
-    <Image Include="..\assets\textures\cursors\white.png" />
-    <Image Include="..\assets\textures\cursors\yellow.png" />
-    <Image Include="..\assets\textures\game_logo.png" />
-    <Image Include="..\assets\textures\Mushroom.png" />
-    <Image Include="..\assets\textures\space_craft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\assets\fonts\arial.ttf" />
-    <Font Include="..\assets\fonts\retro.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\assets\audio\musics\game.ogg" />
-    <None Include="..\assets\audio\musics\gameover.ogg" />
-    <None Include="..\assets\audio\musics\intro.ogg" />
-    <None Include="..\assets\audio\musics\menu.ogg" />
-    <None Include="..\assets\audio\sounds\validate.ogg" />
     <None Include="..\config\audio.cfg" />
     <None Include="..\config\fonts.cfg" />
     <None Include="..\config\keys.cfg" />
@@ -119,6 +92,7 @@
     <ProjectGuid>{78d59a7b-5e8d-407b-89ff-f2d652d3f7ad}</ProjectGuid>
     <RootNamespace>SFML_GameFramework</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>Carrie-The-Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

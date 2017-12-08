@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SFML_GameFramework", "SFML_GameFramework.vcxproj", "{78D59A7B-5E8D-407B-89FF-F2D652D3F7AD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Carrie-The-Game", "Carrie-The-Game.vcxproj", "{78D59A7B-5E8D-407B-89FF-F2D652D3F7AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,255 +1,325 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Game" Collapsed="true">
-    <Position X="18" Y="0.5" Width="1.5" />
+    <Position X="27.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CBQAAAABAAAECAAACAAIIAAAAAiAAAAgABAAAgTwEAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Game.h</FileName>
+      <HashCode>CBQAAAIBAAAECAAACAAIIAAAAAiAAAAgABAAAgTwEAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Game.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BaseState" Collapsed="true">
-    <Position X="6.25" Y="3.5" Width="1.5" />
+    <Position X="6.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBAEAABgBAAgBAAAgAAQAAACAAAAAAIAADgJAIAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\BaseState.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\BaseState.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Credits" Collapsed="true">
-    <Position X="5.25" Y="4.75" Width="1.5" />
+    <Position X="3" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAQBAAIAAABAAgjGgAAAAAAQACAAAAAAAAAAAIQAAIA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Credits.h</FileName>
+      <HashCode>IAQBAAIAAABAAgDGgAAAAAAQACAAAAAAAAAAAIQAAIA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\State_Credits.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Game" Collapsed="true">
-    <Position X="7.5" Y="4.75" Width="1.5" />
+    <Position X="5.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQhgAAAAABAAoBEACQAAAARACAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Game.h</FileName>
+      <HashCode>AAQhkCCAAAFAAoBEACQAQAARAKAAAQAAAAACAAAAAIA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\State_Game.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_GameOver" Collapsed="true">
-    <Position X="9.75" Y="4.75" Width="1.5" />
+    <Position X="7.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQBAAIAAABAAgBEAAAAAAAQCCAAAAAAAACAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_GameOver.h</FileName>
+      <HashCode>AAQBAAIAAABAAgBEAABAAAAQCCAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\State_GameOver.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Intro" Collapsed="true">
-    <Position X="12" Y="4.75" Width="1.5" />
+    <Position X="9.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQBSEIgAABAAgBEBIAAAAAABCAAQABAABAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Intro.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\State_Intro.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_MainMenu" Collapsed="true">
-    <Position X="0.75" Y="4.75" Width="1.5" />
+    <Position X="12" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAQBAAAAAIDAAgBMgAAAAAAAEDAIAAAAoBARAAAgAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_MainMenu.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\State_MainMenu.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="State_Paused" Collapsed="true">
-    <Position X="3" Y="4.75" Width="1.5" />
+    <Position X="0.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQDAAAAAABAAgBAAAAAAAAAACAAAAAAgAQAAAAEAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\State_Paused.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\State_Paused.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ActorManager" Collapsed="true">
-    <Position X="14.5" Y="0.5" Width="1.5" />
+    <Position X="24" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAUAgFAEQAAgChKAAIEEAggAAAAABAAAAAAgEABAgAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\ActorManager.h</FileName>
+      <HashCode>AAUAhFAEQAAgChKAAIEEAggAAAAABAAAAAAgEABAgAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\ActorManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EventManager" Collapsed="true">
-    <Position X="16.25" Y="0.5" Width="1.5" />
+    <Position X="25.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AMQBABAAADABAAACAABwAAAAUAEgAAAAAAAAAAAAAAI=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\EventManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FontManager" Collapsed="true">
-    <Position X="0.5" Y="7.75" Width="1.5" />
+    <Position X="0.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\FontManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\FontManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AudioManager" Collapsed="true">
-    <Position X="2.75" Y="7.75" Width="1.5" />
+    <Position X="2.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\AudioManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\AudioManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ResourceManager&lt;Derived, T&gt;" Collapsed="true">
-    <Position X="2.75" Y="6.5" Width="1.5" />
+    <Position X="2.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgICAAAAAAAAAAAAAGAEEAAAKAAAAAAAACACICAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\ResourceManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\ResourceManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SoundManager" Collapsed="true">
-    <Position X="14.5" Y="1.5" Width="1.5" />
+    <Position X="24" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAICIBAQAAAAAkBAgARIAAAIAADAoBAIQA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\SoundManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StateManager" Collapsed="true">
-    <Position X="16.25" Y="1.5" Width="1.5" />
+    <Position X="25.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAREAAAAAAADAgBAAhAABAAwAAFAAQAAACAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\StateManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\StateManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TextureManager" Collapsed="true">
-    <Position X="5" Y="7.75" Width="1.5" />
+    <Position X="5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\TextureManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\TextureManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Window" Collapsed="true">
-    <Position X="14.5" Y="2.5" Width="1.5" />
+    <Position X="24" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>jAQAACAAiBAxAAAYAAABAAIIARQAQEAAACAACiCAAAg=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Window.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Window.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Actor" Collapsed="true">
-    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Position X="11.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAgEAKAIkgAEkAAKAAAgACIAAgRAEACAAIAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Actor.h</FileName>
+      <HashCode>AARAAIgEAKAIkgAEkQAOAAAgAGIACmREEACAUIAAACA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Actor.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Door" Collapsed="true">
-    <Position X="9.75" Y="1.75" Width="1.5" />
+    <Position X="3.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAACAAAAAAIADAAAAIAAAAAgAEAAAAAAIAAAAAAQA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Door.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Enemy" Collapsed="true">
-    <Position X="12" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgUIAgAAAEAAkgAAABAAAAAACAAEAQAAAEAAAAAgAAI=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Enemy.h</FileName>
+      <HashCode>AEQAACAAAAAAKkDAAAAIAAAAAgAEACAABAYAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Door.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Npc" Collapsed="true">
-    <Position X="0.75" Y="1.75" Width="1.5" />
+    <Position X="5.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EIQAAAAAgAAAAgBAEAAIAAAAAAAAAAAAAAAEAAABEAE=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Npc.h</FileName>
+      <HashCode>CIwgAAAAgAAAAkBgFAAIACEBAAAAAAAAAEAEAAAJEQE=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Npc.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Player" Collapsed="true">
-    <Position X="3" Y="1.75" Width="1.5" />
+    <Position X="8" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAAgAAAIIAIwAAEBBEAAAgAAQEIAAAAAAAAQAhEFA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Player.h</FileName>
+      <HashCode>AAUAAkAIBIAAUgAEEBBUIAAAAwAEIEBAAFAAAYAhEVQ=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Player.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Projectile" Collapsed="true">
-    <Position X="5.25" Y="1.75" Width="1.5" />
+    <Position X="21.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAUAIAAAAEAAAAAAAgAQAAQAEAAAAAAAAAAABAAAIgA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Projectile.h</FileName>
+      <HashCode>AAVAoEAAAEAQAAAABgAQABQAEQAAAAAAAQAARAAAIoA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Projectile.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpawnPoint" Collapsed="true">
-    <Position X="7.5" Y="1.75" Width="1.5" />
+    <Position X="1.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAQAACABAAAAAghCEBBIAAAgAACAERAECAAAAAAQAAQ=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SpawnPoint.h</FileName>
+      <HashCode>gARgICABAAAAAohCEJBIkAAAAgAAERAECABAAAgWAAQ=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\SpawnPoint.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CakeMonster" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQNQBAAgCAAAAAAAEAAAISACgAkIAhABAAAACBAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\CakeMonster.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Crocodile" Collapsed="true">
+    <Position X="17" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAZAQQAAEAAAAAwAIIAQQMQIAAAIgEAAAAAAAAEAAQA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Crocodile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="14.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgUAGgCAQMBAEgAwQNESEIwACJAAAQnECAAQCAAkIBY=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Enemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jelly" Collapsed="true">
+    <Position X="19.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAFQQAEAKQCAAAAAAAAEAAAAAAAAAg=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Jelly.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JellyBear" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAQIIAAQAIRAAgCAgAEAEAEgAAABBUA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\JellyBear.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lollipop" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAQgAIEAAAAASgKEAQAIQAABAAgEAAASAACAAAgEA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Lollipop.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AGMath::Vector2D&lt;T&gt;" Collapsed="true">
-    <Position X="18" Y="1.5" Width="1.5" />
+    <Position X="27.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAIMQIAgAIAAFAGAEAAAAQAAAAAAAAAIgQBgAEAAYEA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Vector2D.h</FileName>
+      <HashCode>QAIMQIAgAIAAFAGAEAAAAQAAAAAAAAAIgQBgAEAAYEQ=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Vector2D.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="EventInfo" Collapsed="true">
-    <Position X="18" Y="3.75" Width="1.5" />
+    <Position X="27.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\EventManager.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="EventDetails" Collapsed="true">
-    <Position X="16.25" Y="3.75" Width="1.5" />
+    <Position X="25.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAAIAAEAAAAAAAAAAAAAAgAAAAAAAAIAJACAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\EventManager.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Binding" Collapsed="true">
-    <Position X="14.5" Y="3.75" Width="1.5" />
+    <Position X="24" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EIAAAAAABAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAACQ=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\EventManager.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Sound" Collapsed="true">
-    <Position X="18" Y="4.75" Width="1.5" />
+    <Position X="27.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAIAAAAIAACAAAAAAAAAAABAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\SoundManager.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="GameInfo" Collapsed="true">
-    <Position X="14.5" Y="4.75" Width="1.5" />
+    <Position X="24" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAIAAAAAQQAAAAABABAAAAIAAQAAAAIAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\GameInfo.h</FileName>
+      <HashCode>CAAAQIAAABAARAACEAAIjggAAIQCaAAAQIQAAAAAAJA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\GameInfo.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="SharedContext" Collapsed="true">
-    <Position X="16.25" Y="4.75" Width="1.5" />
+    <Position X="25.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAgAAAAACAAIAAAAAAQAAAAAAAAAAgQAEgA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SharedContext.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\SharedContext.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Typedef Name="ChannelID" Collapsed="true">
-    <Position X="14.5" Y="7.75" Width="1.5" />
+    <Position X="24" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\SoundManager.h</FileName>
     </TypeIdentifier>
   </Typedef>
   <Enum Name="EventType" Collapsed="true">
-    <Position X="16.25" Y="6" Width="1.5" />
+    <Position X="24" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAQQAAAAAAgAAAQAgAICAAAAAAAAEAAIgAAQCAAQA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\EventManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\EventManager.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="AudioType" Collapsed="true">
-    <Position X="14.5" Y="6" Width="1.5" />
+    <Position X="25.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\SoundManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\SoundManager.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="StateType" Collapsed="true">
-    <Position X="14.5" Y="6.75" Width="1.5" />
+    <Position X="27.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gEAggAAAAAAAAAAAAAAAAAAQAAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\StateManager.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\StateManager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Curses" Collapsed="true">
+    <Position X="27.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAEgAAQAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\GameInfo.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MapType" Collapsed="true">
+    <Position X="27.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\GameInfo.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="QuestionType" Collapsed="true">
+    <Position X="24" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Npc.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SpawnerType" Collapsed="true">
+    <Position X="25.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEQAAAAAAAAgAAIAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\SpawnPoint.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AttackState" Collapsed="true">
+    <Position X="24" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\CakeMonster.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="AGMath::InitMode" Collapsed="true">
-    <Position X="18" Y="6" Width="1.5" />
+    <Position X="25.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAQAAAAAAA=</HashCode>
-      <FileName>C:\Users\adrie\Desktop\LD40-Project\include\Vector2D.h</FileName>
+      <FileName>C:\Users\adrie\Documents\ISART Digital\Programming\CPP\Carie-The-Game\include\Vector2D.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

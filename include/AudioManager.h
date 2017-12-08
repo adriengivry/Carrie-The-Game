@@ -26,7 +26,10 @@ typedef std::vector<Audio*> AudioContainer;
 class AudioManager : public ResourceManager<AudioManager, sf::SoundBuffer>
 {
 public:
-	AudioManager() : ResourceManager(Utils::loadConfig("audio.cfg")) {}
+	AudioManager() : ResourceManager(Utils::loadConfig("audio.cfg"))
+	{
+		m_mute = false;
+	}
 
 	sf::SoundBuffer* Load(const std::string& l_path) override
 	{
@@ -113,6 +116,9 @@ public:
 				break;
 			}
 
+			if (m_mute)
+				newAudio->m_audioData.setVolume(0);
+
 			Register(p_audioContainer, newAudio);
 		}
 	}
@@ -150,7 +156,42 @@ public:
 		m_sounds.clear();
 	}
 
+	void ToggleMute()
+	{
+		m_mute = !m_mute;
+
+		if (m_mute)
+		{
+			SetSoundVolume(0);
+			SetMusicVolume(0);
+		}
+
+		if (!m_mute)
+		{
+			SetSoundVolume(100);
+			SetMusicVolume(100);
+		}
+	}
+
+	void SetSoundVolume(const float p_volume)
+	{
+		for (auto sound : m_sounds)
+		{
+			sound->m_audioData.setVolume(p_volume);
+		}
+	}
+
+	void SetMusicVolume(const float p_volume)
+	{
+		for (auto music : m_musics)
+		{
+			music->m_audioData.setVolume(p_volume);
+		}
+	}
+
 private:
 	AudioContainer m_musics;
 	AudioContainer m_sounds;
+
+	bool m_mute;
 };

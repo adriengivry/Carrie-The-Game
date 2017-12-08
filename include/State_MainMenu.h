@@ -26,6 +26,8 @@ public:
 	void MouseValidate(EventDetails* l_details = nullptr) const;
 	void Move(EventDetails* l_details);
 
+	void MuteToggle(EventDetails* l_details = nullptr) const;
+
 private:
 	sf::Sprite m_backgroundSprite;
 	sf::Sprite m_gameLogoSprite;

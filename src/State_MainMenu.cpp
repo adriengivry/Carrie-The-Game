@@ -62,6 +62,7 @@ void State_MainMenu::OnCreate()
 		evMgr->AddCallback(StateType::MainMenu, "Mouse_Left", &State_MainMenu::MouseValidate, this);
 		evMgr->AddCallback(StateType::MainMenu, "Mouse_Move", &State_MainMenu::MouseMoved, this);
 	}
+	evMgr->AddCallback(StateType::MainMenu, "Mute", &State_MainMenu::MuteToggle, this);
 	evMgr->AddCallback(StateType::MainMenu, "Key_Return", &State_MainMenu::Validate, this);
 	evMgr->AddCallback(StateType::MainMenu, "Key_Space", &State_MainMenu::Validate, this);
 	evMgr->AddCallback(StateType::MainMenu, "Move_Up", &State_MainMenu::Move, this);
@@ -77,6 +78,7 @@ void State_MainMenu::OnDestroy() {
 		evMgr->RemoveCallback(StateType::MainMenu, "Mouse_Left");
 		evMgr->RemoveCallback(StateType::MainMenu, "Mouse_Move");
 	}
+	evMgr->RemoveCallback(StateType::MainMenu, "Mute");
 	evMgr->RemoveCallback(StateType::MainMenu, "Key_Return");
 	evMgr->RemoveCallback(StateType::MainMenu, "Key_Space");
 	evMgr->RemoveCallback(StateType::MainMenu, "Move_Up");
@@ -174,6 +176,11 @@ void State_MainMenu::Move(EventDetails* l_details)
 	default:
 		break;
 	}
+}
+
+void State_MainMenu::MuteToggle(EventDetails* l_details) const
+{
+	m_stateMgr->GetContext()->m_audioManager->ToggleMute();
 }
 
 void State_MainMenu::Draw()

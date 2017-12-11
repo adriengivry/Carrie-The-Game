@@ -32,6 +32,7 @@ public:
 	void Unfire(EventDetails* l_details);
 
 	void RemoveLife(const float p_value, const bool p_constantDamages = false);
+	void AddLife(const float p_value) const;
 
 private:
 	bool m_moveLeft;

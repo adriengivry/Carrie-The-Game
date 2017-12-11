@@ -323,3 +323,10 @@ void Player::RemoveLife(const float p_value, const bool p_constantDamages)
 		}
 	}
 }
+
+void Player::AddLife(const float p_value) const
+{
+	m_life += p_value;
+	if (m_life >= m_maxLife)
+		m_life = m_maxLife;
+}

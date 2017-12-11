@@ -53,20 +53,26 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	m_futurePosition = newPos;
 	m_position = newPos;
 	m_position.Y(-100);
-	m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
+
+	uint8_t enemyVariety = 1 + m_sharedContext->m_gameInfo->m_currentLevel / 5;
+
+	if (enemyVariety > 4)
+		enemyVariety = 4;
+
+	m_type = static_cast<SpawnerType>(Utils::randomgen(0, enemyVariety));
 	switch (m_type)
 	{
 	case SpawnerType::JELLY_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_JELLY_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_JELLY_MAXSPAWN;
 		break;
-	case SpawnerType::JELLYBEAR_SPAWNER:
-		m_spawnFrequency = __SPAWNPOINT_JELLYBEAR_SPAWN_FREQUENCY;
-		m_maxSpawn = __SPAWNPOINT_JELLYBEAR_MAXSPAWN;
-		break;
 	case SpawnerType::LOLLIPOP_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_LOLLIPOP_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_LOLLIPOP_MAXSPAWN;
+		break;
+	case SpawnerType::JELLYBEAR_SPAWNER:
+		m_spawnFrequency = __SPAWNPOINT_JELLYBEAR_SPAWN_FREQUENCY;
+		m_maxSpawn = __SPAWNPOINT_JELLYBEAR_MAXSPAWN;
 		break;
 	case SpawnerType::CROCODILE_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_CROCODILE_SPAWN_FREQUENCY;

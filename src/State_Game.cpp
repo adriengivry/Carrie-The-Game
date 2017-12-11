@@ -98,26 +98,19 @@ void State_Game::OnCreate()
 	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
 	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
 
+	uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
+
 	if (gameInfo->m_currentLevel % 5 == 0)
 	{
-		actorManager->AddEnemy(new Boss(m_stateMgr->GetContext(), windowCenter.x, 500));
-
-		const uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
-
-		for (int i = 0; i < numberOfSpawners; ++i)
-		{
-			SpawnPoint* newSpawnPoint = new SpawnPoint(m_stateMgr->GetContext());
-			newSpawnPoint->SetActivationDelay(Utils::randomgen(5.f, 10.f));
-			actorManager->AddSpawnPoint(newSpawnPoint);
-		}
+		actorManager->AddEnemy(new Boss(m_stateMgr->GetContext(), windowCenter.x, 250));
 	}
 	else
 	{
-		const uint8_t numberOfSpawners = 3 + gameInfo->m_currentLevel / 5;
-
-		for (int i = 0; i < numberOfSpawners; ++i)
-			actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
+		numberOfSpawners += 3;
 	}
+
+	for (int i = 0; i < numberOfSpawners; ++i)
+		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
 	
 
 	// Adding callbacks

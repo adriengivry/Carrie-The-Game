@@ -52,6 +52,8 @@ void Door::Use() const
 		m_sharedContext->m_audioManager->PlaySound("Curse");
 		SelectCurse();
 	}
+
+	m_sharedContext->m_actorManager->GetPlayer()->AddLife(10);
 }
 
 void Door::Draw() const

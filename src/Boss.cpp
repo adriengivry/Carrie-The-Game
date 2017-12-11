@@ -6,7 +6,7 @@ Boss::Boss(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 {
 	SetTexture(__BOSS_TEXTURE);
 
-	m_spriteScale.Set(2.f, 2.f);
+	m_spriteScale.Set(1.8f, 1.8f);
 
 	m_showLifeBar = true;
 

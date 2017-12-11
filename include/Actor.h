@@ -63,4 +63,6 @@ protected:
 	bool m_gotAShadow;
 	bool m_orientable;
 	bool m_mustDie;
+
+	float m_lifetimeCounter;
 };

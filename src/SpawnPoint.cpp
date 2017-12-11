@@ -7,7 +7,7 @@
 #include "Lollipop.h"
 
 
-SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
+SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const SpawnerType p_spawnerType) :
 	Actor(p_sharedContext)
 {
 	SetTexture(__SPAWNPOINT_TEXTURE);
@@ -59,9 +59,14 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	if (enemyVariety > 4)
 		enemyVariety = 4;
 
-	m_type = static_cast<SpawnerType>(Utils::randomgen(0, enemyVariety));
+	if (p_spawnerType == SpawnerType::NOT_SET)
+		m_type = static_cast<SpawnerType>(Utils::randomgen(0, enemyVariety));
+	else
+		m_type = p_spawnerType;
+
 	switch (m_type)
 	{
+	default:
 	case SpawnerType::JELLY_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_JELLY_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_JELLY_MAXSPAWN;

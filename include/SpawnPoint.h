@@ -8,7 +8,8 @@ enum class SpawnerType
 	LOLLIPOP_SPAWNER = 1,
 	JELLYBEAR_SPAWNER = 2,
 	CROCODILE_SPAWNER = 3,
-	CAKEMONSTER_SPAWNER = 4
+	CAKEMONSTER_SPAWNER = 4,
+	NOT_SET = 5
 };
 
 class SpawnPoint : public Actor
@@ -34,7 +35,7 @@ class SpawnPoint : public Actor
 	const float			__SPAWNPOINT_LOLLIPOP_SPAWN_FREQUENCY = 1.0f;
 
 public:
-	explicit SpawnPoint(SharedContext* p_sharedContext);
+	explicit SpawnPoint(SharedContext* p_sharedContext, const SpawnerType p_spawnerType = SpawnerType::NOT_SET);
 	~SpawnPoint();
 	
 	bool IsDone() const;

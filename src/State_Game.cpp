@@ -3,7 +3,8 @@
 #include "Utilities.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Boss.h"
+#include "CakeKing.h"
+#include "JellyQueen.h"
 
 State_Game::State_Game(StateManager* l_stateManager) :
 	BaseState(l_stateManager), m_whiteRectOpacity(255),
@@ -100,17 +101,34 @@ void State_Game::OnCreate()
 
 	uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
 
-	if (gameInfo->m_currentLevel % 5 == 0)
+	if (gameInfo->m_currentLevel % 1 == 0)
 	{
-		actorManager->AddEnemy(new Boss(m_stateMgr->GetContext(), windowCenter.x, 250));
+		numberOfSpawners += 1;
+		switch (Utils::randomgen(0, 1))
+		{
+		default:
+		case 0:
+			actorManager->AddEnemy(new CakeKing(m_stateMgr->GetContext(), windowCenter.x, 250));
+			for (int i = 0; i < numberOfSpawners; ++i)
+				actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), SpawnerType::CAKEMONSTER_SPAWNER));
+			break;
+
+		case 1:
+			actorManager->AddEnemy(new JellyQueen(m_stateMgr->GetContext(), windowCenter.x, 250));
+			for (int i = 0; i < numberOfSpawners; ++i)
+				actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), SpawnerType::JELLY_SPAWNER));
+			break;
+		}
+		
 	}
 	else
 	{
 		numberOfSpawners += 3;
+		for (int i = 0; i < numberOfSpawners; ++i)
+			actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
 	}
 
-	for (int i = 0; i < numberOfSpawners; ++i)
-		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
+	
 	
 
 	// Adding callbacks

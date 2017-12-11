@@ -40,7 +40,7 @@ public:
 	void SetSpeed(const float p_speed);
 	void SetConstantlyRotate(const bool p_state);
 
-	void OnHit(Actor* p_target, const Vector2D<float> p_direction);
+	void SetColor(const sf::Color p_color);
 
 private:
 	bool m_constantlyRotate;

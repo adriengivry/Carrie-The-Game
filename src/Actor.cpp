@@ -17,7 +17,8 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_spriteScale(1, 1),
 	m_flippable(false),
 	m_orientable(false),
-	m_mustDie(false)
+	m_mustDie(false),
+	m_lifetimeCounter(0)
 {
 }
 
@@ -25,6 +26,8 @@ Actor::~Actor() {}
 
 void Actor::Update(const sf::Time& l_time)
 {
+	m_lifetimeCounter += l_time.asSeconds();
+
 	m_zBuffer = m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height;
 
 	if (m_acceleration != 0)

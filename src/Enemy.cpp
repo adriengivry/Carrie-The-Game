@@ -246,9 +246,9 @@ void Enemy::Draw() const
 void Enemy::DrawLifebar() const
 {
 	sf::RectangleShape rect;
-	sf::Vector2f barSize = sf::Vector2f(100, 10);
+	sf::Vector2f barSize = sf::Vector2f(200, 20);
 
-	rect.setPosition(m_position.X(), m_sprite.getGlobalBounds().top - 35);
+	rect.setPosition(m_position.X(), m_sprite.getGlobalBounds().top - 60);
 
 	rect.setFillColor(sf::Color::White);
 	rect.setSize(barSize);

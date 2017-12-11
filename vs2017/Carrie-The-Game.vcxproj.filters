@@ -123,7 +123,10 @@
     <ClCompile Include="..\src\Lollipop.cpp">
       <Filter>Source Files\Entities\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Boss.cpp">
+    <ClCompile Include="..\src\CakeKing.cpp">
+      <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\JellyQueen.cpp">
       <Filter>Source Files\Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
@@ -227,7 +230,10 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Boss.h">
+    <ClInclude Include="..\include\CakeKing.h">
+      <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\JellyQueen.h">
       <Filter>Header Files\Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

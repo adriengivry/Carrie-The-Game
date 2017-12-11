@@ -143,3 +143,8 @@ void Projectile::SetConstantlyRotate(const bool p_state)
 {
 	m_constantlyRotate = p_state;
 }
+
+void Projectile::SetColor(const sf::Color p_color)
+{
+	m_sprite.setColor(p_color);
+}

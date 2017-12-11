@@ -29,7 +29,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Actor.cpp" />
     <ClCompile Include="..\src\ActorManager.cpp" />
-    <ClCompile Include="..\src\Boss.cpp" />
+    <ClCompile Include="..\src\CakeKing.cpp" />
     <ClCompile Include="..\src\Crocodile.cpp" />
     <ClCompile Include="..\src\Door.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
@@ -37,6 +37,7 @@
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\Jelly.cpp" />
     <ClCompile Include="..\src\JellyBear.cpp" />
+    <ClCompile Include="..\src\JellyQueen.cpp" />
     <ClCompile Include="..\src\Lollipop.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Npc.cpp" />
@@ -57,7 +58,7 @@
     <ClInclude Include="..\include\Actor.h" />
     <ClInclude Include="..\include\ActorManager.h" />
     <ClInclude Include="..\include\BaseState.h" />
-    <ClInclude Include="..\include\Boss.h" />
+    <ClInclude Include="..\include\CakeKing.h" />
     <ClInclude Include="..\include\Crocodile.h" />
     <ClInclude Include="..\include\Door.h" />
     <ClInclude Include="..\include\Enemy.h" />
@@ -68,6 +69,7 @@
     <ClInclude Include="..\include\GameInfo.h" />
     <ClInclude Include="..\include\Jelly.h" />
     <ClInclude Include="..\include\JellyBear.h" />
+    <ClInclude Include="..\include\JellyQueen.h" />
     <ClInclude Include="..\include\Lollipop.h" />
     <ClInclude Include="..\include\Npc.h" />
     <ClInclude Include="..\include\CakeMonster.h" />

@@ -22,6 +22,7 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 void CakeMonster::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Cakemonster");
+	m_sharedContext->m_gameInfo->m_toothPaste += 5;
 }
 
 void CakeMonster::GenerateStats()

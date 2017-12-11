@@ -147,8 +147,6 @@ void State_Game::Update(const sf::Time& l_time)
 	const sf::Vector2u l_windSize = m_stateMgr->GetContext()->m_wind->GetWindowSize();
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
 
-	m_stateMgr->GetContext()->m_gameInfo->m_toothPaste++;
-
 	if (!m_startTransition)
 		if (m_whiteRectOpacity > 0)
 		{

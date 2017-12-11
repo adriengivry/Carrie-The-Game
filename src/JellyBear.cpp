@@ -20,6 +20,7 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 void JellyBear::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Jelly");
+	m_sharedContext->m_gameInfo->m_toothPaste += 3;
 }
 
 void JellyBear::GenerateStats()

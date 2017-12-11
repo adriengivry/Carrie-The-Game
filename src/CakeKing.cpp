@@ -21,6 +21,7 @@ CakeKing::CakeKing(SharedContext* p_sharedContext, const float p_x, const float 
 void CakeKing::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Cakemonster");
+	m_sharedContext->m_gameInfo->m_toothPaste += 20;
 }
 
 void CakeKing::GenerateStats()

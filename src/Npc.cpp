@@ -214,11 +214,11 @@ void Npc::DrawAffirmation() const
 
 	case QuestionType::LEVEL_DURATION:
 		if (m_answer)
-			value = std::to_string(m_sharedContext->m_gameInfo->m_levelDuration);
+			value = std::to_string(static_cast<uint16_t>(m_sharedContext->m_gameInfo->m_levelDuration));
 		else
 			value = std::to_string(m_randomValue);
 
-		question.setString("My watch is saying\nthat you took " + value + " seconds\n to clean this!");
+		question.setString("My watch is saying\nthat you took " + value + " seconds\nto clean this!");
 		break;
 
 	case QuestionType::SPAWNPOINTS_SPAWNED:

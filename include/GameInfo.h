@@ -25,11 +25,11 @@ struct GameInfo
 	float m_playerMaxLife = __PLAYER_LIFE;
 	float m_playerLife = __PLAYER_LIFE;
 
-	
-
 	uint16_t m_gameStarted = 0;
 	const bool m_allowMouse = true;
 	const bool m_debugMode = false;
+
+	uint16_t m_toothPaste = 0;
 
 	bool m_gameOver = false;
 	uint16_t m_currentLevel = 1;
@@ -68,6 +68,7 @@ struct GameInfo
 
 	void FullReset()
 	{
+		m_toothPaste = 0;
 		m_levelDuration = 0;
 		m_gameStarted = 0;
 		m_gameOver = false;

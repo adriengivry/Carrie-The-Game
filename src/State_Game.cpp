@@ -147,6 +147,8 @@ void State_Game::Update(const sf::Time& l_time)
 	const sf::Vector2u l_windSize = m_stateMgr->GetContext()->m_wind->GetWindowSize();
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
 
+	m_stateMgr->GetContext()->m_gameInfo->m_toothPaste++;
+
 	if (!m_startTransition)
 		if (m_whiteRectOpacity > 0)
 		{
@@ -307,9 +309,27 @@ void State_Game::DrawUserInterface()
 		levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
 	levelLabel.setFillColor(sf::Color::Black);
-	levelLabel.setPosition(window->getSize().x / 2 - 600, window->getSize().y - 40);
+	levelLabel.setPosition(window->getSize().x / 2 - 500, window->getSize().y - 40);
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
+
+	sf::Sprite toothPasteSprite;
+	if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Toothpaste"))
+	{
+		toothPasteSprite.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Toothpaste"));
+		toothPasteSprite.setPosition(window->getSize().x / 2 - 800, window->getSize().y - 40);
+		Utils::centerOrigin(toothPasteSprite);
+	}
+	window->draw(toothPasteSprite);
+
+	sf::Text toothPasteCounter;
+	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
+		toothPasteCounter.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	toothPasteCounter.setString("x" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_toothPaste));
+	toothPasteCounter.setFillColor(sf::Color::Black);
+	toothPasteCounter.setPosition(window->getSize().x / 2 - 780, window->getSize().y - 40);
+	toothPasteCounter.move(0, -toothPasteCounter.getGlobalBounds().height / 2);
+	window->draw(toothPasteCounter);
 
 	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
 		DrawConsole();

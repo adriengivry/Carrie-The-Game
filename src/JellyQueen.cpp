@@ -60,7 +60,7 @@ void JellyQueen::SpecialAttack(const sf::Time& l_time)
 	{
 		Vector2D<float> projectileDirection;
 		projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()) + Utils::randomgen(0, 60) - 30, POLAR);
-		Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), ProjectileType::LASER, "Cupcake", 1.4f, 1.4f);
+		Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), ProjectileType::STRONG, "Cupcake", 1.4f, 1.4f);
 		projectile->SetSpeed(__JELLYQUEEN_PROJECTILE_SPEED);
 		projectile->SetDamages(m_damages);
 		projectile->SetConstantlyRotate(true);

@@ -101,7 +101,7 @@ void State_Game::OnCreate()
 
 	uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
 
-	if (gameInfo->m_currentLevel % 1 == 0)
+	if (gameInfo->m_currentLevel % 5 == 0)
 	{
 		numberOfSpawners += 1;
 		switch (Utils::randomgen(0, 1))
@@ -119,7 +119,6 @@ void State_Game::OnCreate()
 				actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), SpawnerType::JELLY_SPAWNER));
 			break;
 		}
-		
 	}
 	else
 	{
@@ -127,9 +126,6 @@ void State_Game::OnCreate()
 		for (int i = 0; i < numberOfSpawners; ++i)
 			actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
 	}
-
-	
-	
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
@@ -176,6 +172,10 @@ void State_Game::Update(const sf::Time& l_time)
 		actorManager->GetNpc()->Activate();
 		actorManager->GetDoor(0)->Activate();
 		actorManager->GetDoor(1)->Activate();
+	}
+	else
+	{
+		m_stateMgr->GetContext()->m_gameInfo->m_levelDuration += l_time.asSeconds();
 	}
 
 	if (m_stateMgr->GetContext()->m_gameInfo->m_doorPassed && !m_startTransition)
@@ -385,7 +385,7 @@ void State_Game::DrawConsole() const
 	sf::RenderWindow* window = m_stateMgr->GetContext()->m_wind->GetRenderWindow();
 
 	sf::RectangleShape consoleBackground;
-	consoleBackground.setSize(sf::Vector2f(350, 80));
+	consoleBackground.setSize(sf::Vector2f(350, 110));
 	consoleBackground.setPosition(0, 0);
 	consoleBackground.setFillColor(sf::Color(0, 0, 0, 200));
 
@@ -410,19 +410,28 @@ void State_Game::DrawConsole() const
 	spawnedProjectiles.setCharacterSize(18);
 	spawnedProjectiles.setPosition(0, 40);
 
-	sf::Text playerVelocity;
-	playerVelocity.setString("PLAYER VELOCITY : " + std::to_string(m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetVelocity()));
+	sf::Text levelDuration;
+	levelDuration.setString("LEVEL DURATION: " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_levelDuration));
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Console"))
-		playerVelocity.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
-	playerVelocity.setCharacterSize(18);
-	playerVelocity.setPosition(0, 60);
+		levelDuration.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	levelDuration.setCharacterSize(18);
+	levelDuration.setPosition(0, 60);
+
+	sf::Text spawnedSpawners;
+	spawnedSpawners.setString("SPAWNED SPAWNERS: " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_spawnedSpawnPoints));
+	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Console"))
+		spawnedSpawners.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	spawnedSpawners.setCharacterSize(18);
+	spawnedSpawners.setPosition(0, 80);
+	
 
 	// DRAW THINGS
 	window->draw(consoleBackground);
 	window->draw(spawnedEnemies);
 	window->draw(spawnedProjectiles);
 	window->draw(travelledDistance);
-	window->draw(playerVelocity);
+	window->draw(levelDuration);
+	window->draw(spawnedSpawners);
 }
 
 void State_Game::MainMenu(EventDetails* l_details) const

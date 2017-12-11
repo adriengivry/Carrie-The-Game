@@ -56,7 +56,7 @@ void Projectile::Update(const sf::Time& l_time)
 			{
 				if (!projectile->IsFriendly() && IsIntersecting(projectile))
 				{
-					if (!projectile->DealsConstantDamages())
+					if (projectile->GetType() == ProjectileType::SUGAR)
 					{
 						projectile->Kill();
 						if (m_sprite.getScale().x <= 3.f)
@@ -65,7 +65,7 @@ void Projectile::Update(const sf::Time& l_time)
 							m_damages *= 1.3f;
 						}
 					}
-					else
+					else if (projectile->GetType() == ProjectileType::CREAM || projectile->GetType() == ProjectileType::LASER_CREAM)
 					{
 						if (m_sprite.getScale().x >= 0.5f)
 						{
@@ -73,6 +73,15 @@ void Projectile::Update(const sf::Time& l_time)
 							m_damages *= 1 - 0.9 * l_time.asSeconds();
 							m_sprite.scale(1 - 0.9 * l_time.asSeconds(), 1 - 0.9 * l_time.asSeconds());
 						}
+					}
+					else if (projectile->GetType() == ProjectileType::NORMAL)
+					{
+						projectile->Kill();
+					}
+					else if (projectile->GetType() == ProjectileType::STRONG)
+					{
+						m_mustDie = true;
+						projectile->Kill();
 					}
 				}
 			}
@@ -119,6 +128,11 @@ Actor* Projectile::GetSource() const
 	return m_source;
 }
 
+ProjectileType Projectile::GetType() const
+{
+	return m_projectileType;
+}
+
 bool Projectile::IsFriendly() const
 {
 	return m_source == m_sharedContext->m_actorManager->GetPlayer();
@@ -126,7 +140,7 @@ bool Projectile::IsFriendly() const
 
 bool Projectile::DealsConstantDamages() const
 {
-	return m_projectileType == ProjectileType::LASER;
+	return m_projectileType == ProjectileType::LASER || m_projectileType == ProjectileType::LASER_CREAM;
 }
 
 void Projectile::SetDamages(const float p_value)

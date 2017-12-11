@@ -64,7 +64,7 @@ void Npc::Desactivate()
 
 void Npc::GenerateQuestion()
 {
-	m_question = static_cast<QuestionType>(Utils::randomgen(0, 2));
+	m_question = static_cast<QuestionType>(Utils::randomgen(0, 3));
 	m_answer = static_cast<bool>(Utils::randomgen(0, 1));
 
 	uint16_t goodValue = 0;
@@ -81,6 +81,14 @@ void Npc::GenerateQuestion()
 
 	case QuestionType::PROJECTILE_SPAWNED:
 		goodValue = m_sharedContext->m_gameInfo->m_spawnedProjectiles;
+		break;
+
+	case QuestionType::LEVEL_DURATION:
+		goodValue = m_sharedContext->m_gameInfo->m_levelDuration;
+		break;
+
+	case QuestionType::SPAWNPOINTS_SPAWNED:
+		goodValue = m_sharedContext->m_gameInfo->m_spawnedSpawnPoints;
 		break;
 	}
 
@@ -202,6 +210,24 @@ void Npc::DrawAffirmation() const
 			value = std::to_string(m_randomValue);
 
 		question.setString("Damn it ! You threw \n" + value + " pieces of chocolate !");
+		break;
+
+	case QuestionType::LEVEL_DURATION:
+		if (m_answer)
+			value = std::to_string(m_sharedContext->m_gameInfo->m_levelDuration);
+		else
+			value = std::to_string(m_randomValue);
+
+		question.setString("My watch is saying\nthat you took " + value + " seconds\n to clean this!");
+		break;
+
+	case QuestionType::SPAWNPOINTS_SPAWNED:
+		if (m_answer)
+			value = std::to_string(m_sharedContext->m_gameInfo->m_spawnedSpawnPoints);
+		else
+			value = std::to_string(m_randomValue);
+
+		question.setString("I have counted " + value + " donuts\nin this level !");
 		break;
 	}
 

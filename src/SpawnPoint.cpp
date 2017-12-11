@@ -66,7 +66,6 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const SpawnerType p_spaw
 
 	switch (m_type)
 	{
-	default:
 	case SpawnerType::JELLY_SPAWNER:
 		m_spawnFrequency = __SPAWNPOINT_JELLY_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_JELLY_MAXSPAWN;
@@ -87,7 +86,11 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const SpawnerType p_spaw
 		m_spawnFrequency = __SPAWNPOINT_CAKEMONSTER_SPAWN_FREQUENCY;
 		m_maxSpawn = __SPAWNPOINT_CAKEMONSTER_MAXSPAWN;
 		break;
+	case SpawnerType::NOT_SET:
+		break;
 	}
+
+	++m_sharedContext->m_gameInfo->m_spawnedSpawnPoints;
 }
 
 SpawnPoint::~SpawnPoint()
@@ -114,6 +117,8 @@ void SpawnPoint::SpawnEnemy()
 		break;
 	case SpawnerType::CAKEMONSTER_SPAWNER:
 		m_sharedContext->m_actorManager->AddEnemy(new CakeMonster(Actor::m_sharedContext, m_position.X(), m_position.Y()));
+		break;
+	case SpawnerType::NOT_SET:
 		break;
 	}
 	--m_maxSpawn;

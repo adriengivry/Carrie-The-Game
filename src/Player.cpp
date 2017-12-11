@@ -15,14 +15,16 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_acceleration = __PLAYER_ACCELERATION;
 
 	m_invulnerable = false;
-	m_invulnerableTimer = 0;
+	m_getHit = false;
+	
+	m_timeSinceLastHit = 0;
 
 	m_reorienteTimer = 0;
 
 	m_collide = false;
 
 	m_isTransparent = false;
-	m_invulnerableFlashTimer = 0.f;
+	m_getHitFlashTimer = 0.f;
 
 	m_sprite.setScale(0.7f, 0.7f);
 	m_shadowScale.Set(0.8f, 0.8f);
@@ -204,18 +206,21 @@ void Player::Update(const sf::Time& l_time)
 
 	m_velocityMultiplicator = pow(m_sharedContext->m_gameInfo->__CARRIE_SLOW_MULTIPLICATOR, m_sharedContext->m_gameInfo->m_slowerCarrie);
 
-	if (IsInvulnerable())
+	if (m_getHit)
 	{
-		m_invulnerableFlashTimer += l_time.asSeconds();
-		if (m_invulnerableFlashTimer >= 0.1f)
+		m_getHitFlashTimer += l_time.asSeconds();
+		if (m_getHitFlashTimer >= 0.1f)
 		{
 			m_isTransparent = !m_isTransparent;
-			m_invulnerableFlashTimer = 0.0f;
+			m_getHitFlashTimer = 0.0f;
 		}
 
-		m_invulnerableTimer += l_time.asSeconds();
-		if (m_invulnerableTimer >= __INVULNERABLE_DURATION)
+		m_timeSinceLastHit += l_time.asSeconds();
+		if (m_timeSinceLastHit >= __GETHIT_DURATION)
+		{
 			m_invulnerable = false;
+			m_getHit = false;
+		}
 	}
 	else
 	{
@@ -223,7 +228,10 @@ void Player::Update(const sf::Time& l_time)
 	}
 
 	if (m_isTransparent)
-		m_sprite.setColor(sf::Color(255, 0, 0, 100));
+		if (m_invulnerable)
+			m_sprite.setColor(sf::Color(255, 0, 0, 100));
+		else
+			m_sprite.setColor(sf::Color(0, 0, 255, 100));
 	else
 		m_sprite.setColor(sf::Color(255, 255, 255, 255));
 
@@ -273,7 +281,6 @@ float Player::GetLife() const { return m_life; }
 void Player::MakeInvulnerable()
 {
 	m_invulnerable = true;
-	m_invulnerableTimer = 0;
 }
 
 bool Player::IsInvulnerable() const { return m_invulnerable; }
@@ -313,6 +320,8 @@ void Player::RemoveLife(const float p_value, const bool p_constantDamages)
 	if (!IsInvulnerable())
 	{
 		m_life -= p_value;
+		m_getHit = true;
+		m_timeSinceLastHit = 0.f;
 		if (!p_constantDamages)
 			MakeInvulnerable();
 

@@ -5,6 +5,10 @@ enum class ProjectileType
 {
 	NORMAL,
 	LASER,
+	LASER_CREAM,
+	SUGAR,
+	CREAM,
+	STRONG
 };
 
 class Projectile : public Actor
@@ -32,6 +36,8 @@ public:
 	void Kill();
 
 	Actor* GetSource() const;
+
+	ProjectileType GetType() const;
 
 	bool IsFriendly() const;
 	bool DealsConstantDamages() const;

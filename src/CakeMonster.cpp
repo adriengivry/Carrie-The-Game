@@ -43,7 +43,7 @@ void CakeMonster::SpecialAttack(const sf::Time& l_time)
 	{
 		Vector2D<float> projectileDirection;
 		projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
-		Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), ProjectileType::LASER, "Cream", 1.f, 1.f);
+		Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), ProjectileType::LASER_CREAM, "Cream", 1.f, 1.f);
 		projectile->SetDamages(m_specialAttackDamages);
 		projectile->SetSpeed(__CAKEMONSTER_PROJECTILE_SPEED);
 		projectile->SetConstantlyRotate(true);

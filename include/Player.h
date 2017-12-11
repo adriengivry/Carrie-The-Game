@@ -8,7 +8,7 @@ class Player : public Actor
 	const std::string	__PLAYER_TEXTURE		= "Carrie_Back";
 	const float			__PLAYER_SPEED			= 700;
 	const float			__PLAYER_ACCELERATION	= 5000;
-	const float			__INVULNERABLE_DURATION = 0.5f;
+	const float			__GETHIT_DURATION		= 1.f;
 
 public:
 	explicit Player(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
@@ -54,8 +54,9 @@ private:
 	float m_xScaleIncrement;
 	float m_yScaleIncrement;
 
+	bool m_getHit;
 	bool m_invulnerable;
-	float m_invulnerableTimer;
-	float m_invulnerableFlashTimer;
+	float m_timeSinceLastHit;
+	float m_getHitFlashTimer;
 	bool m_isTransparent;
 };

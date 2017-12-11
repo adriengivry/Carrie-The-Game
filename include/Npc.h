@@ -5,7 +5,9 @@ enum class QuestionType
 {
 	TRAVEL = 0,
 	ENEMIES_SPAWNED,
-	PROJECTILE_SPAWNED
+	PROJECTILE_SPAWNED,
+	LEVEL_DURATION,
+	SPAWNPOINTS_SPAWNED
 };
 
 class Npc : public Actor

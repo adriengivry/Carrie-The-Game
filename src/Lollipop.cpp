@@ -56,7 +56,7 @@ void Lollipop::SpecialAttack(const sf::Time& l_time)
 	Vector2D<float> projectileDirection;
 	projectileDirection.Set(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()) + Utils::randomgen(0, 10) - 5, POLAR);
 
-	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), ProjectileType::NORMAL, "Sugar", 1.8f, 1.8f);
+	Projectile* projectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y(), ProjectileType::SUGAR, "Sugar", 1.8f, 1.8f);
 	projectile->SetDamages(m_damages);
 	projectile->SetSpeed(__LOLLIPOP_PROJECTILE_SPEED);
 	projectile->SetConstantlyRotate(true);

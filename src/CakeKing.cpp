@@ -61,7 +61,7 @@ void CakeKing::SpecialAttack(const sf::Time& l_time)
 	{
 		for (int i = Utils::randomgen(0, 29); i <= 360; i += Utils::randomgen(30, 59))
 		{
-			Projectile* projectile = new Projectile(m_sharedContext, Vector2D<float>(1, i, POLAR), this, m_position.X(), m_position.Y(), ProjectileType::LASER, "Cream", 1.2f, 1.2f);
+			Projectile* projectile = new Projectile(m_sharedContext, Vector2D<float>(1, i, POLAR), this, m_position.X(), m_position.Y(), ProjectileType::CREAM, "Cream", 1.2f, 1.2f);
 			projectile->SetDamages(m_damages);
 			projectile->SetSpeed(__CAKEKING_PROJECTILE_SPEED);
 			projectile->SetConstantlyRotate(true);

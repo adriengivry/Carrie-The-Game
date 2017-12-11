@@ -25,6 +25,8 @@ struct GameInfo
 	float m_playerMaxLife = __PLAYER_LIFE;
 	float m_playerLife = __PLAYER_LIFE;
 
+	
+
 	uint16_t m_gameStarted = 0;
 	const bool m_allowMouse = true;
 	const bool m_debugMode = false;
@@ -37,6 +39,8 @@ struct GameInfo
 	uint16_t m_spawnedEnemies = 0;
 	float m_travelledDistance = 0;
 	uint16_t m_spawnedProjectiles = 0;
+	float m_levelDuration = 0;
+	uint16_t m_spawnedSpawnPoints = 0;
 	bool m_getCursed = false;
 	uint8_t m_curseType;
 
@@ -50,9 +54,11 @@ struct GameInfo
 
 	void Reset()
 	{
+		m_levelDuration = 0;
 		m_spawnedProjectiles = 0;
 		m_spawnedEnemies = 0;
 		m_travelledDistance = 0;
+		m_spawnedSpawnPoints = 0;
 		m_gameOver = false;
 		m_doorPassed = false;
 		m_levelCompleted = false;
@@ -62,6 +68,7 @@ struct GameInfo
 
 	void FullReset()
 	{
+		m_levelDuration = 0;
 		m_gameStarted = 0;
 		m_gameOver = false;
 		m_currentLevel = 1;
@@ -70,6 +77,7 @@ struct GameInfo
 		m_spawnedEnemies = 0;
 		m_travelledDistance = 0;
 		m_spawnedProjectiles = 0;
+		m_spawnedSpawnPoints = 0;
 		m_reverseMovement = false;
 		m_slowerCarrie = 0;
 		m_slowerProjectiles = 0;

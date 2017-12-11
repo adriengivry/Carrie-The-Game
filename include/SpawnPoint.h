@@ -14,7 +14,6 @@ enum class SpawnerType
 class SpawnPoint : public Actor
 {
 	const std::string	__SPAWNPOINT_TEXTURE = "SpawnPoint";
-	const float			__DISTANCE_MIN_TO_PLAYER = 400.0f;
 	const float			__DISTANCE_MIN_TO_OTHER_SPAWNPOINT = 150.0f;
 	const float			__DISTANCE_MIN_TO_DOOR = 150.0f;
 
@@ -46,6 +45,8 @@ public:
 	void ToggleActive();
 
 	Vector2D<float> GetFuturePosition() const;
+
+	void SetActivationDelay(const float p_delay);
 
 	void SpawnEnemy();
 

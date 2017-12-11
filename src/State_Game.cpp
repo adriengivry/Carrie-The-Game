@@ -3,6 +3,7 @@
 #include "Utilities.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Boss.h"
 
 State_Game::State_Game(StateManager* l_stateManager) :
 	BaseState(l_stateManager), m_whiteRectOpacity(255),
@@ -97,11 +98,27 @@ void State_Game::OnCreate()
 	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
 	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
 
-	// const uint8_t numberOfSpawners = 0;
-	const uint8_t numberOfSpawners = 3 + gameInfo->m_currentLevel / 4;
+	if (gameInfo->m_currentLevel % 5 == 0)
+	{
+		actorManager->AddEnemy(new Boss(m_stateMgr->GetContext(), windowCenter.x, 500));
+
+		const uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
+
+		for (int i = 0; i < numberOfSpawners; ++i)
+		{
+			SpawnPoint* newSpawnPoint = new SpawnPoint(m_stateMgr->GetContext());
+			newSpawnPoint->SetActivationDelay(Utils::randomgen(5.f, 10.f));
+			actorManager->AddSpawnPoint(newSpawnPoint);
+		}
+	}
+	else
+	{
+		const uint8_t numberOfSpawners = 3 + gameInfo->m_currentLevel / 5;
+
+		for (int i = 0; i < numberOfSpawners; ++i)
+			actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
+	}
 	
-	for (int i = 0; i < numberOfSpawners; ++i)
-		actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);

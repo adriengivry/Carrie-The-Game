@@ -46,9 +46,6 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 		if (newPos.DistanceTo(actorManager->GetDoor(1)->GetPosition()) <= __DISTANCE_MIN_TO_DOOR)
 			spawnIsCorrect = false;
 
-		if (newPos.DistanceTo(actorManager->GetPlayer()->GetPosition()) <= __DISTANCE_MIN_TO_PLAYER)
-			spawnIsCorrect = false;
-
 		++tries;
 	}
 	while (!spawnIsCorrect && tries < 9999);
@@ -56,7 +53,6 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext) :
 	m_futurePosition = newPos;
 	m_position = newPos;
 	m_position.Y(-100);
-	// m_type = SpawnerType::CAKEMONSTER_SPAWNER;
 	m_type = static_cast<SpawnerType>(Utils::randomgen(0, 4));
 	switch (m_type)
 	{
@@ -157,6 +153,11 @@ void SpawnPoint::ToggleActive()
 Vector2D<float> SpawnPoint::GetFuturePosition() const
 {
 	return m_futurePosition;
+}
+
+void SpawnPoint::SetActivationDelay(const float p_delay)
+{
+	m_secondsBeforeActivation = p_delay;
 }
 
 void SpawnPoint::Desactivate()

@@ -163,11 +163,12 @@ void Player::CheckFire()
 			m_reorienteTimer = 0;
 		}
 
+		Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y() + 20, ProjectileType::NORMAL, "Chocolate", 0.7f, 0.7f);
 
-		Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y() + 20);
-
+		newProjectile->SetConstantlyRotate(true);
 		newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
 		newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
+		++gameInfo->m_spawnedProjectiles;
 
 		m_sharedContext->m_actorManager->AddProjectile(newProjectile);
 

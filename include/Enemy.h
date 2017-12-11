@@ -26,6 +26,8 @@ public:
 
 	void RemoveLife(const float p_damages, Vector2D<float> p_pushDirection);
 
+	void AddImpulsion(const Vector2D<float> p_direction);
+
 	void ResetLife();
 
 	void Update(const sf::Time& l_time) override;

@@ -67,14 +67,15 @@ void ActorManager::CleanActors()
 
 void ActorManager::Update(const sf::Time& l_time)
 {
+	for (auto it : m_projectiles)
+		it->Update(l_time);
+
 	for (auto it : m_spawnPoints)
 		it->Update(l_time);
 
-	for (auto it : m_projectiles)
-		it->Update(l_time);
-	
 	for (auto it : m_enemies)
 		it->Update(l_time);
+	
 
 	m_doors[0]->Update(l_time);
 	m_doors[1]->Update(l_time);
@@ -82,6 +83,7 @@ void ActorManager::Update(const sf::Time& l_time)
 	m_npc->Update(l_time);
 
 	CheckDeads();
+
 }
 
 void ActorManager::CheckDeads()

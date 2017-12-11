@@ -1,44 +1,29 @@
 #include "Projectile.h"
 #include "StateManager.h"
 
-Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, Actor* p_source, const float p_x, const float p_y, const bool p_friendly, const bool p_isLaser)
+
+Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_direction, 
+	Actor* p_source,
+	const float p_x, const float p_y, 
+	const ProjectileType p_projectileType,
+	const std::string p_texture, 
+	const float p_scaleX, const float p_scaleY)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	m_direction = p_direction;
 	m_velocity = __PROJECTILE_SPEED;
 	m_maxVelocity = m_velocity;
 	m_damages = __PROJECTILE_DAMAGES;
-	m_hitrate = __PROJECTILE_HITRATE;
+
+	SetTexture(p_texture);
+
+	m_projectileType = p_projectileType;
 
 	m_source = p_source;
 
-	m_constantDamages = p_isLaser;
+	m_constantlyRotate = false;
 
-	m_constantlyRotate = true;
-
-	m_orientable = false;
-
-	m_friendly = p_friendly;
-
-	if (m_friendly)
-	{
-		SetTexture(__PROJECTILE_TEXTURE);
-		++m_sharedContext->m_gameInfo->m_spawnedProjectiles;
-		m_sprite.scale(0.7f, 0.7f);
-	}
-	else
-	{
-		if (p_isLaser)
-		{
-			SetTexture(__ENEMY_PROJECTILE_LASER_TEXTURE);
-			m_sprite.scale(0.7f, 0.7f);
-		}
-		else
-		{
-			SetTexture(__ENEMY_PROJECTILE_TEXTURE);
-			m_sprite.scale(1.2f, 1.2f);
-		}
-	}
+	m_spriteScale.Set(p_scaleX, p_scaleY);
 }
 
 Projectile::~Projectile()
@@ -56,7 +41,7 @@ void Projectile::Update(const sf::Time& l_time)
 
 	if (!MustDie())
 	{
-		if (m_friendly)
+		if (IsFriendly())
 		{
 			for (auto enemy : m_sharedContext->m_actorManager->GetEnemies())
 			{
@@ -74,12 +59,15 @@ void Projectile::Update(const sf::Time& l_time)
 					if (!projectile->DealsConstantDamages())
 					{
 						projectile->Kill();
-						m_sprite.scale(1.3f, 1.3f);
-						m_damages *= 1.3f;
+						if (m_sprite.getScale().x <= 3.f)
+						{
+							m_sprite.scale(1.3f, 1.3f);
+							m_damages *= 1.3f;
+						}
 					}
 					else
 					{
-						if (m_sprite.getScale().x >= 0.2f)
+						if (m_sprite.getScale().x >= 0.5f)
 						{
 							m_velocityMultiplicator *= 1 - 0.9 * l_time.asSeconds();
 							m_damages *= 1 - 0.9 * l_time.asSeconds();
@@ -102,7 +90,7 @@ void Projectile::Update(const sf::Time& l_time)
 			if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()))
 			{
 				m_mustDie = true;
-				m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, m_constantDamages);
+				m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, DealsConstantDamages());
 			}
 		}
 	}
@@ -121,11 +109,6 @@ void Projectile::MultiplySpeed(const float p_value)
 	m_velocity *= p_value;
 }
 
-void Projectile::MultiplyHitrate(const float p_value)
-{
-	m_hitrate *= p_value;
-}
-
 void Projectile::Kill()
 {
 	m_mustDie = true;
@@ -138,12 +121,12 @@ Actor* Projectile::GetSource() const
 
 bool Projectile::IsFriendly() const
 {
-	return m_friendly;
+	return m_source == m_sharedContext->m_actorManager->GetPlayer();
 }
 
 bool Projectile::DealsConstantDamages() const
 {
-	return m_constantDamages;
+	return m_projectileType == ProjectileType::LASER;
 }
 
 void Projectile::SetDamages(const float p_value)
@@ -154,4 +137,9 @@ void Projectile::SetDamages(const float p_value)
 void Projectile::SetSpeed(const float p_speed)
 {
 	m_velocity = p_speed;
+}
+
+void Projectile::SetConstantlyRotate(const bool p_state)
+{
+	m_constantlyRotate = p_state;
 }

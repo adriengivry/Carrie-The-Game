@@ -50,8 +50,7 @@ void Enemy::RemoveLife(const float p_damages, const Vector2D<float> p_pushDirect
 {
 	m_life -= p_damages;
 
-	m_pushVelocity = m_pushMaxVelocity;
-	m_pushDirection = p_pushDirection;
+	AddImpulsion(p_pushDirection);
 
 	if (m_life <= 0 && !m_isDead)
 	{
@@ -59,6 +58,12 @@ void Enemy::RemoveLife(const float p_damages, const Vector2D<float> p_pushDirect
 		m_isDead = true;
 		OnDeath();
 	}
+}
+
+void Enemy::AddImpulsion(const Vector2D<float> p_direction)
+{
+	m_pushVelocity = m_pushMaxVelocity;
+	m_pushDirection = p_direction;
 }
 
 void Enemy::SpecialAttack(const sf::Time& l_time)

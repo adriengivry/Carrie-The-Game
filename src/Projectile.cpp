@@ -81,7 +81,6 @@ void Projectile::Update(const sf::Time& l_time)
 					else if (projectile->GetType() == ProjectileType::STRONG)
 					{
 						m_mustDie = true;
-						projectile->Kill();
 					}
 				}
 			}

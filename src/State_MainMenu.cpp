@@ -264,6 +264,7 @@ void State_MainMenu::GenerateButtons()
 void State_MainMenu::LeaveGame(EventDetails* l_details)
 {
 	m_stateMgr->Remove(StateType::Game);
+	m_stateMgr->GetContext()->m_gameInfo->FullReset();
 	GoBackToMain();
 }
 

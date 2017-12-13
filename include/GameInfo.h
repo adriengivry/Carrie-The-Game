@@ -104,5 +104,8 @@ struct GameInfo
 		m_playerMaxLife = __PLAYER_LIFE;
 		m_playerLife = __PLAYER_LIFE;
 		m_bossBeaten = false;
+		m_extraLifeBought = 0;
+		m_curingPotionBought = 0;
+		m_smallCuringPotionBought = 0;
 	}
 };

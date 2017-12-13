@@ -29,6 +29,8 @@ public:
 
 	void GenerateStats() override;
 
+	void SpawnParticle() override;
+
 	void Update(const sf::Time& l_time) override;
 
 	void SpecialAttack(const sf::Time& l_time) override;

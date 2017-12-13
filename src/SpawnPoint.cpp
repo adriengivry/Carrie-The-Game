@@ -23,7 +23,7 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const SpawnerType p_spaw
 
 	m_secondsBeforeActivation = Utils::randomgen(2, 6);
 
-	m_sprite.setScale(1.2f, 1.2f);
+	m_sprite.setScale(1.f, 1.f);
 
 	bool spawnIsCorrect;
 
@@ -126,13 +126,8 @@ void SpawnPoint::SpawnEnemy()
 
 void SpawnPoint::Update(const sf::Time & l_time)
 {
-	m_gotAShadow = false;
-
 	if (IsActive())
-	{
 		m_timer += l_time.asSeconds();
-		m_position = m_futurePosition;
-	}
 
 	
 	if (!IsActive())
@@ -144,6 +139,9 @@ void SpawnPoint::Update(const sf::Time & l_time)
 			m_position.Y() += 1500 * l_time.asSeconds();
 		}
 		
+		if (m_position.Y() > m_futurePosition.Y())
+			m_position = m_futurePosition;
+
 		if (m_activationTimer >= m_secondsBeforeActivation)
 			Activate();
 	}
@@ -157,8 +155,7 @@ void SpawnPoint::Update(const sf::Time & l_time)
 
 	Actor::Update(l_time);
 
-	if (!IsActive() && m_activationTimer >= m_secondsBeforeActivation - 1)
-		m_shadow.setPosition(m_futurePosition.ToSFVector() + sf::Vector2f(0, 20));
+	m_shadow.setPosition(m_futurePosition.ToSFVector() + sf::Vector2f(0, 10));
 }
 
 void SpawnPoint::ToggleActive()

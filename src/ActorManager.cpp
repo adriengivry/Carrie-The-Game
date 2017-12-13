@@ -175,8 +175,8 @@ void ActorManager::Draw()
 	for (auto it : m_buyables)				AddActor(actors, it);
 
 	// ALWAYS DRAW UNDER EVERY OTHER ACTORS
-	for (auto it : m_floorParticles)			it->Draw();
 	for (auto it : m_spawnPoints)				it->Draw();
+	for (auto it : m_floorParticles)			it->Draw();
 	for (auto it : m_projectileParticles)		it->Draw();
 
 	if (m_doors[0] != nullptr)		m_doors[0]->Draw();

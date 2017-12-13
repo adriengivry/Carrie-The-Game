@@ -131,11 +131,27 @@ void Projectile::SpawnParticle()
 		const float xOffset = Utils::randomgen(0, 20) - 10;
 		const float yOffset = Utils::randomgen(0, 20) - 10;
 		const float angle = Utils::randomgen(0, 360);
-		const uint8_t r = 255;
-		const uint8_t g = 255;
-		const uint8_t b = 255;
+
+		uint8_t r;
+		uint8_t g;
+		uint8_t b;
+
+		if (IsFriendly() && Utils::randomgen(0, 1) == 0)
+		{
+			r = 83;
+			g = 47;
+			b = 30;
+		}
+		else
+		{
+			r = 255;
+			g = 255;
+			b = 255;
+		}
+
 		const uint8_t a = Utils::randomgen(50, 150);
-		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, Utils::randomgen(0, 360), sf::Color(r, g, b, a), 0.8f), ParticleType::PROJECTILE);
+
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 0.4f), ParticleType::PROJECTILE);
 		m_particleSpawnTimer = 0;
 	}
 }

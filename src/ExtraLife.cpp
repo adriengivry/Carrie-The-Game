@@ -7,12 +7,12 @@ ExtraLife::ExtraLife(SharedContext* p_sharedContext, const float p_x, const floa
 	SetTexture("Heart");
 	m_itemInfo.m_name = "Extra Life";
 	m_itemInfo.m_description = "+25% HP";
-	m_itemInfo.m_defaultPrice = 80;
+	m_itemInfo.m_defaultPrice = 50;
 }
 
 void ExtraLife::UpdatePrice()
 {
-	m_itemInfo.m_price = m_itemInfo.m_defaultPrice + m_sharedContext->m_gameInfo->m_extraLifeBought * 40;
+	m_itemInfo.m_price = m_itemInfo.m_defaultPrice + m_sharedContext->m_gameInfo->m_extraLifeBought * 25;
 }
 
 void ExtraLife::ApplyEffect()

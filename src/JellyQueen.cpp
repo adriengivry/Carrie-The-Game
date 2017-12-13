@@ -37,6 +37,23 @@ void JellyQueen::GenerateStats()
 	m_specialAttackCooldown = __JELLYQUEEN_SPECIAL_ATTACK_COOLDOWN;
 }
 
+void JellyQueen::SpawnParticle()
+{
+	for (uint8_t i = 0; i < 15; ++i)
+	{
+		const float particleSize = Utils::randomgen(5, 10);
+		const float xOffset = Utils::randomgen(0, 50) - 25;
+		const float yOffset = Utils::randomgen(0, 50) - 25;
+		const float angle = Utils::randomgen(0, 360);
+		const uint8_t r = Utils::randomgen(160, 185);
+		const uint8_t g = Utils::randomgen(35, 54);
+		const uint8_t b = Utils::randomgen(80, 100);
+		const uint8_t a = 80;
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 2.f));
+		m_particleSpawnTimer = 0;
+	}
+}
+
 void JellyQueen::Update(const sf::Time& l_time)
 {
 	if (m_isDashing)

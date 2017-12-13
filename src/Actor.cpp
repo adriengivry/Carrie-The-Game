@@ -36,7 +36,7 @@ void Actor::Update(const sf::Time& l_time)
 	m_lifetimeCounter += l_time.asSeconds();
 
 	m_particleSpawnTimer += l_time.asSeconds();
-	if (m_particleSpawnTimer >= m_particleSpawnDelay && m_velocity >= 200)
+	if (m_particleSpawnTimer >= m_particleSpawnDelay && m_velocity >= 50)
 	{
 		SpawnParticle();
 	}

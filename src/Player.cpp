@@ -277,17 +277,17 @@ void Player::Draw() const
 
 void Player::SpawnParticle()
 {
-	for (uint8_t i = 0; i < 10; ++i)
+	for (uint8_t i = 0; i < 8; ++i)
 	{
-		const float particleSize = Utils::randomgen(10, 15);
+		const float particleSize = Utils::randomgen(5, 10);
 		const float xOffset = Utils::randomgen(0, 40) - 20;
 		const float yOffset = Utils::randomgen(0, 40) - 20 + 50;
 		const float angle = Utils::randomgen(0, 360);
-		const uint8_t r = 255;
-		const uint8_t g = Utils::randomgen(100, 255);
-		const uint8_t b = 255;
-		const uint8_t a = 30;
-		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, Utils::randomgen(0, 360), sf::Color(r, g, b, a), 2));
+		const uint8_t r = Utils::randomgen(230, 255);
+		const uint8_t g = Utils::randomgen(100, 200);
+		const uint8_t b = Utils::randomgen(230, 255);
+		const uint8_t a = 80;
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 1.f));
 		m_particleSpawnTimer = 0;
 	}
 }

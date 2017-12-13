@@ -70,7 +70,13 @@ void State_Game::OnCreate()
 	if (textureManager->RequireResource("Curse_Icon_Reduced_Precision"))
 		m_curseIcon[4].setTexture(*textureManager->GetResource("Curse_Icon_Reduced_Precision"));
 
-	const bool isBossLevel = gameInfo->m_currentLevel % 5 == 0;
+	bool isBossLevel = false;
+
+	if (gameInfo->m_gameMode == GameMode::ARCADE)
+		isBossLevel = gameInfo->m_currentLevel % 5 == 0;
+	else if (gameInfo->m_gameMode == GameMode::BOSS_RUSH)
+		isBossLevel = gameInfo->m_currentLevel % 1 == 0;
+
 	m_isShopingLevel = gameInfo->m_bossBeaten;
 	gameInfo->m_bossBeaten = false;
 

@@ -207,6 +207,8 @@ void State_MainMenu::Draw()
 
 void State_MainMenu::Play() const
 {
+	if (!m_stateMgr->HasState(StateType::Game))
+		m_stateMgr->GetContext()->m_gameInfo->m_gameMode = GameMode::ARCADE;
 	m_stateMgr->SwitchTo(StateType::Game);
 }
 

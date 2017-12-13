@@ -16,12 +16,20 @@ enum class MapType
 	MAP_BOSS
 };
 
+enum class GameMode
+{
+	ARCADE,
+	BOSS_RUSH
+};
+
 struct GameInfo
 {
 	const float __CARRIE_SLOW_MULTIPLICATOR = 0.8f;
 	const float __PROJECTILE_SLOW_MULTIPLICATOR = 0.8f;
 	const float __PROJECTILE_WEAK_MULTIPLICATOR = 0.8f;
 	const float __PLAYER_LIFE = 100;
+
+	GameMode m_gameMode = GameMode::ARCADE;
 
 	float m_playerMaxLife = __PLAYER_LIFE;
 	float m_playerLife = __PLAYER_LIFE;

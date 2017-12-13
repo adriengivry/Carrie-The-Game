@@ -5,7 +5,6 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 	Enemy(p_sharedContext, p_x, p_y)
 {
 	SetTexture(__JELLYBEAR_TEXTURE);
-	m_spriteScale.Set(1.5f, 1.5f);
 
 	m_shadowOffset = 40;
 

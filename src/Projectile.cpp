@@ -22,8 +22,6 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	m_source = p_source;
 
 	m_constantlyRotate = false;
-
-	m_spriteScale.Set(p_scaleX, p_scaleY);
 }
 
 Projectile::~Projectile()

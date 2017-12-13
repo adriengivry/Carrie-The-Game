@@ -23,8 +23,6 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const SpawnerType p_spaw
 
 	m_secondsBeforeActivation = Utils::randomgen(2, 6);
 
-	m_sprite.setScale(1.f, 1.f);
-
 	bool spawnIsCorrect;
 
 	uint16_t tries = 0;

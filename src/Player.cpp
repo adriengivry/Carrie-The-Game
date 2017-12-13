@@ -26,7 +26,6 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_isTransparent = false;
 	m_getHitFlashTimer = 0.f;
 
-	m_sprite.setScale(0.7f, 0.7f);
 	m_shadowScale.Set(0.8f, 0.8f);
 
 	m_fireOn = false;

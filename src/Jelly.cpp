@@ -6,7 +6,6 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 {
 
 	SetTexture(__JELLY_TEXTURE);
-	m_spriteScale.Set(1.2f, 1.2f);
 	
 	Jelly::GenerateStats();
 	ResetLife();

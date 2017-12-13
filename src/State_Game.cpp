@@ -95,7 +95,6 @@ void State_Game::OnCreate()
 			gameInfo->m_mapType = MapType::MAP2;
 		}
 	}
-	
 
 	switch (gameInfo->m_mapType)
 	{
@@ -132,11 +131,14 @@ void State_Game::OnCreate()
 		break;
 	}
 
+	m_backgroundSprite.setScale(4.f, 4.f);
+	m_backgroundEdgesSprites.setScale(4.f, 4.f);
+
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
 
 	if (m_isShopingLevel)
 	{
-		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), windowCenter.x, 198, true, true));
+		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), windowCenter.x, 195, true, true));
 		actorManager->AddBuyable(new ExtraLife(m_stateMgr->GetContext(), windowCenter.x - 600, windowCenter.y));
 		actorManager->AddBuyable(new ExtraLife(m_stateMgr->GetContext(), windowCenter.x - 300, windowCenter.y));
 		actorManager->AddBuyable(new SmallCuringPotion(m_stateMgr->GetContext(), windowCenter.x + 300, windowCenter.y));
@@ -146,8 +148,8 @@ void State_Game::OnCreate()
 	else
 	{
 		actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 275));
-		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
-		actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
+		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 195, true));
+		actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 195, false));
 		uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
 		if (isBossLevel)
 		{
@@ -380,6 +382,7 @@ void State_Game::DrawUserInterface()
 	if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Toothpaste"))
 	{
 		toothPasteSprite.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Toothpaste"));
+		toothPasteSprite.setScale(4.f, 4.f);
 		toothPasteSprite.setPosition(window->getSize().x / 2 - 800, window->getSize().y - 40);
 		Utils::centerOrigin(toothPasteSprite);
 	}

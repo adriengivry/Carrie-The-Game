@@ -17,16 +17,14 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_speachTimer = 0;
 	m_speachDuration = 2.0f;
 
-	m_sprite.scale(0.7f, 0.7f);
-
 	m_answer = false;
 	m_question = static_cast<QuestionType>(0);
 
 	if (m_sharedContext->m_textureManager->RequireResource("Bubble"))
 	{
 		m_speachBubble.setTexture(*m_sharedContext->m_textureManager->GetResource("Bubble"));
+		m_speachBubble.setScale(4.f, 4.f);
 		m_speachBubble.setPosition(1100, 100);
-		m_speachBubble.setScale(0.7f, 0.7f);
 		Utils::centerOrigin(m_speachBubble);
 	}
 
@@ -34,7 +32,7 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	{
 		m_questionMark.setTexture(*m_sharedContext->m_textureManager->GetResource("Question_Mark"));
 		m_questionMark.setPosition(1020, 115);
-		m_questionMark.setScale(0.5f, 0.5f);
+		m_questionMark.setScale(4.f, 4.f);
 		Utils::centerOrigin(m_questionMark);
 	}
 

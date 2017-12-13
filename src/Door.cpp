@@ -15,6 +15,8 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, con
 
 	m_answer = p_answer;
 
+	m_spriteScale.Set(0.25f, 0.25f);
+
 	m_alreadyGetUsed = false;
 
 	m_gotAShadow = false;

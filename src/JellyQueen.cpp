@@ -39,11 +39,11 @@ void JellyQueen::GenerateStats()
 
 void JellyQueen::SpawnParticle()
 {
-	for (uint8_t i = 0; i < 15; ++i)
+	for (uint8_t i = 0; i < 25; ++i)
 	{
 		const float particleSize = Utils::randomgen(5, 10);
 		const float xOffset = Utils::randomgen(0, 50) - 25;
-		const float yOffset = Utils::randomgen(0, 50) - 25;
+		const float yOffset = Utils::randomgen(0, 100) - 50;
 		const float angle = Utils::randomgen(0, 360);
 		const uint8_t r = Utils::randomgen(160, 185);
 		const uint8_t g = Utils::randomgen(35, 54);

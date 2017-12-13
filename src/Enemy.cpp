@@ -21,10 +21,7 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_specialAttackCooldown = __ENEMY_DEFAULT_COOLDOWN;
 	m_specialAbilityCooldown = __ENEMY_DEFAULT_COOLDOWN;
 
-	m_pushAcceleration = -1000;
-	m_pushMaxVelocity = 300;
-	m_pushVelocity = 0;
-	m_pushDirection.Set(0, 0);
+	
 
 	m_sprite.setScale(0.1f, 0.1f);
 }
@@ -60,12 +57,6 @@ void Enemy::RemoveLife(const float p_damages, const Vector2D<float> p_pushDirect
 	}
 }
 
-void Enemy::AddImpulsion(const Vector2D<float> p_direction)
-{
-	m_pushVelocity = m_pushMaxVelocity;
-	m_pushDirection = p_direction;
-}
-
 void Enemy::SpecialAttack(const sf::Time& l_time)
 {
 	// NO SPECIAL ATTACK (OVERRIDE TO APPLY NEW BEHAVIOR)
@@ -94,6 +85,11 @@ void Enemy::Update(const sf::Time& l_time)
 	{
 		m_sprite.setScale(1.f, 1.f);
 	}
+
+	m_velocityMultiplicator = 1;
+
+	if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()))
+		m_velocityMultiplicator = 0;
 
 	Actor::Update(l_time);
 
@@ -139,11 +135,6 @@ void Enemy::Update(const sf::Time& l_time)
 		}
 	}
 
-	if (m_pushVelocity > 0)
-		m_pushVelocity += m_pushAcceleration * l_time.asSeconds();
-	else
-		m_pushVelocity = 0;
-
 	if (m_pushVelocity >= m_pushMaxVelocity / 2)
 	{
 		sf::Color previousColor = m_sprite.getColor();
@@ -160,8 +151,6 @@ void Enemy::Update(const sf::Time& l_time)
 		previousColor.b = 255;
 		m_sprite.setColor(previousColor);
 	}
-
-	m_position += m_pushDirection * m_pushVelocity * l_time.asSeconds();
 }
 
 void Enemy::StartSpecialAttackCooldown()
@@ -179,7 +168,10 @@ void Enemy::StartSpecialAbilityCooldown()
 void Enemy::Attack()
 {
 	if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()) && m_damagesOnContact)
-		m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, false);
+	{
+		const Vector2D<float> pushDirection(1, m_position.AngleTo(m_sharedContext->m_actorManager->GetPlayer()->GetPosition()), POLAR);
+		m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, false, pushDirection);
+	}
 }
 
 float Enemy::CalculateStat(const float p_baseValue, const float p_valueIncrement, const float p_maxValue) const

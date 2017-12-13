@@ -28,6 +28,20 @@ void ActorManager::AddBuyable(Buyable* p_newBuyable)
 	m_buyables.push_back(p_newBuyable);
 }
 
+void ActorManager::AddParticle(Particle* p_newParticle, const ParticleType p_particleType)
+{
+	switch (p_particleType)
+	{
+	case ParticleType::FLOOR:
+		m_floorParticles.push_back(p_newParticle);
+		break;
+	case ParticleType::PROJECTILE:
+		m_projectileParticles.push_back(p_newParticle);
+		break;
+	}
+}
+
+
 void ActorManager::AddActor(std::multimap<uint16_t&, Actor*>& p_actors, Actor* p_actor)
 {
 	p_actors.insert(std::pair<uint16_t&, Actor*>(p_actor->GetZBuffer(), p_actor));
@@ -50,17 +64,12 @@ void ActorManager::SetDoor(const uint8_t p_id, Door* p_door)
 
 void ActorManager::CleanActors()
 {
-	for (auto it : m_enemies)
-		delete it;
-
-	for (auto it : m_projectiles)
-		delete it;
-
-	for (auto it : m_spawnPoints)
-		delete it;
-
-	for (auto it : m_buyables)
-		delete it;
+	for (auto it : m_floorParticles)		delete it;
+	for (auto it : m_projectileParticles)	delete it;
+	for (auto it : m_enemies)				delete it;
+	for (auto it : m_projectiles)			delete it;
+	for (auto it : m_spawnPoints)			delete it;
+	for (auto it : m_buyables)				delete it;
 
 	delete m_doors[0];
 	delete m_doors[1];
@@ -73,6 +82,8 @@ void ActorManager::CleanActors()
 	delete m_npc;
 	m_npc = nullptr;
 
+	m_floorParticles.clear();
+	m_projectileParticles.clear();
 	m_spawnPoints.clear();
 	m_enemies.clear();
 	m_projectiles.clear();
@@ -81,31 +92,20 @@ void ActorManager::CleanActors()
 
 void ActorManager::Update(const sf::Time& l_time)
 {
-	for (auto it : m_projectiles)
-		it->Update(l_time);
-
-	for (auto it : m_spawnPoints)
-		it->Update(l_time);
-
-	for (auto it : m_enemies)
-		it->Update(l_time);
-
-	for (auto it : m_buyables)
-		it->Update(l_time);
+	for (auto it : m_floorParticles)		it->Update(l_time);
+	for (auto it : m_projectileParticles)	it->Update(l_time);
+	for (auto it : m_projectiles)			it->Update(l_time);
+	for (auto it : m_spawnPoints)			it->Update(l_time);
+	for (auto it : m_enemies)				it->Update(l_time);
+	for (auto it : m_buyables)				it->Update(l_time);
 	
-	if (m_doors[0] != nullptr)
-		m_doors[0]->Update(l_time);
-
-	if (m_doors[1] != nullptr)
-		m_doors[1]->Update(l_time);
+	if (m_doors[0] != nullptr)		m_doors[0]->Update(l_time);
+	if (m_doors[1] != nullptr)		m_doors[1]->Update(l_time);
+	if (m_npc != nullptr)			m_npc->Update(l_time);
 
 	m_player->Update(l_time);
 
-	if (m_npc != nullptr)
-		m_npc->Update(l_time);
-
 	CheckDeads();
-
 }
 
 void ActorManager::CheckDeads()
@@ -135,28 +135,52 @@ void ActorManager::CheckDeads()
 			++it;
 		}
 	}
+
+	for (auto it = m_floorParticles.begin(); it != m_floorParticles.end();)
+	{
+		if ((*it)->MustDie())
+		{
+			delete *it;
+			it = m_floorParticles.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	for (auto it = m_projectileParticles.begin(); it != m_projectileParticles.end();)
+	{
+		if ((*it)->MustDie())
+		{
+			delete *it;
+			it = m_projectileParticles.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 void ActorManager::Draw()
 {
 	std::multimap<uint16_t&, Actor*> actors;
 	
-	if (m_npc != nullptr)
-		AddActor(actors, m_npc);
+	if (m_npc != nullptr)			AddActor(actors, m_npc);
 
 	AddActor(actors, m_player);
-	for (auto it : m_enemies)		AddActor(actors, it);
-	for (auto it : m_projectiles)	AddActor(actors, it);
-	for (auto it : m_buyables)		AddActor(actors, it);
+	for (auto it : m_enemies)				AddActor(actors, it);
+	for (auto it : m_projectiles)			AddActor(actors, it);
+	for (auto it : m_buyables)				AddActor(actors, it);
 
 	// ALWAYS DRAW UNDER EVERY OTHER ACTORS
-	for (auto it : m_spawnPoints)	it->Draw();
+	for (auto it : m_floorParticles)			it->Draw();
+	for (auto it : m_spawnPoints)				it->Draw();
+	for (auto it : m_projectileParticles)		it->Draw();
 
-	if (m_doors[0] != nullptr)
-		m_doors[0]->Draw();
-
-	if (m_doors[1] != nullptr)
-		m_doors[1]->Draw();
+	if (m_doors[0] != nullptr)		m_doors[0]->Draw();
+	if (m_doors[1] != nullptr)		m_doors[1]->Draw();
 
 	// DRAW RESPECTING THEIR ZBUFFER
 	for (const auto it : actors)	it.second->Draw();
@@ -169,4 +193,5 @@ Door* ActorManager::GetDoor(const uint8_t p_id) { return m_doors[p_id]; }
 std::vector<Projectile*>& ActorManager::GetProjectile() { return m_projectiles; }
 std::vector<Enemy*>& ActorManager::GetEnemies() { return m_enemies; }
 std::vector<SpawnPoint*>& ActorManager::GetSpawnPoints() { return m_spawnPoints; }
-std::vector<Buyable*>& ActorManager::GetBuyable() { return m_buyables; }
+std::vector<Buyable*>& ActorManager::GetBuyables() { return m_buyables; }
+

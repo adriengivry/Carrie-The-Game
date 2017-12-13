@@ -20,6 +20,8 @@ public:
 	void StopControl();
 	void Draw() const override;
 
+	void SpawnParticle() override;
+
 	float GetMaxLife() const;
 	float GetLife() const;
 
@@ -31,7 +33,7 @@ public:
 	void Fire(EventDetails* l_details);
 	void Unfire(EventDetails* l_details);
 
-	void RemoveLife(const float p_value, const bool p_constantDamages = false);
+	void RemoveLife(const float p_value, const bool p_constantDamages = false, const Vector2D<float> p_direction = Vector2D<float>(0, 0));
 	void AddLife(const float p_value) const;
 
 private:

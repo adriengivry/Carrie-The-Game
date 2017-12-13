@@ -99,7 +99,7 @@ void Projectile::Update(const sf::Time& l_time)
 			if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()))
 			{
 				m_mustDie = true;
-				m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, DealsConstantDamages());
+				m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, DealsConstantDamages(), m_direction);
 			}
 		}
 	}
@@ -121,6 +121,23 @@ void Projectile::MultiplySpeed(const float p_value)
 void Projectile::Kill()
 {
 	m_mustDie = true;
+}
+
+void Projectile::SpawnParticle()
+{
+	for (uint8_t i = 0; i < 8; ++i)
+	{
+		const float particleSize = Utils::randomgen(3, 5);
+		const float xOffset = Utils::randomgen(0, 20) - 10;
+		const float yOffset = Utils::randomgen(0, 20) - 10;
+		const float angle = Utils::randomgen(0, 360);
+		const uint8_t r = 255;
+		const uint8_t g = 255;
+		const uint8_t b = 255;
+		const uint8_t a = Utils::randomgen(50, 150);
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, Utils::randomgen(0, 360), sf::Color(r, g, b, a), 0.8f), ParticleType::PROJECTILE);
+		m_particleSpawnTimer = 0;
+	}
 }
 
 Actor* Projectile::GetSource() const

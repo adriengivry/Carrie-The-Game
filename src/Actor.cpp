@@ -20,6 +20,13 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_mustDie(false),
 	m_lifetimeCounter(0)
 {
+	m_pushAcceleration = -1000;
+	m_pushMaxVelocity = 300;
+	m_pushVelocity = 0;
+	m_pushDirection.Set(0, 0);
+
+	m_particleSpawnTimer = 0;
+	m_particleSpawnDelay = 0.03f;
 }
 
 Actor::~Actor() {}
@@ -27,6 +34,12 @@ Actor::~Actor() {}
 void Actor::Update(const sf::Time& l_time)
 {
 	m_lifetimeCounter += l_time.asSeconds();
+
+	m_particleSpawnTimer += l_time.asSeconds();
+	if (m_particleSpawnTimer >= m_particleSpawnDelay && m_velocity >= 200)
+	{
+		SpawnParticle();
+	}
 
 	m_zBuffer = m_sprite.getGlobalBounds().top + m_sprite.getGlobalBounds().height;
 
@@ -74,6 +87,13 @@ void Actor::Move(const sf::Time& l_time)
 		if (m_position.X() != previousPos.X() || m_position.Y() != previousPos.Y())
 			if (m_textureGetSet)
 				m_sprite.setRotation(m_direction.GetAngle());
+
+	if (m_pushVelocity > 0)
+		m_pushVelocity += m_pushAcceleration * l_time.asSeconds();
+	else
+		m_pushVelocity = 0;
+
+	m_position += m_pushDirection * m_pushVelocity * l_time.asSeconds();
 }
 
 void Actor::Draw() const
@@ -91,6 +111,11 @@ void Actor::Draw() const
 
 		m_sharedContext->m_wind->GetRenderWindow()->draw(toDraw);
 	}
+}
+
+void Actor::SpawnParticle()
+{
+	// TO OVERRIDE
 }
 
 bool Actor::IsIntersecting(Actor* p_otherActor) const
@@ -117,6 +142,13 @@ bool Actor::IsIntersecting(Actor* p_otherActor) const
 bool Actor::MustDie() const
 {
 	return m_mustDie;
+}
+
+void Actor::AddImpulsion(const Vector2D<float> p_direction, const float p_power)
+{
+	m_pushMaxVelocity = p_power;
+	m_pushVelocity = m_pushMaxVelocity;
+	m_pushDirection = p_direction;
 }
 
 void Actor::SetVelocity(const float p_newVelocity)

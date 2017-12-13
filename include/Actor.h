@@ -21,8 +21,12 @@ public:
 	virtual void Move(const sf::Time& l_time);
 	virtual void Draw() const;
 
+	virtual void SpawnParticle();
+
 	bool IsIntersecting(Actor* p_otherActor) const;
 	bool MustDie() const;
+
+	void AddImpulsion(const Vector2D<float> p_direction, float p_power = 300);
 
 	float GetVelocity() const;
 	Vector2D<float>& GetPosition();
@@ -65,4 +69,12 @@ protected:
 	bool m_mustDie;
 
 	float m_lifetimeCounter;
+
+	float m_pushMaxVelocity;
+	float m_pushVelocity;
+	float m_pushAcceleration;
+	Vector2D<float> m_pushDirection;
+
+	float m_particleSpawnTimer;
+	float m_particleSpawnDelay;
 };

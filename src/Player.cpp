@@ -275,6 +275,23 @@ void Player::Draw() const
 	Actor::Draw();
 }
 
+void Player::SpawnParticle()
+{
+	for (uint8_t i = 0; i < 10; ++i)
+	{
+		const float particleSize = Utils::randomgen(10, 15);
+		const float xOffset = Utils::randomgen(0, 40) - 20;
+		const float yOffset = Utils::randomgen(0, 40) - 20 + 50;
+		const float angle = Utils::randomgen(0, 360);
+		const uint8_t r = 255;
+		const uint8_t g = Utils::randomgen(100, 255);
+		const uint8_t b = 255;
+		const uint8_t a = 30;
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, Utils::randomgen(0, 360), sf::Color(r, g, b, a), 2));
+		m_particleSpawnTimer = 0;
+	}
+}
+
 float Player::GetMaxLife() const { return m_maxLife; }
 float Player::GetLife() const { return m_life; }
 
@@ -315,10 +332,11 @@ void Player::Unfire(EventDetails* l_details)
 	m_fireOn = false;
 }
 
-void Player::RemoveLife(const float p_value, const bool p_constantDamages)
+void Player::RemoveLife(const float p_value, const bool p_constantDamages, const Vector2D<float> p_direction)
 {
 	if (!IsInvulnerable())
 	{
+		AddImpulsion(p_direction, 600);
 		m_life -= p_value;
 		m_getHit = true;
 		m_timeSinceLastHit = 0.f;

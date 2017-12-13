@@ -147,6 +147,9 @@
     <ClCompile Include="..\src\SmallCuringPotion.cpp">
       <Filter>Source Files\Entities\Items</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Particle.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Game.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="..\include\SmallCuringPotion.h">
       <Filter>Header Files\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Particle.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

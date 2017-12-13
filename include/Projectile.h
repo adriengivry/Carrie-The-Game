@@ -35,6 +35,8 @@ public:
 
 	void Kill();
 
+	void SpawnParticle() override;
+
 	Actor* GetSource() const;
 
 	ProjectileType GetType() const;

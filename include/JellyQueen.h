@@ -18,7 +18,7 @@ class JellyQueen : public Enemy
 
 	const float			__JELLYQUEEN_SPECIAL_ABILITY_COOLDOWN = 2.f;
 
-	const float			__JELLYQUEEN_SPECIAL_ATTACK_COOLDOWN = 0.5f;
+	const float			__JELLYQUEEN_SPECIAL_ATTACK_COOLDOWN = 0.8f;
 	const float			__JELLYQUEEN_PROJECTILE_SPEED = 800;
 
 public:

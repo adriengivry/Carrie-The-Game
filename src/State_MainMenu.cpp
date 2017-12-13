@@ -5,6 +5,7 @@
 State_MainMenu::State_MainMenu(StateManager* l_stateManager) :
 	BaseState(l_stateManager),
 	m_buttonPadding(0),
+	m_menuType(MenuType::MAIN),
 	m_selected(0)
 {
 }
@@ -30,31 +31,7 @@ void State_MainMenu::OnCreate()
 	m_buttonPos = sf::Vector2f(windowCenter.x, windowCenter.y - m_buttonSize.y + 280);
 	m_buttonPadding = 10; // in px
 
-	std::string str[3];
-	str[0] = "PLAY";
-	str[1] = "CREDITS";
-	str[2] = "EXIT";
-
-	for(int i = 0; i < 3; ++i)
-	{
-		const sf::Vector2f buttonPosition(m_buttonPos.x,m_buttonPos.y + 
-			i * (m_buttonSize.y + m_buttonPadding));
-		m_rects[i].setSize(m_buttonSize);
-		m_rects[i].setFillColor(sf::Color::Red);
-
-		m_rects[i].setOrigin(m_buttonSize.x / 2.0f, m_buttonSize.y / 2.0f);
-		m_rects[i].setPosition(buttonPosition);
-
-		if (fontManager->RequireResource("Retro_Menu"))
-			m_labels[i].setFont(*fontManager->GetResource("Retro_Menu"));
-		m_labels[i].setString(sf::String(str[i]));
-		m_labels[i].setCharacterSize(45);
-
-		
-		Utils::centerOrigin(m_labels[i]);
-
-		m_labels[i].setPosition(buttonPosition);
-	}
+	GenerateButtons();
 
 	// Adding callbacks
 	if (m_stateMgr->GetContext()->m_gameInfo->m_allowMouse)
@@ -69,6 +46,7 @@ void State_MainMenu::OnCreate()
 	evMgr->AddCallback(StateType::MainMenu, "Move_Down", &State_MainMenu::Move, this);
 	evMgr->AddCallback(StateType::MainMenu, "Move_Up_Alternative", &State_MainMenu::Move, this);
 	evMgr->AddCallback(StateType::MainMenu, "Move_Down_Alternative", &State_MainMenu::Move, this);
+	evMgr->AddCallback(StateType::MainMenu, "Key_Escape", &State_MainMenu::GoBackToMain, this);
 }
 
 void State_MainMenu::OnDestroy() {
@@ -85,6 +63,7 @@ void State_MainMenu::OnDestroy() {
 	evMgr->RemoveCallback(StateType::MainMenu, "Move_Down");
 	evMgr->RemoveCallback(StateType::MainMenu, "Move_Up_Alternative");
 	evMgr->RemoveCallback(StateType::MainMenu, "Move_Down_Alternative");
+	evMgr->RemoveCallback(StateType::MainMenu, "Key_Escape");
 }
 
 void State_MainMenu::Activate(){
@@ -92,12 +71,14 @@ void State_MainMenu::Activate(){
 	audioManager->Pause("Game");
 	audioManager->PlayMusic("Menu");
 
+	GoBackToMain();
+
 	m_selected = 0;
 
-	if(m_stateMgr->HasState(StateType::Game))
-		m_labels[0].setString(sf::String("RESUME"));
+	if (m_stateMgr->HasState(StateType::Game))
+		GoToInGameMenu();
 	else
-		m_labels[0].setString(sf::String("PLAY"));
+		GoBackToMain();
 
 	const sf::FloatRect rect = m_labels[0].getLocalBounds();
 	m_labels[0].setOrigin(rect.left + rect.width / 2.0f,
@@ -120,19 +101,47 @@ void State_MainMenu::MouseMoved(EventDetails* l_details)
 	}
 }
 
-void State_MainMenu::Validate(EventDetails* l_details) const
+void State_MainMenu::Validate(EventDetails* l_details)
 {
 	m_stateMgr->GetContext()->m_audioManager->PlaySound("Validate");
 
-	if (m_selected == 0)
-		Play();
-	else if (m_selected == 1)
-		Credits();
-	else if (m_selected == 2)
-		Exit();
+	switch (m_menuType)
+	{
+	case MenuType::MAIN:
+		if (m_selected == 0)
+		{
+			if (!m_stateMgr->HasState(StateType::Game))
+				GoToPlayModeSelection();
+			else
+				Play(m_stateMgr->GetContext()->m_gameInfo->m_gameMode);
+		}
+		else if (m_selected == 1)
+			Credits();
+		else if (m_selected == 2)
+			Exit();
+		break;
+
+	case MenuType::PLAY_MODE_SELECT:
+		if (m_selected == 0)
+			Play(GameMode::ARCADE);
+		else if (m_selected == 1)
+			Play(GameMode::BOSS_RUSH);
+		else if (m_selected == 2)
+			GoBackToMain();
+		break;
+
+	case MenuType::IN_GAME:
+		if (m_selected == 0)
+			Play(m_stateMgr->GetContext()->m_gameInfo->m_gameMode);
+		else if (m_selected == 1)
+			LeaveGame();
+		else if (m_selected == 2)
+			Exit();
+		break;
+	}
 }
 
-void State_MainMenu::MouseValidate(EventDetails* l_details) const
+void State_MainMenu::MouseValidate(EventDetails* l_details)
 {
 	sf::RenderWindow* window = m_stateMgr->GetContext()->m_wind->GetRenderWindow();
 	bool hovering = false;
@@ -205,10 +214,80 @@ void State_MainMenu::Draw()
 	}
 }
 
-void State_MainMenu::Play() const
+void State_MainMenu::GenerateButtons()
 {
-	if (!m_stateMgr->HasState(StateType::Game))
-		m_stateMgr->GetContext()->m_gameInfo->m_gameMode = GameMode::ARCADE;
+	std::string str[3];
+
+	switch (m_menuType)
+	{
+	case MenuType::MAIN:
+		str[0] = "PLAY";
+		str[1] = "CREDITS";
+		str[2] = "EXIT";
+		break;
+
+	case MenuType::PLAY_MODE_SELECT:
+		str[0] = "ARCADE";
+		str[1] = "BOSS RUSH";
+		str[2] = "BACK";
+		break;
+
+	case MenuType::IN_GAME:
+		str[0] = "RESUME";
+		str[1] = "GIVE UP";
+		str[2] = "EXIT";
+		break;
+	}
+
+	for (int i = 0; i < 3; ++i)
+	{
+		const sf::Vector2f buttonPosition(m_buttonPos.x, m_buttonPos.y +
+			i * (m_buttonSize.y + m_buttonPadding));
+		m_rects[i].setSize(m_buttonSize);
+		m_rects[i].setFillColor(sf::Color::Red);
+
+		m_rects[i].setOrigin(m_buttonSize.x / 2.0f, m_buttonSize.y / 2.0f);
+		m_rects[i].setPosition(buttonPosition);
+
+		if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro_Menu"))
+			m_labels[i].setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro_Menu"));
+		m_labels[i].setString(sf::String(str[i]));
+		m_labels[i].setCharacterSize(45);
+
+
+		Utils::centerOrigin(m_labels[i]);
+
+		m_labels[i].setPosition(buttonPosition);
+	}
+}
+
+void State_MainMenu::LeaveGame(EventDetails* l_details)
+{
+	m_stateMgr->Remove(StateType::Game);
+	GoBackToMain();
+}
+
+void State_MainMenu::GoBackToMain(EventDetails* l_details)
+{
+	m_menuType = MenuType::MAIN;
+	GenerateButtons();
+}
+
+void State_MainMenu::GoToInGameMenu(EventDetails* l_details)
+{
+	m_menuType = MenuType::IN_GAME;
+	GenerateButtons();
+}
+
+void State_MainMenu::GoToPlayModeSelection(EventDetails* l_details)
+{
+	m_menuType = MenuType::PLAY_MODE_SELECT;
+	GenerateButtons();
+}
+
+void State_MainMenu::Play(const GameMode p_gameMode) const
+{
+	m_stateMgr->GetContext()->m_gameInfo->m_gameMode = p_gameMode;
 	m_stateMgr->SwitchTo(StateType::Game);
 }
 

@@ -189,6 +189,8 @@ void State_Game::OnDestroy()
 
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
 	actorManager->CleanActors();
+
+	m_stateMgr->GetContext()->m_gameInfo->FullReset();
 }
 
 void State_Game::Update(const sf::Time& l_time)

@@ -5,9 +5,14 @@
 #include "Enemy.h"
 #include "CakeKing.h"
 #include "JellyQueen.h"
+#include "CuringPotion.h"
+#include "ExtraLife.h"
+#include "SmallCuringPotion.h"
 
 State_Game::State_Game(StateManager* l_stateManager) :
-	BaseState(l_stateManager), m_whiteRectOpacity(255),
+	BaseState(l_stateManager),
+	m_isShopingLevel(false), 
+	m_whiteRectOpacity(255),
 	m_sliderPauseTimer(0),
 	m_startTransition(false),
 	m_transitionEnd(false)
@@ -65,9 +70,28 @@ void State_Game::OnCreate()
 	if (textureManager->RequireResource("Curse_Icon_Reduced_Precision"))
 		m_curseIcon[4].setTexture(*textureManager->GetResource("Curse_Icon_Reduced_Precision"));
 
-	const MapType randomMap = static_cast<MapType>(Utils::randomgen(0, 1));
-	gameInfo->m_mapType = randomMap;
-	switch (randomMap)
+	const bool isBossLevel = gameInfo->m_currentLevel % 5 == 0;
+	m_isShopingLevel = gameInfo->m_bossBeaten;
+	gameInfo->m_bossBeaten = false;
+
+	if (isBossLevel || m_isShopingLevel)
+	{
+		gameInfo->m_mapType = MapType::MAP_BOSS;
+	}
+	else
+	{
+		if (gameInfo->m_currentLevel < 5)
+		{
+			gameInfo->m_mapType = MapType::MAP1;
+		}
+		else
+		{
+			gameInfo->m_mapType = MapType::MAP2;
+		}
+	}
+	
+
+	switch (gameInfo->m_mapType)
 	{
 	default:
 		if (textureManager->RequireResource("Map1_Background"))
@@ -92,39 +116,58 @@ void State_Game::OnCreate()
 		if (textureManager->RequireResource("Map2_Edges"))
 			m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map2_Edges"));
 		break;
+
+	case MapType::MAP_BOSS:
+		if (textureManager->RequireResource("Map_Boss_Background"))
+			m_backgroundSprite.setTexture(*textureManager->GetResource("Map_Boss_Background"));
+
+		if (textureManager->RequireResource("Map_Boss_Edges"))
+			m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map_Boss_Edges"));
+		break;
 	}
 
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
-	actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 275));
-	actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
-	actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
 
-	uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
-
-	if (gameInfo->m_currentLevel % 5 == 0)
+	if (m_isShopingLevel)
 	{
-		numberOfSpawners += 1;
-		switch (Utils::randomgen(0, 1))
-		{
-		default:
-		case 0:
-			actorManager->AddEnemy(new CakeKing(m_stateMgr->GetContext(), windowCenter.x, 250));
-			for (int i = 0; i < numberOfSpawners; ++i)
-				actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), SpawnerType::CAKEMONSTER_SPAWNER));
-			break;
-
-		case 1:
-			actorManager->AddEnemy(new JellyQueen(m_stateMgr->GetContext(), windowCenter.x, 250));
-			for (int i = 0; i < numberOfSpawners; ++i)
-				actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), SpawnerType::JELLY_SPAWNER));
-			break;
-		}
+		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), windowCenter.x, 198, true, true));
+		actorManager->AddBuyable(new ExtraLife(m_stateMgr->GetContext(), windowCenter.x - 600, windowCenter.y));
+		actorManager->AddBuyable(new ExtraLife(m_stateMgr->GetContext(), windowCenter.x - 300, windowCenter.y));
+		actorManager->AddBuyable(new SmallCuringPotion(m_stateMgr->GetContext(), windowCenter.x + 300, windowCenter.y));
+		actorManager->AddBuyable(new CuringPotion(m_stateMgr->GetContext(), windowCenter.x + 600, windowCenter.y));
+		gameInfo->m_levelCompleted = true;
 	}
 	else
 	{
-		numberOfSpawners += 3;
-		for (int i = 0; i < numberOfSpawners; ++i)
-			actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
+		actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 275));
+		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 198, true));
+		actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 198, false));
+		uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
+		if (isBossLevel)
+		{
+			numberOfSpawners += 1;
+			switch (Utils::randomgen(0, 1))
+			{
+			default:
+			case 0:
+				actorManager->AddEnemy(new CakeKing(m_stateMgr->GetContext(), windowCenter.x, 250));
+				for (int i = 0; i < numberOfSpawners; ++i)
+					actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), SpawnerType::CAKEMONSTER_SPAWNER));
+				break;
+
+			case 1:
+				actorManager->AddEnemy(new JellyQueen(m_stateMgr->GetContext(), windowCenter.x, 250));
+				for (int i = 0; i < numberOfSpawners; ++i)
+					actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext(), SpawnerType::JELLY_SPAWNER));
+				break;
+			}
+		}
+		else
+		{
+			numberOfSpawners += 3;
+			for (int i = 0; i < numberOfSpawners; ++i)
+				actorManager->AddSpawnPoint(new SpawnPoint(m_stateMgr->GetContext()));
+		}
 	}
 
 	// Adding callbacks
@@ -146,6 +189,8 @@ void State_Game::Update(const sf::Time& l_time)
 {
 	const sf::Vector2u l_windSize = m_stateMgr->GetContext()->m_wind->GetWindowSize();
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
+	
+	m_stateMgr->GetContext()->m_audioManager->SetMusicPitch("Game", 1 + (actorManager->GetPlayer()->GetMaxLife() - actorManager->GetPlayer()->GetLife()) / 500);
 
 	if (!m_startTransition)
 		if (m_whiteRectOpacity > 0)
@@ -166,82 +211,93 @@ void State_Game::Update(const sf::Time& l_time)
 	if (m_stateMgr->GetContext()->m_gameInfo->m_gameOver)
 		GameOver();
 
-	if (LevelCompleted())
+	if (!m_isShopingLevel)
 	{
-		m_stateMgr->GetContext()->m_gameInfo->m_levelCompleted = true;
-		actorManager->GetNpc()->Activate();
-		actorManager->GetDoor(0)->Activate();
-		actorManager->GetDoor(1)->Activate();
-	}
-	else
-	{
-		m_stateMgr->GetContext()->m_gameInfo->m_levelDuration += l_time.asSeconds();
-	}
-
-	if (m_stateMgr->GetContext()->m_gameInfo->m_doorPassed && !m_startTransition)
-	{
-		m_startTransition = true;
-		if (m_stateMgr->GetContext()->m_gameInfo->m_getCursed)
+		if (LevelCompleted())
 		{
-			switch (m_stateMgr->GetContext()->m_gameInfo->m_curseType)
-			{
-			default:
-			case REVERSE_MOVEMENT:
-				m_curseText.setString("YOUR KEYBOARD IS NOW FUCKED UP!");
-				break;
-
-			case SLOWER_CARRIE:
-				m_curseText.setString("DO YOU LIKE GLUE?");
-				break;
-
-			case SLOWER_PROJECTILES:
-				m_curseText.setString("TRY TO TO THROW IT FASTER!");
-				break;
-
-			case WEAKER_PROJECTILES:
-				m_curseText.setString("OUPS! I BROKE YOUR CHOCOLATE SQUARE");
-				break;
-
-			case REDUCED_PRECISION:
-				m_curseText.setString("ARE YOU DRUNK?");
-				break;
-			}
-			Utils::centerOrigin(m_curseText);
-
-			if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Curse_Slider"))
-				m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Curse_Slider"));
-		}
-
-		if (!m_stateMgr->GetContext()->m_gameInfo->m_getCursed)
-			if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Truth_Slider"))
-				m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Truth_Slider"));
-	}
-
-	if (m_startTransition)
-	{
-		if (m_transitionSlider.getPosition().y >= 0)
-		{
-			m_sliderPauseTimer += l_time.asSeconds();
+			m_stateMgr->GetContext()->m_gameInfo->m_levelCompleted = true;
+			actorManager->GetNpc()->Activate();
+			actorManager->GetDoor(0)->Activate();
+			actorManager->GetDoor(1)->Activate();
 		}
 		else
 		{
-			m_transitionSlider.move(0, 1250 * l_time.asSeconds());
-			m_curseText.move(0, 1250 * l_time.asSeconds());
+			m_stateMgr->GetContext()->m_gameInfo->m_levelDuration += l_time.asSeconds();
+		}
+
+		if (m_stateMgr->GetContext()->m_gameInfo->m_doorPassed && !m_startTransition)
+		{
+			m_startTransition = true;
+			if (m_stateMgr->GetContext()->m_gameInfo->m_getCursed)
+			{
+				switch (m_stateMgr->GetContext()->m_gameInfo->m_curseType)
+				{
+				default:
+				case REVERSE_MOVEMENT:
+					m_curseText.setString("YOUR KEYBOARD IS NOW FUCKED UP!");
+					break;
+
+				case SLOWER_CARRIE:
+					m_curseText.setString("DO YOU LIKE GLUE?");
+					break;
+
+				case SLOWER_PROJECTILES:
+					m_curseText.setString("TRY TO TO THROW IT FASTER!");
+					break;
+
+				case WEAKER_PROJECTILES:
+					m_curseText.setString("OUPS! I BROKE YOUR CHOCOLATE SQUARE");
+					break;
+
+				case REDUCED_PRECISION:
+					m_curseText.setString("ARE YOU DRUNK?");
+					break;
+				}
+				Utils::centerOrigin(m_curseText);
+
+				if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Curse_Slider"))
+					m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Curse_Slider"));
+			}
+
+			if (!m_stateMgr->GetContext()->m_gameInfo->m_getCursed)
+				if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Truth_Slider"))
+					m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Truth_Slider"));
+		}
+
+		if (m_startTransition)
+		{
 			if (m_transitionSlider.getPosition().y >= 0)
-				m_transitionSlider.setPosition(0, 0);
-		}
+			{
+				m_sliderPauseTimer += l_time.asSeconds();
+			}
+			else
+			{
+				m_transitionSlider.move(0, 1250 * l_time.asSeconds());
+				m_curseText.move(0, 1250 * l_time.asSeconds());
+				if (m_transitionSlider.getPosition().y >= 0)
+					m_transitionSlider.setPosition(0, 0);
+			}
 
-		if (m_sliderPauseTimer >= 1.5f)
-		{
-			m_transitionSlider.move(0, -5000 * l_time.asSeconds());
-			m_curseText.move(0, -5000 * l_time.asSeconds());
-			if (m_transitionSlider.getPosition().y <= -1500)
-				m_transitionEnd = true;
-		}
+			if (m_sliderPauseTimer >= 1.5f)
+			{
+				m_transitionSlider.move(0, -5000 * l_time.asSeconds());
+				m_curseText.move(0, -5000 * l_time.asSeconds());
+				if (m_transitionSlider.getPosition().y <= -1500)
+					m_transitionEnd = true;
+			}
 
-		if (m_transitionEnd)
+			if (m_transitionEnd)
+			{
+				m_stateMgr->GetContext()->m_audioManager->PlayMusic("Game");
+				OnDestroy();
+				OnCreate();
+			}
+		}
+	}
+	else
+	{
+		if (m_stateMgr->GetContext()->m_gameInfo->m_doorPassed)
 		{
-			m_stateMgr->GetContext()->m_audioManager->PlayMusic("Game");
 			OnDestroy();
 			OnCreate();
 		}
@@ -306,7 +362,10 @@ void State_Game::DrawUserInterface()
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
 		levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
-	levelLabel.setFillColor(sf::Color::Black);
+	if (m_stateMgr->GetContext()->m_gameInfo->m_mapType == MapType::MAP_BOSS)
+		levelLabel.setFillColor(sf::Color::White);
+	else
+		levelLabel.setFillColor(sf::Color::Black);
 	levelLabel.setPosition(window->getSize().x / 2 - 500, window->getSize().y - 40);
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
@@ -324,8 +383,11 @@ void State_Game::DrawUserInterface()
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
 		toothPasteCounter.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	toothPasteCounter.setString("x" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_toothPaste));
-	toothPasteCounter.setFillColor(sf::Color::Black);
-	toothPasteCounter.setPosition(window->getSize().x / 2 - 780, window->getSize().y - 40);
+	if (m_stateMgr->GetContext()->m_gameInfo->m_mapType == MapType::MAP_BOSS)
+		toothPasteCounter.setFillColor(sf::Color::White);
+	else
+		toothPasteCounter.setFillColor(sf::Color::Black);
+	toothPasteCounter.setPosition(window->getSize().x / 2 - 775, window->getSize().y - 40);
 	toothPasteCounter.move(0, -toothPasteCounter.getGlobalBounds().height / 2);
 	window->draw(toothPasteCounter);
 

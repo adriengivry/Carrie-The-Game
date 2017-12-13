@@ -30,6 +30,8 @@ private:
 	sf::Sprite m_backgroundSprite;
 	sf::Sprite m_backgroundEdgesSprites;
 
+	bool m_isShopingLevel;
+
 	sf::Sprite m_curseIcon[5];
 
 	float m_whiteRectOpacity;

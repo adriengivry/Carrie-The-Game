@@ -29,11 +29,14 @@
   <ItemGroup>
     <ClCompile Include="..\src\Actor.cpp" />
     <ClCompile Include="..\src\ActorManager.cpp" />
+    <ClCompile Include="..\src\Buyable.cpp" />
     <ClCompile Include="..\src\CakeKing.cpp" />
     <ClCompile Include="..\src\Crocodile.cpp" />
+    <ClCompile Include="..\src\CuringPotion.cpp" />
     <ClCompile Include="..\src\Door.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\EventManager.cpp" />
+    <ClCompile Include="..\src\ExtraLife.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\Jelly.cpp" />
     <ClCompile Include="..\src\JellyBear.cpp" />
@@ -44,6 +47,7 @@
     <ClCompile Include="..\src\CakeMonster.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Projectile.cpp" />
+    <ClCompile Include="..\src\SmallCuringPotion.cpp" />
     <ClCompile Include="..\src\SpawnPoint.cpp" />
     <ClCompile Include="..\src\StateManager.cpp" />
     <ClCompile Include="..\src\State_Credits.cpp" />
@@ -58,11 +62,14 @@
     <ClInclude Include="..\include\Actor.h" />
     <ClInclude Include="..\include\ActorManager.h" />
     <ClInclude Include="..\include\BaseState.h" />
+    <ClInclude Include="..\include\Buyable.h" />
     <ClInclude Include="..\include\CakeKing.h" />
     <ClInclude Include="..\include\Crocodile.h" />
+    <ClInclude Include="..\include\CuringPotion.h" />
     <ClInclude Include="..\include\Door.h" />
     <ClInclude Include="..\include\Enemy.h" />
     <ClInclude Include="..\include\EventManager.h" />
+    <ClInclude Include="..\include\ExtraLife.h" />
     <ClInclude Include="..\include\FontManager.h" />
     <ClInclude Include="..\include\Game.h" />
     <ClInclude Include="..\include\AudioManager.h" />
@@ -77,6 +84,7 @@
     <ClInclude Include="..\include\Projectile.h" />
     <ClInclude Include="..\include\ResourceManager.h" />
     <ClInclude Include="..\include\SharedContext.h" />
+    <ClInclude Include="..\include\SmallCuringPotion.h" />
     <ClInclude Include="..\include\SpawnPoint.h" />
     <ClInclude Include="..\include\StateManager.h" />
     <ClInclude Include="..\include\State_Credits.h" />

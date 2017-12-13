@@ -9,6 +9,7 @@
 #include "Projectile.h"
 #include "Door.h"
 #include "SpawnPoint.h"
+#include "Buyable.h"
 
 class ActorManager
 {
@@ -19,6 +20,7 @@ public:
 	void AddEnemy(Enemy* p_newActor);
 	void AddProjectile(Projectile* p_newActor);
 	void AddSpawnPoint(SpawnPoint* p_newSpawnPoint);
+	void AddBuyable(Buyable* p_newBuyable);
 
 	static void AddActor(std::multimap<uint16_t&, Actor*>& p_actors, Actor* p_actor);
 
@@ -37,6 +39,7 @@ public:
 	std::vector<Projectile*>& GetProjectile();
 	std::vector<Enemy*>& GetEnemies(); 
 	std::vector<SpawnPoint*>& GetSpawnPoints();
+	std::vector<Buyable*>& GetBuyable();
 
 private:
 	Player* m_player;
@@ -45,4 +48,5 @@ private:
 	std::vector<Enemy*> m_enemies;
 	std::vector<Projectile*> m_projectiles;
 	std::vector<SpawnPoint*> m_spawnPoints;
+	std::vector<Buyable*> m_buyables;
 };

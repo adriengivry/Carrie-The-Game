@@ -12,7 +12,8 @@ enum Curses
 enum class MapType
 {
 	MAP1,
-	MAP2
+	MAP2,
+	MAP_BOSS
 };
 
 struct GameInfo
@@ -43,6 +44,12 @@ struct GameInfo
 	uint16_t m_spawnedSpawnPoints = 0;
 	bool m_getCursed = false;
 	uint8_t m_curseType;
+
+	uint8_t m_extraLifeBought = 0;
+	uint8_t m_curingPotionBought = 0;
+	uint8_t m_smallCuringPotionBought = 0;
+
+	bool m_bossBeaten;
 
 	MapType m_mapType;
 
@@ -88,5 +95,6 @@ struct GameInfo
 		m_questionAsked = false;
 		m_playerMaxLife = __PLAYER_LIFE;
 		m_playerLife = __PLAYER_LIFE;
+		m_bossBeaten = false;
 	}
 };

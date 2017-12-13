@@ -1,15 +1,17 @@
 #include "Door.h"
 #include "StateManager.h"
 
-Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, const bool p_answer)
+Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, const bool p_answer, const bool p_shopDoor)
 	: Actor(p_sharedContext, p_x, p_y)
 {
 	Desactivate();
 
 	if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP1)
-		SetTexture(__MAP_1_DOOR_TEXTURE);
+		SetTexture("Map1_Door");
 	else if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP2)
-		SetTexture(__MAP_2_DOOR_TEXTURE);
+		SetTexture("Map2_Door");
+	else if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP_BOSS)
+		SetTexture("Map_Boss_Door");
 
 	m_answer = p_answer;
 
@@ -18,6 +20,8 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, con
 	m_gotAShadow = false;
 
 	m_velocity = 0.0f;
+
+	m_shopDoor = p_shopDoor;
 }
 
 Door::~Door()
@@ -36,24 +40,29 @@ void Door::Desactivate()
 
 void Door::Use() const
 {
-	m_sharedContext->m_audioManager->Pause("Game");
-	if (m_answer == m_sharedContext->m_actorManager->GetNpc()->GetAnswer())
+	if (m_shopDoor)
 	{
-		m_sharedContext->m_gameInfo->m_getCursed = false;
 		m_sharedContext->m_gameInfo->m_doorPassed = true;
-		++m_sharedContext->m_gameInfo->m_currentLevel;
-		m_sharedContext->m_audioManager->PlaySound("Truth");
 	}
 	else
 	{
-		m_sharedContext->m_gameInfo->m_doorPassed = true;
-		m_sharedContext->m_gameInfo->m_getCursed = true;
-		++m_sharedContext->m_gameInfo->m_currentLevel;
-		m_sharedContext->m_audioManager->PlaySound("Curse");
-		SelectCurse();
+		m_sharedContext->m_audioManager->Pause("Game");
+		if (m_answer == m_sharedContext->m_actorManager->GetNpc()->GetAnswer())
+		{
+			m_sharedContext->m_gameInfo->m_getCursed = false;
+			m_sharedContext->m_gameInfo->m_doorPassed = true;
+			++m_sharedContext->m_gameInfo->m_currentLevel;
+			m_sharedContext->m_audioManager->PlaySound("Truth");
+		}
+		else
+		{
+			m_sharedContext->m_gameInfo->m_doorPassed = true;
+			m_sharedContext->m_gameInfo->m_getCursed = true;
+			++m_sharedContext->m_gameInfo->m_currentLevel;
+			m_sharedContext->m_audioManager->PlaySound("Curse");
+			SelectCurse();
+		}
 	}
-
-	m_sharedContext->m_actorManager->GetPlayer()->AddLife(10);
 }
 
 void Door::Draw() const
@@ -152,7 +161,7 @@ void Door::Update(const sf::Time& l_time)
 {
 	Player* player = m_sharedContext->m_actorManager->GetPlayer();
 
-	if (m_sharedContext->m_gameInfo->m_questionAsked && m_position.DistanceTo(player->GetPosition()) <= __DOOR_ACTIVATION_ZONE && IsActivated() && player->GetDirection().Y() < 0 && !m_alreadyGetUsed)
+	if ((m_sharedContext->m_gameInfo->m_questionAsked || m_shopDoor) && m_position.DistanceTo(player->GetPosition()) <= __DOOR_ACTIVATION_ZONE && (IsActivated() || m_shopDoor) && player->GetDirection().Y() < 0 && !m_alreadyGetUsed)
 	{
 		Use();
 		m_alreadyGetUsed = true;

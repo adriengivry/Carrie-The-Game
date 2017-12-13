@@ -49,6 +49,12 @@
     <Filter Include="Resource Files\config">
       <UniqueIdentifier>{bfc8a30f-d296-4be7-addb-96ba51eafcdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\Items">
+      <UniqueIdentifier>{995198cb-bb03-44cb-bae6-582dc175d996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Items">
+      <UniqueIdentifier>{522a42bc-03b4-4bd4-b4d9-2a5b68baf5b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cpp">
@@ -128,6 +134,18 @@
     </ClCompile>
     <ClCompile Include="..\src\JellyQueen.cpp">
       <Filter>Source Files\Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Buyable.cpp">
+      <Filter>Source Files\Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CuringPotion.cpp">
+      <Filter>Source Files\Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ExtraLife.cpp">
+      <Filter>Source Files\Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SmallCuringPotion.cpp">
+      <Filter>Source Files\Entities\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +253,18 @@
     </ClInclude>
     <ClInclude Include="..\include\JellyQueen.h">
       <Filter>Header Files\Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Buyable.h">
+      <Filter>Header Files\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CuringPotion.h">
+      <Filter>Header Files\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ExtraLife.h">
+      <Filter>Header Files\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SmallCuringPotion.h">
+      <Filter>Header Files\Entities\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

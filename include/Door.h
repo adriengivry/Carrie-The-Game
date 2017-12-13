@@ -4,12 +4,10 @@
 class Door : public Actor
 {
 private:
-	const std::string	__MAP_1_DOOR_TEXTURE = "Map1_Door";
-	const std::string	__MAP_2_DOOR_TEXTURE = "Map2_Door";
 	const float			__DOOR_ACTIVATION_ZONE = 80;
 
 public:
-	explicit Door(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0, const bool p_answer = false);
+	explicit Door(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0, const bool p_answer = false, const bool p_shopDoor = false);
 	~Door();
 
 	void Activate();
@@ -26,6 +24,8 @@ public:
 
 	void Update(const sf::Time& l_time) override;
 private:
+	bool m_shopDoor;
+
 	bool m_activated;
 
 	bool m_alreadyGetUsed;

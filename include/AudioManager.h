@@ -49,6 +49,15 @@ public:
 		PlayAudio(m_musics, p_musicID);
 	}
 
+	void SetMusicPitch(const AudioID p_musicID, const float p_pitch)
+	{
+		for (auto music : m_musics)
+		{
+			if (p_musicID == music->m_audioID && music->m_audioData.getStatus())
+				music->m_audioData.setPitch(p_pitch);
+		}
+	}
+
 	void PlaySound(const AudioID p_soundID)
 	{
 		PlayAudio(m_sounds, p_soundID);
@@ -87,7 +96,6 @@ public:
 			{
 				if (audioNode->m_audioData.getStatus() != sf::Sound::Playing)
 					audioNode->m_audioData.play();
-
 				return;
 			}
 		}

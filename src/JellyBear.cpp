@@ -6,8 +6,6 @@ JellyBear::JellyBear(SharedContext * p_sharedContext, const float p_x, const flo
 {
 	SetTexture(__JELLYBEAR_TEXTURE);
 
-	m_shadowOffset = 40;
-
 	JellyBear::GenerateStats();
 	ResetLife();
 

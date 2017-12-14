@@ -96,7 +96,10 @@ void Projectile::Update(const sf::Time& l_time)
 			if (IsIntersecting(m_sharedContext->m_actorManager->GetPlayer()))
 			{
 				m_mustDie = true;
-				m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, DealsConstantDamages(), m_direction);
+				if (m_projectileType != ProjectileType::LASER && m_projectileType != ProjectileType::LASER_CREAM)
+					m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, DealsConstantDamages(), m_direction);
+				else
+					m_sharedContext->m_actorManager->GetPlayer()->RemoveLife(m_damages, DealsConstantDamages(), Vector2D<float>(0, 0));
 			}
 		}
 	}
@@ -150,7 +153,7 @@ void Projectile::SpawnParticle()
 
 			const uint8_t a = Utils::randomgen(50, 150);
 
-			m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 0.4f), ParticleType::PROJECTILE);
+			m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 0.4f), ParticleType::PROJECTILE);
 			m_particleSpawnTimer = 0;
 		}
 	}

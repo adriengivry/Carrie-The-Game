@@ -23,7 +23,7 @@ void Jelly::SpawnParticle()
 		const uint8_t g = Utils::randomgen(35, 54);
 		const uint8_t b = Utils::randomgen(80, 100);
 		const uint8_t a = 80;
-		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 2.f));
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 2.f));
 		m_particleSpawnTimer = 0;
 	}
 }

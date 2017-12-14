@@ -5,9 +5,6 @@ Crocodile::Crocodile(SharedContext * p_sharedContext, const float p_x, const flo
 	Enemy(p_sharedContext, p_x, p_y)
 {
 	SetTexture(__CROCODILE_TEXTURE_GREEN);
-	m_shadowScale.Set(1.f, 0.5f);
-
-	m_shadowOffset = 0;
 
 	m_flippable = true;
 

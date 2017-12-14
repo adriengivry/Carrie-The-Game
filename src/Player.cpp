@@ -26,8 +26,6 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	m_isTransparent = false;
 	m_getHitFlashTimer = 0.f;
 
-	m_shadowScale.Set(0.8f, 0.8f);
-
 	m_fireOn = false;
 	m_fireTimer = 0;
 	m_fireCooldown = 0.2f;
@@ -79,10 +77,10 @@ void Player::Move(const sf::Time& l_time)
 			else if (direction.X() < 0 && direction.Y() == 0)	SetTexture("Carrie_Left");
 			else if (direction.X() == 0 && direction.Y() > 0)	SetTexture("Carrie_Front");
 			else if (direction.X() == 0 && direction.Y() < 0)	SetTexture("Carrie_Back");
-			else if (direction.X() > 0 && direction.Y() > 0)	SetTexture("Carrie_Front_Right");
-			else if (direction.X() < 0 && direction.Y() > 0)	SetTexture("Carrie_Front_Left");
-			else if (direction.X() > 0 && direction.Y() < 0)	SetTexture("Carrie_Back_Right");
-			else if (direction.X() < 0 && direction.Y() < 0)	SetTexture("Carrie_Back_Left");
+			else if (direction.X() > 0 && direction.Y() > 0)	SetTexture("Carrie_Front");
+			else if (direction.X() < 0 && direction.Y() > 0)	SetTexture("Carrie_Front");
+			else if (direction.X() > 0 && direction.Y() < 0)	SetTexture("Carrie_Back");
+			else if (direction.X() < 0 && direction.Y() < 0)	SetTexture("Carrie_Back");
 		}
 
 		Actor::Move(l_time);
@@ -286,7 +284,7 @@ void Player::SpawnParticle()
 		const uint8_t g = Utils::randomgen(100, 200);
 		const uint8_t b = Utils::randomgen(230, 255);
 		const uint8_t a = 80;
-		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 1.f));
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 1.f));
 		m_particleSpawnTimer = 0;
 	}
 }

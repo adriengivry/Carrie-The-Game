@@ -10,6 +10,8 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, con
 		SetTexture("Map1_Door");
 	else if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP2)
 		SetTexture("Map2_Door");
+	else if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP3)
+		SetTexture("Map3_Door");
 	else if (m_sharedContext->m_gameInfo->m_mapType == MapType::MAP_BOSS)
 		SetTexture("Map_Boss_Door");
 
@@ -18,8 +20,6 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, con
 	m_spriteScale.Set(0.25f, 0.25f);
 
 	m_alreadyGetUsed = false;
-
-	m_gotAShadow = false;
 
 	m_velocity = 0.0f;
 

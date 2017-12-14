@@ -86,13 +86,17 @@ void State_Game::OnCreate()
 	}
 	else
 	{
-		if (gameInfo->m_currentLevel < 5)
+		if (gameInfo->m_currentLevel <= 5)
 		{
 			gameInfo->m_mapType = MapType::MAP1;
 		}
-		else
+		else if (gameInfo->m_currentLevel > 5 && gameInfo->m_currentLevel <= 10)
 		{
 			gameInfo->m_mapType = MapType::MAP2;
+		}
+		else
+		{
+			gameInfo->m_mapType = MapType::MAP3;
 		}
 	}
 
@@ -122,6 +126,14 @@ void State_Game::OnCreate()
 			m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map2_Edges"));
 		break;
 
+	case MapType::MAP3:
+		if (textureManager->RequireResource("Map3_Background"))
+			m_backgroundSprite.setTexture(*textureManager->GetResource("Map3_Background"));
+
+		if (textureManager->RequireResource("Map3_Edges"))
+			m_backgroundEdgesSprites.setTexture(*textureManager->GetResource("Map3_Edges"));
+		break;
+
 	case MapType::MAP_BOSS:
 		if (textureManager->RequireResource("Map_Boss_Background"))
 			m_backgroundSprite.setTexture(*textureManager->GetResource("Map_Boss_Background"));
@@ -135,7 +147,7 @@ void State_Game::OnCreate()
 
 	if (m_isShopingLevel)
 	{
-		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), windowCenter.x, 195, true, true));
+		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), windowCenter.x, 194, true, true));
 		actorManager->AddBuyable(new ExtraLife(m_stateMgr->GetContext(), windowCenter.x - 600, windowCenter.y));
 		actorManager->AddBuyable(new ExtraLife(m_stateMgr->GetContext(), windowCenter.x - 300, windowCenter.y));
 		actorManager->AddBuyable(new SmallCuringPotion(m_stateMgr->GetContext(), windowCenter.x + 300, windowCenter.y));
@@ -145,8 +157,8 @@ void State_Game::OnCreate()
 	else
 	{
 		actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 275));
-		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 195, true));
-		actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 195, false));
+		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 194, true));
+		actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 194, false));
 		uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
 		if (isBossLevel)
 		{
@@ -347,7 +359,7 @@ void State_Game::DrawUserInterface()
 	rect.setSize(barSize);
 	Utils::centerOrigin(rect);
 	window->draw(rect);
-	rect.setFillColor(sf::Color::Red);
+	rect.setFillColor(sf::Color(255, 150, 200));
 	barSize.x *= m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetLife() / m_stateMgr->GetContext()->m_actorManager->GetPlayer()->GetMaxLife();
 	rect.setSize(barSize);
 	window->draw(rect);

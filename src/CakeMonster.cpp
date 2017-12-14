@@ -15,8 +15,6 @@ CakeMonster::CakeMonster(SharedContext * p_sharedContext, const float p_x, const
 
 	m_fireTimer = 0;
 	m_reloadTimer = 0;
-
-	m_shadowOffset = 50;
 }
 
 void CakeMonster::OnDeath()

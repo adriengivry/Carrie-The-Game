@@ -122,10 +122,6 @@ void Enemy::Update(const sf::Time& l_time)
 			sf::Color previousColor = m_sprite.getColor();
 			previousColor.a = 255 - 255 * (m_deathTimer / m_deathDuration);
 			m_sprite.setColor(previousColor);
-
-			sf::Color previousShadowColor = m_shadow.getColor();
-			previousShadowColor.a = 100 - 100 * (m_deathTimer / m_deathDuration);
-			m_shadow.setColor(previousShadowColor);
 		}
 	}
 

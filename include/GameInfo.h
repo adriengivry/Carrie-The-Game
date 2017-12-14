@@ -13,6 +13,7 @@ enum class MapType
 {
 	MAP1,
 	MAP2,
+	MAP3,
 	MAP_BOSS
 };
 

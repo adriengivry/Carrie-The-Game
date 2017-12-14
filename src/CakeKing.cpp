@@ -49,7 +49,7 @@ void CakeKing::SpawnParticle()
 		const uint8_t g = 255;
 		const uint8_t b = 255;
 		const uint8_t a = Utils::randomgen(50, 100);
-		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 1.f));
+		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 1.f));
 		m_particleSpawnTimer = 0;
 	}
 }

@@ -17,6 +17,7 @@ public:
 			texture = nullptr;
 			std::cerr << "! Failed to load texture: " << l_path << std::endl;
 		}
+
 		return texture;
 	}
 };

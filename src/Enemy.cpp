@@ -18,6 +18,8 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	++m_sharedContext->m_gameInfo->m_spawnedEnemies;
 
+	m_sprite.setScale(0.1f, 0.1f);
+
 	m_specialAttackCooldown = __ENEMY_DEFAULT_COOLDOWN;
 	m_specialAbilityCooldown = __ENEMY_DEFAULT_COOLDOWN;
 }
@@ -72,6 +74,11 @@ void Enemy::Update(const sf::Time& l_time)
 {
 	if (m_mustDie)
 		return;
+
+	if (m_sprite.getScale().x < 1)
+		m_sprite.setScale(m_sprite.getScale().x + 5 * l_time.asSeconds(), m_sprite.getScale().y + 5 * l_time.asSeconds());
+	else
+		m_sprite.setScale(1.f, 1.f);
 
 	m_velocityMultiplicator = 1;
 

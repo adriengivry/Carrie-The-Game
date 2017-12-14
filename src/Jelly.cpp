@@ -13,7 +13,7 @@ Jelly::Jelly(SharedContext * p_sharedContext, const float p_x, const float p_y) 
 
 void Jelly::SpawnParticle()
 {
-	for (uint8_t i = 0; i < 8; ++i)
+	for (uint8_t i = 0; i < 1; ++i)
 	{
 		const float particleSize = Utils::randomgen(5, 10);
 		const float xOffset = Utils::randomgen(0, 20) - 10;

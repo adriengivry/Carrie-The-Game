@@ -131,9 +131,6 @@ void State_Game::OnCreate()
 		break;
 	}
 
-	m_backgroundSprite.setScale(4.f, 4.f);
-	m_backgroundEdgesSprites.setScale(4.f, 4.f);
-
 	actorManager->SetPlayer(new Player(m_stateMgr->GetContext(), windowCenter.x, 920));
 
 	if (m_isShopingLevel)
@@ -370,10 +367,7 @@ void State_Game::DrawUserInterface()
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
 		levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
-	if (m_stateMgr->GetContext()->m_gameInfo->m_mapType == MapType::MAP_BOSS)
-		levelLabel.setFillColor(sf::Color::White);
-	else
-		levelLabel.setFillColor(sf::Color::Black);
+	levelLabel.setFillColor(sf::Color::White);
 	levelLabel.setPosition(window->getSize().x / 2 - 500, window->getSize().y - 40);
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
@@ -382,7 +376,6 @@ void State_Game::DrawUserInterface()
 	if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Toothpaste"))
 	{
 		toothPasteSprite.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Toothpaste"));
-		toothPasteSprite.setScale(4.f, 4.f);
 		toothPasteSprite.setPosition(window->getSize().x / 2 - 800, window->getSize().y - 40);
 		Utils::centerOrigin(toothPasteSprite);
 	}
@@ -392,10 +385,7 @@ void State_Game::DrawUserInterface()
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
 		toothPasteCounter.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	toothPasteCounter.setString("x" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_toothPaste));
-	if (m_stateMgr->GetContext()->m_gameInfo->m_mapType == MapType::MAP_BOSS)
-		toothPasteCounter.setFillColor(sf::Color::White);
-	else
-		toothPasteCounter.setFillColor(sf::Color::Black);
+	toothPasteCounter.setFillColor(sf::Color::White);
 	toothPasteCounter.setPosition(window->getSize().x / 2 - 775, window->getSize().y - 40);
 	toothPasteCounter.move(0, -toothPasteCounter.getGlobalBounds().height / 2);
 	window->draw(toothPasteCounter);

@@ -122,34 +122,37 @@ void Projectile::Kill()
 
 void Projectile::SpawnParticle()
 {
-	for (uint8_t i = 0; i < 8; ++i)
+	if (m_projectileType != ProjectileType::LASER && m_projectileType != ProjectileType::LASER_CREAM)
 	{
-		const float particleSize = Utils::randomgen(3, 5);
-		const float xOffset = Utils::randomgen(0, 20) - 10;
-		const float yOffset = Utils::randomgen(0, 20) - 10;
-		const float angle = Utils::randomgen(0, 360);
-
-		uint8_t r;
-		uint8_t g;
-		uint8_t b;
-
-		if (IsFriendly() && Utils::randomgen(0, 1) == 0)
+		for (uint8_t i = 0; i < 8; ++i)
 		{
-			r = 83;
-			g = 47;
-			b = 30;
-		}
-		else
-		{
-			r = 255;
-			g = 255;
-			b = 255;
-		}
+			const float particleSize = Utils::randomgen(3, 5);
+			const float xOffset = Utils::randomgen(0, 20) - 10;
+			const float yOffset = Utils::randomgen(0, 20) - 10;
+			const float angle = Utils::randomgen(0, 360);
 
-		const uint8_t a = Utils::randomgen(50, 150);
+			uint8_t r;
+			uint8_t g;
+			uint8_t b;
 
-		m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 0.4f), ParticleType::PROJECTILE);
-		m_particleSpawnTimer = 0;
+			if (IsFriendly() && Utils::randomgen(0, 1) == 0)
+			{
+				r = 83;
+				g = 47;
+				b = 30;
+			}
+			else
+			{
+				r = 255;
+				g = 255;
+				b = 255;
+			}
+
+			const uint8_t a = Utils::randomgen(50, 150);
+
+			m_sharedContext->m_actorManager->AddParticle(new Particle(m_sharedContext, m_position.X() + xOffset, m_position.Y() + m_shadowOffset + yOffset, particleSize, particleSize, angle, sf::Color(r, g, b, a), 0.4f), ParticleType::PROJECTILE);
+			m_particleSpawnTimer = 0;
+		}
 	}
 }
 

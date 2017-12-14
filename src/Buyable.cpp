@@ -12,8 +12,6 @@ Buyable::Buyable(SharedContext* p_sharedContext, const float p_x, const float p_
 	if (m_sharedContext->m_textureManager->RequireResource("Toothpaste"))
 		m_toothPasteSprite.setTexture(*m_sharedContext->m_textureManager->GetResource("Toothpaste"));
 
-	m_toothPasteSprite.setScale(4.f, 4.f);
-
 	if (m_sharedContext->m_fontManager->RequireResource("Retro"))
 	{
 		m_itemNameLabel.setFont(*m_sharedContext->m_fontManager->GetResource("Retro"));

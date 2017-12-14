@@ -178,7 +178,6 @@ void Actor::SetTexture(const std::string p_textureName)
 	{
 		m_sprite.setTexture(*m_sharedContext->m_textureManager->GetResource(p_textureName));
 		Utils::centerOrigin(m_sprite);
-		m_sprite.setScale(4.f, 4.f);
 		m_textureGetSet = true;
 	}
 }

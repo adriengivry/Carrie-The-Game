@@ -5,6 +5,7 @@
 class Enemy : public Actor
 {
 	const float __ENEMY_DEFAULT_COOLDOWN = 0.0f;
+	const float __ENEMY_MIN_BAR_SIZE = 80.f;
 public:
 	explicit Enemy(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
 	~Enemy();
@@ -41,7 +42,8 @@ public:
 
 	void Draw() const override;
 	void DrawLifebar() const;
-	void DrawCooldownBar() const;
+	void DrawSpecialAttackCooldownBar() const;
+	void DrawSpecialAbilityCooldownBar() const;
 
 protected:
 	Actor* m_target;
@@ -49,7 +51,8 @@ protected:
 	bool m_damagesOnContact;
 
 	bool m_showLifeBar;
-	bool m_showCooldownBar;
+	bool m_showSpecialAttackBar;
+	bool m_showSpecialAbilityBar;
 
 	bool m_isDead;
 	float m_deathTimer;

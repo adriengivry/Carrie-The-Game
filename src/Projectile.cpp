@@ -22,6 +22,21 @@ Projectile::Projectile(SharedContext* p_sharedContext, const Vector2D<float> p_d
 	m_source = p_source;
 
 	m_constantlyRotate = false;
+
+	if (IsFriendly())
+	{
+		m_directionDebugLine.setSize(sf::Vector2f(2000, 2));
+		m_directionDebugLine.setFillColor(sf::Color(0, 255, 0, 50));
+		m_directionDebugLine.setOutlineColor(sf::Color(0, 255, 0, 150));
+		m_directionDebugLine.setOutlineThickness(1.f);
+	}
+	else
+	{
+		m_directionDebugLine.setSize(sf::Vector2f(2000, 2));
+		m_directionDebugLine.setFillColor(sf::Color(255, 0, 0, 50));
+		m_directionDebugLine.setOutlineColor(sf::Color(255, 0, 0, 150));
+		m_directionDebugLine.setOutlineThickness(1.f);
+	}
 }
 
 Projectile::~Projectile()
@@ -106,6 +121,17 @@ void Projectile::Update(const sf::Time& l_time)
 
 	if (m_position.X() < 50 || m_position.X() > 1870 || m_position.Y() < 200 || m_position.Y() > 1000)
 		m_mustDie = true;
+
+	if (m_sharedContext->m_gameInfo->m_debugMode)
+	{
+		m_directionDebugLine.setPosition(m_position.ToSFVector());
+		m_directionDebugLine.setRotation(m_direction.GetAngle());
+		const sf::FloatRect rect = m_directionDebugLine.getLocalBounds();
+		m_directionDebugLine.setOrigin(rect.left,
+			rect.top + rect.height / 2.0f);
+
+		m_directionDebugLine.setSize(sf::Vector2f(m_directionDebugLine.getSize().x, sqrt(pow(m_collider.getLocalBounds().width, 2) + pow(m_collider.getLocalBounds().height, 2))));
+	}
 }
 
 void Projectile::MultiplyDamages(const float p_value)
@@ -177,6 +203,14 @@ bool Projectile::IsFriendly() const
 bool Projectile::DealsConstantDamages() const
 {
 	return m_projectileType == ProjectileType::LASER || m_projectileType == ProjectileType::LASER_CREAM;
+}
+
+void Projectile::Draw() const
+{
+	Actor::Draw();
+
+	if (m_sharedContext->m_gameInfo->m_debugMode)
+		m_sharedContext->m_wind->GetRenderWindow()->draw(m_directionDebugLine);
 }
 
 void Projectile::SetDamages(const float p_value)

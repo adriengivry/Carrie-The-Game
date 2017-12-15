@@ -44,6 +44,8 @@ public:
 	bool IsFriendly() const;
 	bool DealsConstantDamages() const;
 
+	void Draw() const override;
+
 	void SetDamages(const float p_value);
 	void SetSpeed(const float p_speed);
 	void SetConstantlyRotate(const bool p_state);
@@ -54,6 +56,8 @@ private:
 	bool m_constantlyRotate;
 
 	ProjectileType m_projectileType;
+
+	sf::RectangleShape m_directionDebugLine;
 
 	Actor* m_source;
 

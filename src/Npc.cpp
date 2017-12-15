@@ -35,6 +35,13 @@ Npc::Npc(SharedContext* p_sharedContext, const float p_x, const float p_y)
 	}
 
 	m_talking = false;
+
+	m_talkDistanceDebug.setFillColor(sf::Color(0, 255, 255, 100));
+	m_talkDistanceDebug.setOutlineColor(sf::Color(0, 255, 255, 255));
+	m_talkDistanceDebug.setOutlineThickness(2.f);
+	m_talkDistanceDebug.setPosition(m_position.ToSFVector());
+	m_talkDistanceDebug.setRadius(__TALK_DISTANCE);
+	Utils::centerOrigin(m_talkDistanceDebug);
 }
 
 Npc::~Npc()
@@ -60,7 +67,7 @@ void Npc::Desactivate()
 
 void Npc::GenerateQuestion()
 {
-	m_question = static_cast<QuestionType>(Utils::randomgen(0, 3));
+	m_question = static_cast<QuestionType>(Utils::randomgen(0, 4));
 	m_answer = static_cast<bool>(Utils::randomgen(0, 1));
 
 	uint16_t goodValue = 0;
@@ -165,6 +172,9 @@ void Npc::Draw() const
 			DrawAffirmation();
 		else if (!m_sharedContext->m_gameInfo->m_questionAsked)
 			m_sharedContext->m_wind->GetRenderWindow()->draw(m_questionMark);
+
+		if (m_sharedContext->m_gameInfo->m_debugMode)
+			m_sharedContext->m_wind->GetRenderWindow()->draw(m_talkDistanceDebug);
 	}
 }
 

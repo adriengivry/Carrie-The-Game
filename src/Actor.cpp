@@ -5,7 +5,7 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_textureGetSet(false),
 	m_sharedContext(p_sharedContext),
 	m_position(p_x, p_y),
-	m_direction(0, 0), 
+	m_direction(0, 0),
 	m_zBuffer(0),
 	m_velocity(0),
 	m_maxVelocity(__ACTOR_DEFAULT_VELOCITY),
@@ -24,6 +24,10 @@ Actor::Actor(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 
 	m_particleSpawnTimer = 0;
 	m_particleSpawnDelay = 0.03f;
+
+	m_collider.setFillColor(sf::Color(255, 255, 0, 100));
+	m_collider.setOutlineColor(sf::Color::Yellow);
+	m_collider.setOutlineThickness(2.f);
 }
 
 Actor::~Actor() {}
@@ -57,6 +61,12 @@ void Actor::Update(const sf::Time& l_time)
 	Move(l_time);
 	if (m_textureGetSet)
 		m_sprite.setPosition(m_position.ToSFVector());
+
+	
+	m_collider.setPosition(m_position.ToSFVector());
+	m_collider.setSize(sf::Vector2f(m_sprite.getGlobalBounds().width * __ACTOR_HITBOX_SCALE, m_sprite.getGlobalBounds().height * __ACTOR_HITBOX_SCALE));
+	m_collider.setRotation(m_sprite.getRotation());
+	Utils::centerOrigin(m_collider);
 }
 
 void Actor::Move(const sf::Time& l_time)
@@ -90,6 +100,24 @@ void Actor::Draw() const
 
 		m_sharedContext->m_wind->GetRenderWindow()->draw(toDraw);
 	}
+
+	if (m_sharedContext->m_gameInfo->m_debugMode)
+	{
+		m_sharedContext->m_wind->GetRenderWindow()->draw(m_collider);
+
+		sf::RectangleShape xAxis, yAxis;
+		xAxis.setPosition(m_collider.getPosition());
+		yAxis.setPosition(m_collider.getPosition());
+		xAxis.setSize(sf::Vector2f(20, 3));
+		yAxis.setSize(sf::Vector2f(3, 20));
+		Utils::centerOrigin(xAxis);
+		Utils::centerOrigin(yAxis);
+		xAxis.setFillColor(sf::Color::Blue);
+		yAxis.setFillColor(sf::Color::Red);
+
+		m_sharedContext->m_wind->GetRenderWindow()->draw(xAxis);
+		m_sharedContext->m_wind->GetRenderWindow()->draw(yAxis);
+	}
 }
 
 void Actor::SpawnParticle()
@@ -99,23 +127,7 @@ void Actor::SpawnParticle()
 
 bool Actor::IsIntersecting(Actor* p_otherActor) const
 {
-	sf::Rect<float> actorCollider = m_sprite.getGlobalBounds();
-
-	actorCollider.width *= 0.75;
-	actorCollider.height *= 0.75;
-
-	actorCollider.left += actorCollider.width * 0.25 / 2;
-	actorCollider.top += actorCollider.height * 0.25 / 2;
-
-	sf::Rect<float> otherActorCollider = p_otherActor->GetSprite().getGlobalBounds();
-
-	otherActorCollider.width *= 0.75;
-	otherActorCollider.height *= 0.75;
-
-	otherActorCollider.left += otherActorCollider.width * 0.25 / 2;
-	otherActorCollider.top += otherActorCollider.height * 0.25 / 2;
-
-	return actorCollider.intersects(otherActorCollider);
+	return m_collider.getGlobalBounds().intersects(p_otherActor->GetCollider().getGlobalBounds());
 }
 
 bool Actor::MustDie() const
@@ -164,6 +176,7 @@ void Actor::SetTexture(const std::string p_textureName)
 
 float Actor::GetVelocity() const { return m_velocity; }
 sf::Sprite& Actor::GetSprite() { return m_sprite; }
+sf::RectangleShape& Actor::GetCollider() { return m_collider; }
 uint16_t& Actor::GetZBuffer() { return m_zBuffer; }
 Vector2D<float>& Actor::GetPosition() { return m_position; }
 Vector2D<float>& Actor::GetDirection() { return m_direction; }

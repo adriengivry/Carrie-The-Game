@@ -270,8 +270,11 @@ void State_MainMenu::LeaveGame(EventDetails* l_details)
 
 void State_MainMenu::GoBackToMain(EventDetails* l_details)
 {
-	m_menuType = MenuType::MAIN;
-	GenerateButtons();
+	if (!m_stateMgr->HasState(StateType::Game))
+	{
+		m_menuType = MenuType::MAIN;
+		GenerateButtons();
+	}
 }
 
 void State_MainMenu::GoToInGameMenu(EventDetails* l_details)

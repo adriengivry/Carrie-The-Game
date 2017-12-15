@@ -90,6 +90,15 @@ void ActorManager::CleanActors()
 	m_buyables.clear();
 }
 
+void ActorManager::CleanEnemies()
+{
+	for (auto it : m_enemies)				delete it;
+	for (auto it : m_spawnPoints)			delete it;
+
+	m_enemies.clear();
+	m_spawnPoints.clear();
+}
+
 void ActorManager::Update(const sf::Time& l_time)
 {
 	for (auto it : m_floorParticles)		it->Update(l_time);

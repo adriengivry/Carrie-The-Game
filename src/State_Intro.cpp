@@ -32,20 +32,22 @@ void State_Intro::OnCreate()
 	if (fontManager->RequireResource("Retro_Menu"))
 		m_text.setFont(*fontManager->GetResource("Retro_Menu"));
 
-	m_text.setString("PRESS SPACE TO CONTINUE");
+	m_text.setString("PRESS SPACE OR CLICK TO CONTINUE");
 	m_text.setCharacterSize(25);
 	m_text.setFillColor(sf::Color(255, 255, 255, m_startTextOpacity));
 	Utils::centerOrigin(m_text);
-	m_text.setPosition(windowCenter.x, windowCenter.y + 200);
+	m_text.setPosition(windowCenter.x, windowCenter.y + 300);
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Intro, "Key_Space", &State_Intro::Continue, this);
+	evMgr->AddCallback(StateType::Intro, "Mouse_Left", &State_Intro::Continue, this);
 }
 
 void State_Intro::OnDestroy()
 {
 	EventManager* evMgr = m_stateMgr->GetContext()->m_eventManager;
 	evMgr->RemoveCallback(StateType::Intro,"Key_Space");
+	evMgr->RemoveCallback(StateType::Intro, "Mouse_Left");
 }
 
 void State_Intro::Update(const sf::Time& l_time)
@@ -129,7 +131,7 @@ void State_Intro::Draw(){
 
 void State_Intro::Continue(EventDetails* l_details)
 {
-	if (m_timePassed >= 2.5f)
+	if (m_timePassed >= 2.5f && !m_continue)
 	{
 		m_stateMgr->GetContext()->m_audioManager->PlaySound("Validate");
 		m_continue = true;

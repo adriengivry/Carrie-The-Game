@@ -3,6 +3,10 @@ Game::Game(): m_window("Carrie - The Game", sf::Vector2u(1920, 1080)), m_stateMa
 	m_clock.restart();
 	srand(time(nullptr));
 
+	#ifdef _DEBUG
+		m_gameInfo.m_debugMode = true;
+	#endif
+
 	m_context.m_wind = &m_window;
 	m_context.m_eventManager = m_window.GetEventManager();
 	m_context.m_textureManager = &m_textureManager;
@@ -18,7 +22,7 @@ Game::Game(): m_window("Carrie - The Game", sf::Vector2u(1920, 1080)), m_stateMa
 	Utils::ShowCursor(false);
 
 	if (m_gameInfo.m_debugMode)
-		m_stateManager.SwitchTo(StateType::Game);
+		m_stateManager.SwitchTo(StateType::MainMenu);
 	else
 		m_stateManager.SwitchTo(StateType::Intro);
 }
@@ -41,9 +45,6 @@ void Game::Update()
 	m_window.Update();
 	m_cursor.setPosition(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
 	m_stateManager.Update(m_elapsed);
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M) && m_gameInfo.m_debugMode)
-		m_audioManager.PauseMusics();
 }
 
 void Game::Render()

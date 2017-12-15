@@ -16,14 +16,17 @@ Door::Door(SharedContext* p_sharedContext, const float p_x, const float p_y, con
 		SetTexture("Map_Boss_Door");
 
 	m_answer = p_answer;
-
 	m_spriteScale.Set(0.25f, 0.25f);
-
 	m_alreadyGetUsed = false;
-
 	m_velocity = 0.0f;
-
 	m_shopDoor = p_shopDoor;
+
+	m_activationZoneDebug.setFillColor(sf::Color(0, 255, 255, 100));
+	m_activationZoneDebug.setOutlineColor(sf::Color(0, 255, 255, 255));
+	m_activationZoneDebug.setOutlineThickness(2.f);
+	m_activationZoneDebug.setPosition(m_position.ToSFVector());
+	m_activationZoneDebug.setRadius(__DOOR_ACTIVATION_ZONE);
+	Utils::centerOrigin(m_activationZoneDebug);
 }
 
 Door::~Door()
@@ -73,6 +76,9 @@ void Door::Draw() const
 
 	if (m_sharedContext->m_gameInfo->m_questionAsked)
 		DrawLabel();
+
+	if (m_sharedContext->m_gameInfo->m_debugMode && IsActivated() && m_sharedContext->m_gameInfo->m_questionAsked)
+		m_sharedContext->m_wind->GetRenderWindow()->draw(m_activationZoneDebug);
 }
 
 void Door::DrawLabel() const
@@ -93,15 +99,9 @@ void Door::DrawLabel() const
 
 	label.setPosition(labelPos);
 	if (m_answer)
-	{
-		label.setFillColor(sf::Color::White);
 		label.setString("YES IT'S TRUE");
-	}
 	else
-	{
-		label.setFillColor(sf::Color::White);
-		label.setString("GO TO HELL LIAR!");
-	}
+		label.setString("YOU'RE LYING!");
 
 	rect.setPosition(label.getPosition());
 
@@ -170,4 +170,16 @@ void Door::Update(const sf::Time& l_time)
 	}
 
 	Actor::Update(l_time);
+
+	if (m_sharedContext->m_gameInfo->m_debugMode && m_sharedContext->m_gameInfo->m_questionAsked)
+	{
+		if (m_answer == m_sharedContext->m_actorManager->GetNpc()->GetAnswer())
+			m_sprite.setColor(sf::Color::Green);
+		else
+			m_sprite.setColor(sf::Color::Red);
+	}
+	else
+	{
+		m_sprite.setColor(sf::Color::White);
+	}
 }

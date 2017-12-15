@@ -6,14 +6,15 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_target(nullptr),
 	m_followTarget(true),
 	m_damagesOnContact(true),
-	m_isSpecialAttackReady(true),
-	m_isSpecialAbilityReady(true),
-	m_canCollide(true),
 	m_showLifeBar(false),
-	m_showCooldownBar(false),
+	m_showSpecialAttackBar(false),
+	m_showSpecialAbilityBar(false),
 	m_isDead(false),
 	m_deathTimer(0),
-	m_deathDuration(0.5f)
+	m_deathDuration(0.5f),
+	m_canCollide(true),
+	m_isSpecialAttackReady(true),
+	m_isSpecialAbilityReady(true)
 {
 	SetTarget(m_sharedContext->m_actorManager->GetPlayer());
 	++m_sharedContext->m_gameInfo->m_spawnedEnemies;
@@ -218,19 +219,22 @@ void Enemy::Draw() const
 {
 	Actor::Draw();
 
-	if (m_showLifeBar)
+	if (m_showLifeBar || m_sharedContext->m_gameInfo->m_debugMode)
 		DrawLifebar();
 
-	if (m_showCooldownBar && m_specialAbilityCooldown != 0.f)
-		DrawCooldownBar();
+	if ((m_showSpecialAttackBar || m_sharedContext->m_gameInfo->m_debugMode) && m_specialAttackCooldown)
+		DrawSpecialAttackCooldownBar();
+
+	if ((m_showSpecialAbilityBar || m_sharedContext->m_gameInfo->m_debugMode) && m_specialAbilityCooldown)
+		DrawSpecialAbilityCooldownBar();
 }
 
 void Enemy::DrawLifebar() const
 {
 	sf::RectangleShape rect;
-	sf::Vector2f barSize = sf::Vector2f(200, 20);
+	sf::Vector2f barSize = sf::Vector2f(m_sprite.getLocalBounds().width > __ENEMY_MIN_BAR_SIZE ? m_sprite.getLocalBounds().width : __ENEMY_MIN_BAR_SIZE, 10);
 
-	rect.setPosition(m_position.X(), m_sprite.getGlobalBounds().top - 60);
+	rect.setPosition(m_position.X(), m_sprite.getGlobalBounds().top - 20);
 
 	rect.setFillColor(sf::Color::White);
 	rect.setSize(barSize);
@@ -244,12 +248,34 @@ void Enemy::DrawLifebar() const
 	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
 }
 
-void Enemy::DrawCooldownBar() const
+void Enemy::DrawSpecialAttackCooldownBar() const
 {
 	sf::RectangleShape rect;
-	sf::Vector2f barSize = sf::Vector2f(100, 10);
+	sf::Vector2f barSize = sf::Vector2f(m_sprite.getLocalBounds().width > __ENEMY_MIN_BAR_SIZE ? m_sprite.getLocalBounds().width : __ENEMY_MIN_BAR_SIZE, 10);
 
-	rect.setPosition(m_position.X(), m_sprite.getGlobalBounds().top - 20);
+	rect.setPosition(m_position.X(), m_sprite.getGlobalBounds().top - 40);
+
+	rect.setFillColor(sf::Color::White);
+	rect.setSize(barSize);
+	Utils::centerOrigin(rect);
+
+	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
+
+	rect.setFillColor(sf::Color::Green);
+
+	if (!m_isSpecialAttackReady)
+		barSize.x *= m_specialAttackTimer / m_specialAttackCooldown;
+
+	rect.setSize(barSize);
+	m_sharedContext->m_wind->GetRenderWindow()->draw(rect);
+}
+
+void Enemy::DrawSpecialAbilityCooldownBar() const
+{
+	sf::RectangleShape rect;
+	sf::Vector2f barSize = sf::Vector2f(m_sprite.getLocalBounds().width > __ENEMY_MIN_BAR_SIZE ? m_sprite.getLocalBounds().width : __ENEMY_MIN_BAR_SIZE, 10);
+
+	rect.setPosition(m_position.X(), m_sprite.getGlobalBounds().top - 60);
 
 	rect.setFillColor(sf::Color::White);
 	rect.setSize(barSize);

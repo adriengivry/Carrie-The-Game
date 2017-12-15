@@ -265,6 +265,7 @@ void Player::StopControl()
 	m_moveLeft = false;
 	m_moveRight = false;
 	m_moveUp = false;
+	m_fireOn = false;
 }
 
 void Player::Draw() const

@@ -37,6 +37,7 @@ public:
 	void SetDoor(const uint8_t p_id, Door* p_door);
 
 	void CleanActors();
+	void CleanEnemies();
 	void Update(const sf::Time& l_time);
 	void CheckDeads();
 	void Draw();

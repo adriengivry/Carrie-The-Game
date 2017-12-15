@@ -9,8 +9,10 @@ using namespace AGMath;
 
 class Actor
 {
+protected:
 	const float			__ACTOR_DEFAULT_VELOCITY	= 250;
 	const std::string	__ACTOR_TEXTURE				= "Actor";
+	const float			__ACTOR_HITBOX_SCALE		= 0.6f;
 
 public:
 	explicit Actor(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
@@ -31,6 +33,7 @@ public:
 	Vector2D<float>& GetPosition();
 	Vector2D<float>& GetDirection();
 	sf::Sprite& GetSprite();
+	sf::RectangleShape& GetCollider();
 
 	uint16_t& GetZBuffer();
 
@@ -47,6 +50,7 @@ protected:
 	bool m_flippable;
 
 	sf::Sprite m_sprite;
+	sf::RectangleShape m_collider;
 
 	SharedContext* m_sharedContext;
 

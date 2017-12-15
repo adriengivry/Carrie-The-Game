@@ -45,6 +45,8 @@ private:
 	uint8_t m_currentFrame;
 	float m_talkingFrameDuration;
 
+	sf::CircleShape m_talkDistanceDebug;
+
 	float m_speachTimer;
 	float m_speachDuration;
 

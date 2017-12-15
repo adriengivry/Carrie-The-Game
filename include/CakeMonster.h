@@ -22,8 +22,8 @@ class CakeMonster : public Enemy
 
 	const float			__CAKEMONSTER_SPECIAL_ATTACK_COOLDOWN		= 0.05;
 	const float			__CAKEMONSTER_PROJECTILE_SPEED				= 300;
-	const float			__CAKEMONSTER_FIRE_DURATION					= 1.5f;
-	const float			__CAKEMONSTER_RELOAD_DURATION				= 1.f;
+	const float			__CAKEMONSTER_FIRE_DURATION					= 1.f;
+	const float			__CAKEMONSTER_RELOAD_DURATION				= 2.f;
 
 public:
 	explicit CakeMonster(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);

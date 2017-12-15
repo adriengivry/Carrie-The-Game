@@ -37,8 +37,9 @@ struct GameInfo
 
 	uint16_t m_gameStarted = 0;
 	const bool m_allowMouse = true;
-	const bool m_debugMode = false;
 
+	bool m_debugMode = false;
+	
 	uint16_t m_toothPaste = 0;
 
 	bool m_gameOver = false;

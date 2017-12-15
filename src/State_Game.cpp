@@ -12,7 +12,9 @@
 State_Game::State_Game(StateManager* l_stateManager) :
 	BaseState(l_stateManager),
 	m_isShopingLevel(false), 
+	m_currentLevel(0),
 	m_whiteRectOpacity(255),
+	m_framerate(0),
 	m_sliderPauseTimer(0),
 	m_startTransition(false),
 	m_transitionEnd(false)
@@ -187,16 +189,27 @@ void State_Game::OnCreate()
 		}
 	}
 
+	m_currentLevel = gameInfo->m_currentLevel;
+	UpdateCurseDetails();
+
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Game, "Key_Escape", &State_Game::MainMenu, this);
 	evMgr->AddCallback(StateType::Game, "Key_P", &State_Game::Pause, this);
+	evMgr->AddCallback(StateType::Game, "Key_K", &State_Game::KillEnemies, this);
+	evMgr->AddCallback(StateType::Game, "Key_M", &State_Game::AddMoney, this);
+	evMgr->AddCallback(StateType::Game, "Key_L", &State_Game::AddLife, this);
+	evMgr->AddCallback(StateType::Game, "Key_F1", &State_Game::ToggleDebugMode, this);
 }
 
 void State_Game::OnDestroy()
 {
 	EventManager* evMgr = m_stateMgr->GetContext()->m_eventManager;
-	evMgr->RemoveCallback(StateType::Game,"Key_Escape");
-	evMgr->RemoveCallback(StateType::Game,"Key_P");
+	evMgr->RemoveCallback(StateType::Game, "Key_Escape");
+	evMgr->RemoveCallback(StateType::Game, "Key_P");
+	evMgr->RemoveCallback(StateType::Game, "Key_K");
+	evMgr->RemoveCallback(StateType::Game, "Key_M");
+	evMgr->RemoveCallback(StateType::Game, "Key_L");
+	evMgr->RemoveCallback(StateType::Game, "Key_F1");
 
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
 	actorManager->CleanActors();
@@ -206,6 +219,8 @@ void State_Game::Update(const sf::Time& l_time)
 {
 	const sf::Vector2u l_windSize = m_stateMgr->GetContext()->m_wind->GetWindowSize();
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
+
+	m_framerate = 1 / l_time.asSeconds();
 	
 	m_stateMgr->GetContext()->m_audioManager->SetMusicPitch("Game", 1 + (actorManager->GetPlayer()->GetMaxLife() - actorManager->GetPlayer()->GetLife()) / 500);
 
@@ -319,6 +334,9 @@ void State_Game::Update(const sf::Time& l_time)
 			OnCreate();
 		}
 	}
+
+	if (m_isShopingLevel)
+		UpdateCurseDetails();
 }
 
 void State_Game::Draw()
@@ -378,7 +396,7 @@ void State_Game::DrawUserInterface()
 	sf::Text levelLabel;
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
 		levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
-	levelLabel.setString("LEVEL " + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_currentLevel));
+	levelLabel.setString("LEVEL " + std::to_string(m_currentLevel));
 	levelLabel.setFillColor(sf::Color::White);
 	levelLabel.setPosition(window->getSize().x / 2 - 500, window->getSize().y - 40);
 	Utils::centerOrigin(levelLabel);
@@ -403,7 +421,10 @@ void State_Game::DrawUserInterface()
 	window->draw(toothPasteCounter);
 
 	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
+	{
 		DrawConsole();
+		DrawFPS();
+	}
 
 	sf::Text curseStack;
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
@@ -424,28 +445,28 @@ void State_Game::DrawUserInterface()
 			break;
 
 		case REVERSE_MOVEMENT:
-			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement));
-			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_reverseMovement == 0;
+			curseStack.setString(std::to_string(m_curseDetails.m_reverseMovement));
+			isEmpty = m_curseDetails.m_reverseMovement == 0;
 			break;
 
 		case SLOWER_CARRIE:
-			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerCarrie));
-			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_slowerCarrie == 0;
+			curseStack.setString(std::to_string(m_curseDetails.m_slowerCarrie));
+			isEmpty = m_curseDetails.m_slowerCarrie == 0;
 			break;
 
 		case SLOWER_PROJECTILES:
-			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles));
-			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_slowerProjectiles == 0;
+			curseStack.setString(std::to_string(m_curseDetails.m_slowerProjectiles));
+			isEmpty = m_curseDetails.m_slowerProjectiles == 0;
 			break;
 
 		case WEAKER_PROJECTILES:
-			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles));
-			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_weakerProjectiles == 0;
+			curseStack.setString(std::to_string(m_curseDetails.m_weakerProjectiles));
+			isEmpty = m_curseDetails.m_weakerProjectiles == 0;
 			break;
 
 		case REDUCED_PRECISION:
-			curseStack.setString(std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_reducedPrecision));
-			isEmpty = m_stateMgr->GetContext()->m_gameInfo->m_reducedPrecision == 0;
+			curseStack.setString(std::to_string(m_curseDetails.m_reducedPrecision));
+			isEmpty = m_curseDetails.m_reducedPrecision == 0;
 			break;
 		}
 
@@ -525,20 +546,76 @@ void State_Game::DrawConsole() const
 	window->draw(spawnedSpawners);
 }
 
+void State_Game::DrawFPS() const
+{
+	sf::RenderWindow* window = m_stateMgr->GetContext()->m_wind->GetRenderWindow();
+
+	sf::Text fpsCounter;
+	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Console"))
+		fpsCounter.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Console"));
+	fpsCounter.setCharacterSize(25);
+	fpsCounter.setString(std::to_string(m_framerate) + " FPS");
+	fpsCounter.setPosition(window->getSize().x - 120, 20);
+
+	window->draw(fpsCounter);
+}
+
+void State_Game::UpdateCurseDetails()
+{
+	GameInfo* gameInfo = m_stateMgr->GetContext()->m_gameInfo;
+
+	m_curseDetails.m_reverseMovement = gameInfo->m_reverseMovement;
+	m_curseDetails.m_slowerCarrie = gameInfo->m_slowerCarrie;
+	m_curseDetails.m_slowerProjectiles = gameInfo->m_slowerProjectiles;
+	m_curseDetails.m_weakerProjectiles = gameInfo->m_weakerProjectiles;
+	m_curseDetails.m_reducedPrecision = gameInfo->m_reducedPrecision;
+}
+
 void State_Game::MainMenu(EventDetails* l_details) const
 {
-	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
+	if (CanInteract())
+	{
+		ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
 
-	actorManager->GetPlayer()->StopControl();
-	m_stateMgr->SwitchTo(StateType::MainMenu); 
+		actorManager->GetPlayer()->StopControl();
+		m_stateMgr->SwitchTo(StateType::MainMenu);
+	}
 }
 
 void State_Game::Pause(EventDetails* l_details) const
 {
-	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
+	if (CanInteract())
+	{
+		ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
 
-	actorManager->GetPlayer()->StopControl();
-	m_stateMgr->SwitchTo(StateType::Paused);
+		actorManager->GetPlayer()->StopControl();
+		m_stateMgr->SwitchTo(StateType::Paused);
+	}
+}
+
+void State_Game::KillEnemies(EventDetails* l_details) const
+{
+	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
+		m_stateMgr->GetContext()->m_actorManager->CleanEnemies();
+}
+
+void State_Game::AddMoney(EventDetails* l_details) const
+{
+	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
+		m_stateMgr->GetContext()->m_gameInfo->m_toothPaste += 50;
+}
+
+void State_Game::AddLife(EventDetails* l_details) const
+{
+	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
+		m_stateMgr->GetContext()->m_actorManager->GetPlayer()->AddLife(20);
+}
+
+void State_Game::ToggleDebugMode(EventDetails* l_details) const
+{
+	#ifdef _DEBUG
+		m_stateMgr->GetContext()->m_gameInfo->m_debugMode = !m_stateMgr->GetContext()->m_gameInfo->m_debugMode;
+	#endif
 }
 
 void State_Game::Activate()
@@ -571,4 +648,9 @@ bool State_Game::LevelCompleted() const
 		levelComplete = false;
 
 	return levelComplete;
+}
+
+bool State_Game::CanInteract() const
+{
+	return !m_startTransition;
 }

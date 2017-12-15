@@ -25,10 +25,9 @@ public:
 	void Update(const sf::Time& l_time) override;
 private:
 	bool m_shopDoor;
-
 	bool m_activated;
-
 	bool m_alreadyGetUsed;
-
 	bool m_answer;
+
+	sf::CircleShape m_activationZoneDebug;
 };

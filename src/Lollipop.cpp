@@ -19,6 +19,7 @@ void Lollipop::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Lollipop");
 	m_sharedContext->m_gameInfo->m_toothPaste += 2;
+	m_sharedContext->m_gameInfo->m_carrots += 2;
 }
 
 void Lollipop::GenerateStats()

@@ -25,8 +25,6 @@ Enemy::Enemy(SharedContext* p_sharedContext, const float p_x, const float p_y) :
 	m_specialAbilityCooldown = __ENEMY_DEFAULT_COOLDOWN;
 }
 
-Enemy::~Enemy() {}
-
 void Enemy::SetTarget(Actor* p_target)
 {
 	m_target = p_target;

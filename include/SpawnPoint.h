@@ -57,9 +57,11 @@ public:
 private:
 	Actor* m_target;
 
-	int m_maxSpawn;
+	uint8_t m_maxSpawn;
+	uint8_t m_spawnedCounter;
 
 	bool m_active;
+	bool m_hovered;
 
 	Vector2D<float> m_futurePosition;
 

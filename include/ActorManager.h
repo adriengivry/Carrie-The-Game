@@ -46,7 +46,7 @@ public:
 	Npc* GetNpc() const;
 	Door* GetDoor(const uint8_t p_id);
 	std::vector<Projectile*>& GetProjectile();
-	std::vector<Enemy*>& GetEnemies(); 
+	std::vector<Enemy*>& GetEnemies();
 	std::vector<SpawnPoint*>& GetSpawnPoints();
 	std::vector<Buyable*>& GetBuyables();
 

@@ -20,6 +20,7 @@ void Crocodile::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Crocodile");
 	m_sharedContext->m_gameInfo->m_toothPaste += 4;
+	m_sharedContext->m_gameInfo->m_carrots += 4;
 }
 
 void Crocodile::GenerateStats()

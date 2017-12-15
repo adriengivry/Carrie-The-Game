@@ -5,6 +5,7 @@ Game::Game(): m_window("Carrie - The Game", sf::Vector2u(1920, 1080)), m_stateMa
 
 	#ifdef _DEBUG
 		m_gameInfo.m_debugMode = true;
+		m_audioManager.ToggleMute();
 	#endif
 
 	m_context.m_wind = &m_window;

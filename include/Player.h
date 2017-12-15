@@ -32,6 +32,8 @@ public:
 
 	void Fire(EventDetails* l_details);
 	void Unfire(EventDetails* l_details);
+	void UseSpecialAbility(EventDetails* l_details);
+	void ReleaseSpecialAbility(EventDetails* l_details);
 
 	void RemoveLife(const float p_value, const bool p_constantDamages = false, const Vector2D<float> p_direction = Vector2D<float>(0, 0));
 	void AddLife(const float p_value) const;
@@ -61,4 +63,6 @@ private:
 	float m_timeSinceLastHit;
 	float m_getHitFlashTimer;
 	bool m_isTransparent;
+
+	bool m_usingSpecialAbility;
 };

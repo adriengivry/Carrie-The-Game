@@ -8,7 +8,7 @@ class Enemy : public Actor
 	const float __ENEMY_MIN_BAR_SIZE = 80.f;
 public:
 	explicit Enemy(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);
-	~Enemy();
+	~Enemy() {}
 
 	virtual void OnDeath() = 0;
 

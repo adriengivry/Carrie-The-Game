@@ -16,6 +16,9 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const SpawnerType p_spaw
 	m_timer = 0;
 
 	m_active = false;
+	m_hovered = false;
+
+	m_spawnedCounter = 0;
 
 	m_activationTimer = 0;
 
@@ -117,7 +120,7 @@ void SpawnPoint::SpawnEnemy()
 	case SpawnerType::NOT_SET:
 		break;
 	}
-	--m_maxSpawn;
+	++m_spawnedCounter;
 }
 
 void SpawnPoint::Update(const sf::Time & l_time)
@@ -141,9 +144,14 @@ void SpawnPoint::Update(const sf::Time & l_time)
 			Activate();
 	}
 
+	m_hovered = false;
+
 	for (auto it : m_sharedContext->m_actorManager->GetEnemies())
 		if (m_position.DistanceTo(it->GetPosition()) <= 50)
+		{
 			m_timer = 0.f;
+			m_hovered = true;
+		}
 
 	if (IsActive() && !IsDone() && m_timer >= m_spawnFrequency)
 		SpawnEnemy();
@@ -184,8 +192,38 @@ void SpawnPoint::Activate()
 void SpawnPoint::Draw() const
 {
 	if (!IsDone())
+	{
 		Actor::Draw();
+		if (m_sharedContext->m_gameInfo->m_debugMode && m_sharedContext->m_fontManager->RequireResource("Console"))
+		{
+			sf::Text spawnDelayLabel;
+			spawnDelayLabel.setFont(*m_sharedContext->m_fontManager->GetResource("Console"));
+
+			if (m_hovered)
+				spawnDelayLabel.setFillColor(sf::Color::Red);
+			else
+				spawnDelayLabel.setFillColor(sf::Color::Yellow);
+
+			spawnDelayLabel.setString(std::to_string(m_spawnFrequency - m_timer));
+			spawnDelayLabel.setPosition(m_position.ToSFVector());
+			spawnDelayLabel.move(0, -55);
+			spawnDelayLabel.setCharacterSize(25);
+			Utils::centerOrigin(spawnDelayLabel);
+			m_sharedContext->m_wind->GetRenderWindow()->draw(spawnDelayLabel);
+
+
+			sf::Text toSpawnLabel;
+			toSpawnLabel.setFont(*m_sharedContext->m_fontManager->GetResource("Console"));
+			toSpawnLabel.setFillColor(sf::Color::White);
+			toSpawnLabel.setString(std::to_string(m_spawnedCounter) + "/" + std::to_string(m_maxSpawn));
+			toSpawnLabel.setPosition(m_position.ToSFVector());
+			toSpawnLabel.move(0, 55);
+			toSpawnLabel.setCharacterSize(25);
+			Utils::centerOrigin(toSpawnLabel);
+			m_sharedContext->m_wind->GetRenderWindow()->draw(toSpawnLabel);
+		}
+	}
 }
 
-bool SpawnPoint::IsDone() const { return m_maxSpawn == 0; }
+bool SpawnPoint::IsDone() const { return m_spawnedCounter == m_maxSpawn; }
 bool SpawnPoint::IsActive() const { return m_active; }

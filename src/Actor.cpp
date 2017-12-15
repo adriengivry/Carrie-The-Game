@@ -135,8 +135,9 @@ bool Actor::MustDie() const
 	return m_mustDie;
 }
 
-void Actor::AddImpulsion(const Vector2D<float> p_direction, const float p_power)
+void Actor::AddImpulsion(const Vector2D<float> p_direction, const float p_power, const float p_acceleration)
 {
+	m_pushAcceleration = p_acceleration;
 	m_pushMaxVelocity = p_power;
 	m_pushVelocity = m_pushMaxVelocity;
 	m_pushDirection = p_direction;

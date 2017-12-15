@@ -8,6 +8,8 @@ Player::Player(SharedContext* p_sharedContext, const float p_x, const float p_y)
 {
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Fire", &Player::Fire, this);
 	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Unfire", &Player::Unfire, this);
+	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Use_Special_Ability", &Player::UseSpecialAbility, this);
+	m_sharedContext->m_eventManager->AddCallback(StateType::Game, "Release_Special_Ability", &Player::ReleaseSpecialAbility, this);
 
 	m_orientable = false;
 	m_maxVelocity = __PLAYER_SPEED;
@@ -40,6 +42,8 @@ Player::~Player()
 {
 	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Fire");
 	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Unfire");
+	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Use_Special_Ability");
+	m_sharedContext->m_eventManager->RemoveCallback(StateType::Game, "Release_Special_Ability");
 }
 
 void Player::Move(const sf::Time& l_time)
@@ -330,6 +334,23 @@ void Player::Unfire(EventDetails* l_details)
 	m_fireOn = false;
 }
 
+void Player::UseSpecialAbility(EventDetails* l_details)
+{
+	if (!m_usingSpecialAbility && m_pushVelocity == 0 && m_velocity > 0)
+	{
+		if (m_sharedContext->m_gameInfo->m_carrots >= 5)
+		{
+			AddImpulsion(m_direction, 2000, -10000);
+			m_sharedContext->m_gameInfo->m_carrots -= 5;
+			m_usingSpecialAbility = true;
+		}
+	}
+}
+
+void Player::ReleaseSpecialAbility(EventDetails* l_details)
+{
+	m_usingSpecialAbility = false;
+}
 void Player::RemoveLife(const float p_value, const bool p_constantDamages, const Vector2D<float> p_direction)
 {
 	if (!IsInvulnerable())

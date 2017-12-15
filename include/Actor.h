@@ -27,7 +27,7 @@ public:
 	bool IsIntersecting(Actor* p_otherActor) const;
 	bool MustDie() const;
 
-	void AddImpulsion(const Vector2D<float> p_direction, float p_power = 300);
+	void AddImpulsion(const Vector2D<float> p_direction, const float p_power = 300, const float p_acceleration = -1000);
 
 	float GetVelocity() const;
 	Vector2D<float>& GetPosition();

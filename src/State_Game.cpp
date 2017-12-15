@@ -398,15 +398,16 @@ void State_Game::DrawUserInterface()
 		levelLabel.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	levelLabel.setString("LEVEL " + std::to_string(m_currentLevel));
 	levelLabel.setFillColor(sf::Color::White);
-	levelLabel.setPosition(window->getSize().x / 2 - 500, window->getSize().y - 40);
+	levelLabel.setPosition(window->getSize().x / 2 - 850, window->getSize().y - 40);
 	Utils::centerOrigin(levelLabel);
 	window->draw(levelLabel);
 
+	// DRAW TOOTHPASTE INFOS
 	sf::Sprite toothPasteSprite;
 	if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Toothpaste"))
 	{
 		toothPasteSprite.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Toothpaste"));
-		toothPasteSprite.setPosition(window->getSize().x / 2 - 800, window->getSize().y - 40);
+		toothPasteSprite.setPosition(window->getSize().x / 2 - 700, window->getSize().y - 40);
 		Utils::centerOrigin(toothPasteSprite);
 	}
 	window->draw(toothPasteSprite);
@@ -416,9 +417,28 @@ void State_Game::DrawUserInterface()
 		toothPasteCounter.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 	toothPasteCounter.setString("x" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_toothPaste));
 	toothPasteCounter.setFillColor(sf::Color::White);
-	toothPasteCounter.setPosition(window->getSize().x / 2 - 775, window->getSize().y - 40);
-	toothPasteCounter.move(0, -toothPasteCounter.getGlobalBounds().height / 2);
+	toothPasteCounter.setPosition(toothPasteSprite.getPosition());
+	toothPasteCounter.move(toothPasteSprite.getGlobalBounds().width / 2, -toothPasteCounter.getGlobalBounds().height / 2);
 	window->draw(toothPasteCounter);
+
+	// DRAW CARROTS INFO
+	sf::Sprite carrotSprite;
+	if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Carrot"))
+	{
+		carrotSprite.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Carrot"));
+		carrotSprite.setPosition(toothPasteCounter.getGlobalBounds().left + toothPasteCounter.getGlobalBounds().width + 100, window->getSize().y - 40);
+		Utils::centerOrigin(carrotSprite);
+	}
+	window->draw(carrotSprite);
+
+	sf::Text carrotCounter;
+	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
+		carrotCounter.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+	carrotCounter.setString("x" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_carrots));
+	carrotCounter.setFillColor(sf::Color::White);
+	carrotCounter.setPosition(carrotSprite.getPosition());
+	carrotCounter.move(carrotSprite.getGlobalBounds().width / 2, -carrotCounter.getGlobalBounds().height / 2);
+	window->draw(carrotCounter);
 
 	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
 	{

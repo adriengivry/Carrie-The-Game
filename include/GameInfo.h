@@ -29,6 +29,7 @@ struct GameInfo
 	const float __PROJECTILE_SLOW_MULTIPLICATOR = 0.8f;
 	const float __PROJECTILE_WEAK_MULTIPLICATOR = 0.8f;
 	const float __PLAYER_LIFE = 100;
+	const float __STARTING_CARROTS = 5;
 
 	GameMode m_gameMode = GameMode::ARCADE;
 
@@ -41,6 +42,7 @@ struct GameInfo
 	bool m_debugMode = false;
 	
 	uint16_t m_toothPaste = 0;
+	uint16_t m_carrots = __STARTING_CARROTS;
 
 	bool m_gameOver = false;
 	uint16_t m_currentLevel = 1;
@@ -86,6 +88,7 @@ struct GameInfo
 	void FullReset()
 	{
 		m_toothPaste = 0;
+		m_carrots = __STARTING_CARROTS;
 		m_levelDuration = 0;
 		m_gameStarted = 0;
 		m_gameOver = false;

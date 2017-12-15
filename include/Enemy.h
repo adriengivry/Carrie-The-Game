@@ -2,6 +2,8 @@
 
 #include "Actor.h"
 
+class Projectile;
+
 class Enemy : public Actor
 {
 	const float __ENEMY_DEFAULT_COOLDOWN = 0.0f;
@@ -72,4 +74,6 @@ protected:
 	bool m_isSpecialAbilityReady;
 	float m_specialAbilityTimer;
 	float m_specialAbilityCooldown;
+
+	std::vector<Projectile*> m_touchedBy;
 };

@@ -15,6 +15,11 @@ void ExtraLife::UpdatePrice()
 	m_itemInfo.m_price = m_itemInfo.m_defaultPrice + m_sharedContext->m_gameInfo->m_extraLifeBought * 25;
 }
 
+bool ExtraLife::BuyingCondition() const
+{
+	return m_sharedContext->m_gameInfo->m_playerLife < m_sharedContext->m_gameInfo->m_playerMaxLife;
+}
+
 void ExtraLife::ApplyEffect()
 {
 	m_sharedContext->m_actorManager->GetPlayer()->AddLife(25);

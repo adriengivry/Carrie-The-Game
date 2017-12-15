@@ -51,6 +51,7 @@ public:
 	void KillEnemies(EventDetails* l_details) const;
 	void AddMoney(EventDetails* l_details) const;
 	void AddLife(EventDetails* l_details) const;
+	void AddCarrot(EventDetails* l_details) const;
 	void ToggleDebugMode(EventDetails* l_details) const;
 private:
 	sf::Sprite m_backgroundSprite;
@@ -69,7 +70,7 @@ private:
 
 	CurseDetails m_curseDetails;
 
-	sf::Text m_curseText;
+	sf::Text m_levelEndText;
 	float m_sliderPauseTimer;
 
 	sf::Sprite m_transitionSlider;

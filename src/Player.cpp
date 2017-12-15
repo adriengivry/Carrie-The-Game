@@ -166,14 +166,46 @@ void Player::CheckFire()
 			m_reorienteTimer = 0;
 		}
 
-		Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y() + 20, ProjectileType::NORMAL, "Chocolate", 0.7f, 0.7f);
+		std::string projectileTexture;
+		ProjectileType projectileType;
 
-		newProjectile->SetConstantlyRotate(true);
-		newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
-		newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
-		++gameInfo->m_spawnedProjectiles;
+		if (gameInfo->m_perforantChocolateUpgrade)
+		{
+			projectileTexture = "Perforant_Chocolate";
+			projectileType = ProjectileType::PERFORANT;
+		}
+		else
+		{
+			projectileTexture = "Chocolate";
+			projectileType = ProjectileType::NORMAL;
+		}
 
-		m_sharedContext->m_actorManager->AddProjectile(newProjectile);
+		float angleOffset[]{ 0, -5, 5 };
+
+		uint8_t projectileToThrow = 1;
+		if (gameInfo->m_tripleChocolateUpgrade)
+			projectileToThrow = 3;
+
+		for (uint8_t i = 0; i < projectileToThrow; ++i)
+		{
+			projectileDirection.Set(1, m_position.AngleTo(mousePos) + angleOffset[i] + Utils::randomgen(0, 14 * gameInfo->m_reducedPrecision) - 7 * gameInfo->m_reducedPrecision, POLAR);
+			Projectile* newProjectile = new Projectile(m_sharedContext, projectileDirection, this, m_position.X(), m_position.Y() + 20, projectileType, projectileTexture);
+
+			if (gameInfo->m_perforantChocolateUpgrade)
+			{
+				newProjectile->GetSprite().rotate(projectileDirection.GetAngle());
+			}
+			else
+			{
+				newProjectile->SetConstantlyRotate(true);
+			}
+
+			newProjectile->MultiplyDamages(pow(gameInfo->__PROJECTILE_WEAK_MULTIPLICATOR, gameInfo->m_weakerProjectiles));
+			newProjectile->MultiplySpeed(pow(gameInfo->__PROJECTILE_SLOW_MULTIPLICATOR, gameInfo->m_slowerProjectiles));
+			++gameInfo->m_spawnedProjectiles;
+
+			m_sharedContext->m_actorManager->AddProjectile(newProjectile);
+		}
 
 		switch (Utils::randomgen(1, 3))
 		{
@@ -270,6 +302,7 @@ void Player::StopControl()
 	m_moveRight = false;
 	m_moveUp = false;
 	m_fireOn = false;
+	m_usingSpecialAbility = false;
 }
 
 void Player::Draw() const
@@ -338,12 +371,8 @@ void Player::UseSpecialAbility(EventDetails* l_details)
 {
 	if (!m_usingSpecialAbility && m_pushVelocity == 0 && m_velocity > 0)
 	{
-		if (m_sharedContext->m_gameInfo->m_carrots >= 5)
-		{
-			AddImpulsion(m_direction, 2000, -10000);
-			m_sharedContext->m_gameInfo->m_carrots -= 5;
-			m_usingSpecialAbility = true;
-		}
+		AddImpulsion(m_direction, 1500, -10000);
+		m_usingSpecialAbility = true;
 	}
 }
 
@@ -351,6 +380,7 @@ void Player::ReleaseSpecialAbility(EventDetails* l_details)
 {
 	m_usingSpecialAbility = false;
 }
+
 void Player::RemoveLife(const float p_value, const bool p_constantDamages, const Vector2D<float> p_direction)
 {
 	if (!IsInvulnerable())

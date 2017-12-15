@@ -150,6 +150,12 @@
     <ClCompile Include="..\src\Particle.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\PerforantChocolateUpgrade.cpp">
+      <Filter>Source Files\Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TripleChocolateUpgrade.cpp">
+      <Filter>Source Files\Entities\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Game.h">
@@ -271,6 +277,12 @@
     </ClInclude>
     <ClInclude Include="..\include\Particle.h">
       <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PerforantChocolateUpgrade.h">
+      <Filter>Header Files\Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TripleChocolateUpgrade.h">
+      <Filter>Header Files\Entities\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

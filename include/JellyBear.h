@@ -9,14 +9,14 @@ class JellyBear : public Enemy
 	const float			__JELLYBEAR_DASH_SPEED			= 750;
 	const float			__JELLYBEAR_DASH_MIN_DISTANCE	= 250;
 	const float			__JELLYBEAR_LIFE				= 40;
-	const float			__JELLYBEAR_MAX_LIFE			= 600;
+	const float			__JELLYBEAR_MAX_LIFE			= 1200;
 	const float			__JELLYBEAR_DAMAGES				= 2;
-	const float			__JELLYBEAR_MAX_DAMAGES			= 5;
+	const float			__JELLYBEAR_MAX_DAMAGES			= 10;
 
 	const float			__JELLYBEAR_SPECIAL_ABILITY_COOLDOWN = 0.5f;
 
-	const float			__JELLYBEAR_LIFE_INCREMENTATION_COEFFICIENT		= 1.14499756f;
-	const float			__JELLYBEAR_DAMAGES_INCREMENTATION_COEFFICIENT	= 1.04688023f;
+	const float			__JELLYBEAR_LIFE_INCREMENTATION_COEFFICIENT		= 1.088749657;
+	const float			__JELLYBEAR_DAMAGES_INCREMENTATION_COEFFICIENT	= 1.04105638;
 
 public:
 	explicit JellyBear(SharedContext* p_sharedContext, const float p_x = 0, const float p_y = 0);

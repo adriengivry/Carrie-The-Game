@@ -22,7 +22,12 @@ SpawnPoint::SpawnPoint(SharedContext * p_sharedContext, const SpawnerType p_spaw
 
 	m_activationTimer = 0;
 
-	m_secondsBeforeActivation = Utils::randomgen(2, 6);
+	const bool isFirstSpawner = m_sharedContext->m_actorManager->GetSpawnPoints().size() == 1;
+
+	if (isFirstSpawner)
+		m_secondsBeforeActivation = 3;
+	else
+		m_secondsBeforeActivation = Utils::randomgen(3, 20);
 
 	bool spawnIsCorrect;
 

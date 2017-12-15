@@ -13,12 +13,12 @@ class CakeMonster : public Enemy
 	const std::string	__CAKEMONSTER_TEXTURE			= "CakeMonster_Front";
 	const float			__CAKEMONSTER_SPEED				= 300;
 	const float			__CAKEMONSTER_LIFE				= 10;
-	const float			__CAKEMONSTER_MAX_LIFE			= 150;
+	const float			__CAKEMONSTER_MAX_LIFE			= 300;
 	const float			__CAKEMONSTER_DAMAGES			= 4;
-	const float			__CAKEMONSTER_MAX_DAMAGES		= 10;
+	const float			__CAKEMONSTER_MAX_DAMAGES		= 20;
 
-	const float			__CAKEMONSTER_LIFE_INCREMENTATION_COEFFICIENT = 1.14499756f;
-	const float			__CAKEMONSTER_DAMAGES_INCREMENTATION_COEFFICIENT = 1.04688023f;
+	const float			__CAKEMONSTER_LIFE_INCREMENTATION_COEFFICIENT = 1.088749657;
+	const float			__CAKEMONSTER_DAMAGES_INCREMENTATION_COEFFICIENT = 1.04105638;
 
 	const float			__CAKEMONSTER_SPECIAL_ATTACK_COOLDOWN		= 0.05;
 	const float			__CAKEMONSTER_PROJECTILE_SPEED				= 300;

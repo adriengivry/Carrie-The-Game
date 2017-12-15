@@ -21,7 +21,6 @@ void CakeMonster::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Cakemonster");
 	m_sharedContext->m_gameInfo->m_toothPaste += 5;
-	m_sharedContext->m_gameInfo->m_carrots += 5;
 }
 
 void CakeMonster::GenerateStats()

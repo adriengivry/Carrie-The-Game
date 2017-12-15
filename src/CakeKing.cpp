@@ -22,7 +22,6 @@ void CakeKing::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Cakemonster");
 	m_sharedContext->m_gameInfo->m_toothPaste += 20;
-	m_sharedContext->m_gameInfo->m_carrots += 20;
 	m_sharedContext->m_gameInfo->m_bossBeaten = true;
 }
 

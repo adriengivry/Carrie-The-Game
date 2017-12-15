@@ -1,6 +1,8 @@
 #pragma once
 #include "Actor.h"
 
+class Enemy;
+
 enum class ProjectileType
 {
 	NORMAL,
@@ -8,7 +10,8 @@ enum class ProjectileType
 	LASER_CREAM,
 	SUGAR,
 	CREAM,
-	STRONG
+	STRONG,
+	PERFORANT
 };
 
 class Projectile : public Actor
@@ -62,4 +65,6 @@ private:
 	Actor* m_source;
 
 	float m_damages;
+
+	std::vector<Enemy*> m_touchedEnemies;
 };

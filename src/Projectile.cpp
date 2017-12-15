@@ -60,8 +60,19 @@ void Projectile::Update(const sf::Time& l_time)
 			{
 				if (!enemy->IsDead() && IsIntersecting(enemy) && !MustDie())
 				{
-					m_mustDie = true;
-					enemy->RemoveLife(m_damages, m_direction);
+					if (m_projectileType != ProjectileType::PERFORANT)
+						m_mustDie = true;
+					
+					bool alreadyTouched = false;
+					for (auto it : m_touchedEnemies)
+						if (enemy == it)
+							alreadyTouched = true;
+
+					if (!alreadyTouched)
+					{
+						enemy->RemoveLife(m_damages, m_direction);
+						m_touchedEnemies.push_back(enemy);
+					}
 				}
 			}
 

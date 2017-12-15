@@ -6,13 +6,13 @@ SmallCuringPotion::SmallCuringPotion(SharedContext* p_sharedContext, const float
 	SetTexture("Small_Curing_Potion");
 	m_itemInfo.m_name = "Small Curing Potion";
 	m_itemInfo.m_description = "Cure a random curse";
-	m_itemInfo.m_defaultPrice = 80;
+	m_itemInfo.m_defaultPrice = 50;
 }
 
 
 void SmallCuringPotion::UpdatePrice()
 {
-	m_itemInfo.m_price = m_itemInfo.m_defaultPrice + m_sharedContext->m_gameInfo->m_smallCuringPotionBought * 40;
+	m_itemInfo.m_price = m_itemInfo.m_defaultPrice + m_sharedContext->m_gameInfo->m_smallCuringPotionBought * 25;
 }
 
 void SmallCuringPotion::ApplyEffect()

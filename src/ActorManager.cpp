@@ -183,13 +183,13 @@ void ActorManager::Draw()
 	for (auto it : m_projectiles)			AddActor(actors, it);
 	for (auto it : m_buyables)				AddActor(actors, it);
 
+	if (m_doors[0] != nullptr)		m_doors[0]->Draw();
+	if (m_doors[1] != nullptr)		m_doors[1]->Draw();
+
 	// ALWAYS DRAW UNDER EVERY OTHER ACTORS
 	for (auto it : m_spawnPoints)				it->Draw();
 	for (auto it : m_floorParticles)			it->Draw();
 	for (auto it : m_projectileParticles)		it->Draw();
-
-	if (m_doors[0] != nullptr)		m_doors[0]->Draw();
-	if (m_doors[1] != nullptr)		m_doors[1]->Draw();
 
 	// DRAW RESPECTING THEIR ZBUFFER
 	for (const auto it : actors)	it.second->Draw();

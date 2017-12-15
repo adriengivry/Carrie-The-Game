@@ -8,6 +8,7 @@ public:
 	~ExtraLife() {}
 
 	void UpdatePrice() override;
+	bool BuyingCondition() const override;
 
 	void ApplyEffect() override;
 };

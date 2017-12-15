@@ -46,6 +46,7 @@
     <ClCompile Include="..\src\Npc.cpp" />
     <ClCompile Include="..\src\CakeMonster.cpp" />
     <ClCompile Include="..\src\Particle.cpp" />
+    <ClCompile Include="..\src\PerforantChocolateUpgrade.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Projectile.cpp" />
     <ClCompile Include="..\src\SmallCuringPotion.cpp" />
@@ -57,6 +58,7 @@
     <ClCompile Include="..\src\State_Intro.cpp" />
     <ClCompile Include="..\src\State_MainMenu.cpp" />
     <ClCompile Include="..\src\State_Paused.cpp" />
+    <ClCompile Include="..\src\TripleChocolateUpgrade.cpp" />
     <ClCompile Include="..\src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +84,7 @@
     <ClInclude Include="..\include\Npc.h" />
     <ClInclude Include="..\include\CakeMonster.h" />
     <ClInclude Include="..\include\Particle.h" />
+    <ClInclude Include="..\include\PerforantChocolateUpgrade.h" />
     <ClInclude Include="..\include\Player.h" />
     <ClInclude Include="..\include\Projectile.h" />
     <ClInclude Include="..\include\ResourceManager.h" />
@@ -96,6 +99,7 @@
     <ClInclude Include="..\include\State_MainMenu.h" />
     <ClInclude Include="..\include\State_Paused.h" />
     <ClInclude Include="..\include\TextureManager.h" />
+    <ClInclude Include="..\include\TripleChocolateUpgrade.h" />
     <ClInclude Include="..\include\Utilities.h" />
     <ClInclude Include="..\include\Vector2D.h" />
     <ClInclude Include="..\include\Window.h" />

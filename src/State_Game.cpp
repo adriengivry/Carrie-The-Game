@@ -8,6 +8,8 @@
 #include "CuringPotion.h"
 #include "ExtraLife.h"
 #include "SmallCuringPotion.h"
+#include "PerforantChocolateUpgrade.h"
+#include "TripleChocolateUpgrade.h"
 
 State_Game::State_Game(StateManager* l_stateManager) :
 	BaseState(l_stateManager),
@@ -45,12 +47,12 @@ void State_Game::OnCreate()
 	m_whiteRect.setFillColor(sf::Color::White);
 
 	if (m_stateMgr->GetContext()->m_fontManager->RequireResource("Retro"))
-		m_curseText.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
+		m_levelEndText.setFont(*m_stateMgr->GetContext()->m_fontManager->GetResource("Retro"));
 
-	m_curseText.setPosition(windowCenter.x, -650);
-	m_curseText.setFillColor(sf::Color::Yellow);
-	m_curseText.setCharacterSize(45);
-	m_curseText.setString("");
+	m_levelEndText.setPosition(windowCenter.x, -650);
+	m_levelEndText.setFillColor(sf::Color::Yellow);
+	m_levelEndText.setCharacterSize(45);
+	m_levelEndText.setString("");
 
 	for (uint8_t i = 0; i < 5; ++i)
 	{
@@ -154,6 +156,8 @@ void State_Game::OnCreate()
 		actorManager->AddBuyable(new ExtraLife(m_stateMgr->GetContext(), windowCenter.x - 300, windowCenter.y));
 		actorManager->AddBuyable(new SmallCuringPotion(m_stateMgr->GetContext(), windowCenter.x + 300, windowCenter.y));
 		actorManager->AddBuyable(new CuringPotion(m_stateMgr->GetContext(), windowCenter.x + 600, windowCenter.y));
+		actorManager->AddBuyable(new PerforantChocolateUpgrade(m_stateMgr->GetContext(), windowCenter.x + 600, windowCenter.y + 300));
+		actorManager->AddBuyable(new TripleChocolateUpgrade(m_stateMgr->GetContext(), windowCenter.x - 600, windowCenter.y + 300));
 		gameInfo->m_levelCompleted = true;
 	}
 	else
@@ -161,7 +165,7 @@ void State_Game::OnCreate()
 		actorManager->SetNpc(new Npc(m_stateMgr->GetContext(), windowCenter.x, 275));
 		actorManager->SetDoor(0, new Door(m_stateMgr->GetContext(), 559, 194, true));
 		actorManager->SetDoor(1, new Door(m_stateMgr->GetContext(), 1362, 194, false));
-		uint8_t numberOfSpawners = gameInfo->m_currentLevel / 5;
+		uint8_t numberOfSpawners = gameInfo->m_currentLevel / 2;
 		if (isBossLevel)
 		{
 			numberOfSpawners += 1;
@@ -198,6 +202,7 @@ void State_Game::OnCreate()
 	evMgr->AddCallback(StateType::Game, "Key_K", &State_Game::KillEnemies, this);
 	evMgr->AddCallback(StateType::Game, "Key_M", &State_Game::AddMoney, this);
 	evMgr->AddCallback(StateType::Game, "Key_L", &State_Game::AddLife, this);
+	evMgr->AddCallback(StateType::Game, "Key_C", &State_Game::AddCarrot, this);
 	evMgr->AddCallback(StateType::Game, "Key_F1", &State_Game::ToggleDebugMode, this);
 }
 
@@ -209,6 +214,7 @@ void State_Game::OnDestroy()
 	evMgr->RemoveCallback(StateType::Game, "Key_K");
 	evMgr->RemoveCallback(StateType::Game, "Key_M");
 	evMgr->RemoveCallback(StateType::Game, "Key_L");
+	evMgr->RemoveCallback(StateType::Game, "Key_C");
 	evMgr->RemoveCallback(StateType::Game, "Key_F1");
 
 	ActorManager* actorManager = m_stateMgr->GetContext()->m_actorManager;
@@ -266,34 +272,45 @@ void State_Game::Update(const sf::Time& l_time)
 				{
 				default:
 				case REVERSE_MOVEMENT:
-					m_curseText.setString("YOUR KEYBOARD IS NOW FUCKED UP!");
+					m_levelEndText.setString("YOUR KEYBOARD IS NOW FUCKED UP!");
 					break;
 
 				case SLOWER_CARRIE:
-					m_curseText.setString("DO YOU LIKE GLUE?");
+					m_levelEndText.setString("DO YOU LIKE GLUE?");
 					break;
 
 				case SLOWER_PROJECTILES:
-					m_curseText.setString("TRY TO TO THROW IT FASTER!");
+					m_levelEndText.setString("TRY TO TO THROW IT FASTER!");
 					break;
 
 				case WEAKER_PROJECTILES:
-					m_curseText.setString("OUPS! I BROKE YOUR CHOCOLATE SQUARE");
+					m_levelEndText.setString("OUPS! I BROKE YOUR CHOCOLATE SQUARE");
 					break;
 
 				case REDUCED_PRECISION:
-					m_curseText.setString("ARE YOU DRUNK?");
+					m_levelEndText.setString("ARE YOU DRUNK?");
 					break;
 				}
-				Utils::centerOrigin(m_curseText);
 
 				if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Curse_Slider"))
 					m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Curse_Slider"));
 			}
 
 			if (!m_stateMgr->GetContext()->m_gameInfo->m_getCursed)
+			{
 				if (m_stateMgr->GetContext()->m_textureManager->RequireResource("Truth_Slider"))
 					m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Truth_Slider"));
+
+				if (m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo > 1)
+					m_levelEndText.setString("+" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo) + " CARROTS FOR YOU!");
+				else
+					m_levelEndText.setString("+" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo) + " CARROT FOR YOU!");
+
+				m_levelEndText.setFillColor(sf::Color(255, 69, 0));
+				m_levelEndText.move(0, 100);
+			}
+
+			Utils::centerOrigin(m_levelEndText);
 		}
 
 		if (m_startTransition)
@@ -305,7 +322,7 @@ void State_Game::Update(const sf::Time& l_time)
 			else
 			{
 				m_transitionSlider.move(0, 1250 * l_time.asSeconds());
-				m_curseText.move(0, 1250 * l_time.asSeconds());
+				m_levelEndText.move(0, 1250 * l_time.asSeconds());
 				if (m_transitionSlider.getPosition().y >= 0)
 					m_transitionSlider.setPosition(0, 0);
 			}
@@ -313,7 +330,7 @@ void State_Game::Update(const sf::Time& l_time)
 			if (m_sliderPauseTimer >= 1.5f)
 			{
 				m_transitionSlider.move(0, -5000 * l_time.asSeconds());
-				m_curseText.move(0, -5000 * l_time.asSeconds());
+				m_levelEndText.move(0, -5000 * l_time.asSeconds());
 				if (m_transitionSlider.getPosition().y <= -1500)
 					m_transitionEnd = true;
 			}
@@ -360,8 +377,8 @@ void State_Game::Draw()
 		}
 
 		window->draw(m_transitionSlider);
-		if (m_curseText.getString() != "")
-			window->draw(m_curseText);
+		if (m_levelEndText.getString() != "")
+			window->draw(m_levelEndText);
 	}
 }
 
@@ -629,6 +646,12 @@ void State_Game::AddLife(EventDetails* l_details) const
 {
 	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
 		m_stateMgr->GetContext()->m_actorManager->GetPlayer()->AddLife(20);
+}
+
+void State_Game::AddCarrot(EventDetails* l_details) const
+{
+	if (m_stateMgr->GetContext()->m_gameInfo->m_debugMode)
+		m_stateMgr->GetContext()->m_gameInfo->m_carrots += 1;
 }
 
 void State_Game::ToggleDebugMode(EventDetails* l_details) const

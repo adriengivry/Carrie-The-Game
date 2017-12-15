@@ -22,7 +22,6 @@ void JellyQueen::OnDeath()
 {
 	m_sharedContext->m_audioManager->PlaySound("Death_Jelly");
 	m_sharedContext->m_gameInfo->m_toothPaste += 20;
-	m_sharedContext->m_gameInfo->m_carrots += 20;
 	m_sharedContext->m_gameInfo->m_bossBeaten = true;
 }
 

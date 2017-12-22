@@ -302,9 +302,9 @@ void State_Game::Update(const sf::Time& l_time)
 					m_transitionSlider.setTexture(*m_stateMgr->GetContext()->m_textureManager->GetResource("Truth_Slider"));
 
 				if (m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo > 1)
-					m_levelEndText.setString("+" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo) + " CARROTS FOR YOU!");
+					m_levelEndText.setString("+" + std::to_string(4 + m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo) + " CARROTS FOR YOU!");
 				else
-					m_levelEndText.setString("+" + std::to_string(m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo) + " CARROT FOR YOU!");
+					m_levelEndText.setString("+" + std::to_string(4 + m_stateMgr->GetContext()->m_gameInfo->m_goodAnswerCombo) + " CARROT FOR YOU!");
 
 				m_levelEndText.setFillColor(sf::Color(255, 69, 0));
 				m_levelEndText.move(0, 100);

@@ -6,7 +6,7 @@ PerforantChocolateUpgrade::PerforantChocolateUpgrade(SharedContext* p_sharedCont
 	SetTexture("Perforant_Chocolate_Buyable");
 	m_itemInfo.m_name = "Perforant Chocolate";
 	m_itemInfo.m_description = "Pierce them all!";
-	m_itemInfo.m_defaultPrice = 10;
+	m_itemInfo.m_defaultPrice = 50;
 
 	m_owned = m_sharedContext->m_gameInfo->m_perforantChocolateUpgrade;
 }

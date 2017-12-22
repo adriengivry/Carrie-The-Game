@@ -91,11 +91,11 @@ void Enemy::Update(const sf::Time& l_time)
 		CheckSepcialAttackCooldown(l_time);
 		CheckSpecialAbilityCooldown(l_time);
 
-		if (m_target && m_followTarget)
-			FollowTarget();
-
 		if (m_canCollide)
 			CheckCollisions();
+
+		if (m_target && m_followTarget)
+			FollowTarget();
 
 		if (m_isSpecialAttackReady || m_specialAttackCooldown == 0)
 		{
@@ -177,18 +177,32 @@ void Enemy::FollowTarget()
 
 void Enemy::CheckCollisions()
 {
+	m_collideWall = false;
+
 	// Hitting wall
-	if (m_position.X() < 70)
-		m_position.X(70);
+	if (m_position.X() - m_sprite.getGlobalBounds().width / 2 < 55)
+	{
+		m_position.X(55 + m_sprite.getGlobalBounds().width / 2);
+		m_collideWall = true;
+	}
 
-	if (m_position.X() > 1850)
-		m_position.X(1850);
+	if (m_position.X() + m_sprite.getGlobalBounds().width / 2 > 1865)
+	{
+		m_position.X(1865 - m_sprite.getGlobalBounds().width / 2);
+		m_collideWall = true;
+	}
 
-	if (m_position.Y() < 300)
-		m_position.Y(300);
+	if (m_position.Y() + m_sprite.getGlobalBounds().height / 2 - m_sprite.getGlobalBounds().height / 4 < 275)
+	{
+		m_position.Y(275 - m_sprite.getGlobalBounds().height / 2 + m_sprite.getGlobalBounds().height / 4);
+		m_collideWall = true;
+	}
 
-	if (m_position.Y() > 950)
-		m_position.Y(950);
+	if (m_position.Y() + m_sprite.getGlobalBounds().height / 2 > 1000)
+	{
+		m_position.Y(1000 - m_sprite.getGlobalBounds().height / 2);
+		m_collideWall = true;
+	}
 
 	// Out of screen
 	if (m_position.X() < -100 || m_position.X() > 2000 || m_position.Y() < -100 || m_position.Y() > 1200)

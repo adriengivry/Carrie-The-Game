@@ -57,8 +57,8 @@ void Door::Use() const
 			m_sharedContext->m_gameInfo->m_getCursed = false;
 			m_sharedContext->m_gameInfo->m_doorPassed = true;
 			++m_sharedContext->m_gameInfo->m_currentLevel;
+			m_sharedContext->m_gameInfo->m_carrots += 5 + m_sharedContext->m_gameInfo->m_goodAnswerCombo;
 			++m_sharedContext->m_gameInfo->m_goodAnswerCombo;
-			m_sharedContext->m_gameInfo->m_carrots += m_sharedContext->m_gameInfo->m_goodAnswerCombo;
 			m_sharedContext->m_audioManager->PlaySound("Truth");
 		}
 		else

@@ -6,7 +6,7 @@ TripleChocolateUpgrade::TripleChocolateUpgrade(SharedContext* p_sharedContext, c
 	SetTexture("Triple_Chocolate");
 	m_itemInfo.m_name = "Triple Chocolate";
 	m_itemInfo.m_description = "3 times more chocolate!";
-	m_itemInfo.m_defaultPrice = 30;
+	m_itemInfo.m_defaultPrice = 120;
 
 	m_owned = m_sharedContext->m_gameInfo->m_tripleChocolateUpgrade;
 }

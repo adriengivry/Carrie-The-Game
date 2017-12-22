@@ -60,7 +60,8 @@ void CakeMonster::Update(const sf::Time& l_time)
 	case AttackState::RELOAD:
 		m_reloadTimer += l_time.asSeconds();
 
-		m_sprite.setColor(sf::Color(255, 255 * m_reloadTimer / __CAKEMONSTER_RELOAD_DURATION, 255 * m_reloadTimer / __CAKEMONSTER_RELOAD_DURATION));
+		if (!m_isDead)
+			m_sprite.setColor(sf::Color(255, 255 * m_reloadTimer / __CAKEMONSTER_RELOAD_DURATION, 255 * m_reloadTimer / __CAKEMONSTER_RELOAD_DURATION));
 
 		if (m_reloadTimer >= __CAKEMONSTER_RELOAD_DURATION)
 		{

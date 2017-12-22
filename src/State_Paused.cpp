@@ -30,12 +30,14 @@ void State_Paused::OnCreate()
 
 	// Adding callbacks
 	evMgr->AddCallback(StateType::Paused,"Key_P",&State_Paused::Unpause,this);
+	evMgr->AddCallback(StateType::Paused, "Key_Space", &State_Paused::Unpause, this);
 }
 
 void State_Paused::OnDestroy()
 {
 	EventManager* evMgr = m_stateMgr->GetContext()->m_eventManager;
 	evMgr->RemoveCallback(StateType::Paused,"Key_P");
+	evMgr->RemoveCallback(StateType::Paused, "Key_Space");
 }
 
 void State_Paused::Draw()

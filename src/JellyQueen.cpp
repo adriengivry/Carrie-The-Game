@@ -15,7 +15,7 @@ JellyQueen::JellyQueen(SharedContext* p_sharedContext, const float p_x, const fl
 
 	m_isDashing = false;
 	m_dashTimer = 0.0f;
-	m_dashMaxDuration = 0.4;
+	m_dashMaxDuration = 0.5f;
 }
 
 void JellyQueen::OnDeath()
@@ -56,6 +56,9 @@ void JellyQueen::SpawnParticle()
 
 void JellyQueen::Update(const sf::Time& l_time)
 {
+	if (m_collideWall)
+		m_isDashing = false;
+
 	if (m_isDashing)
 	{
 		m_specialAbilityTimer = 0.0f;

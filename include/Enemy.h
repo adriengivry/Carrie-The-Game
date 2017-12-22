@@ -76,4 +76,6 @@ protected:
 	float m_specialAbilityCooldown;
 
 	std::vector<Projectile*> m_touchedBy;
+
+	bool m_collideWall;
 };

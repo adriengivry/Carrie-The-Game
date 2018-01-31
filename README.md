@@ -1,6 +1,6 @@
 # Carrie - The Game
 Here is our Ludum Dare #40 project
-![alt text](showcase/z-snap.PNG?raw=true "Main Title Screen")
+![alt text](showcase/snap.PNG?raw=true "Main Title Screen")
 
 ## Game Jam Theme
 

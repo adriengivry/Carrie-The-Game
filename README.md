@@ -1,4 +1,4 @@
-# Carrie - The Game (Ludum Dare #40)
+# Carrie (Ludum Dare #40)
 ![alt text](showcase/snap.PNG?raw=true "Main Title Screen")
 
 ## Game Jam Theme

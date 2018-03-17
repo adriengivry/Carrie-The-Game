@@ -25,3 +25,7 @@ The game take place in Carrie’s dreams. You’ll travel through several rooms 
 - Made with SFML
 - Made in 72h for the jam version, and continued during my free time for 2/3 weeks
 - No framework used, only this book : https://www.packtpub.com/game-development/sfml-game-development-example to help me developping a robust game architecture.
+
+## Download
+
+- 64 bits : http://adrien-givry.com/download/carrie-the-game-x64.zip

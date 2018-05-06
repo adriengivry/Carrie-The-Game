@@ -28,3 +28,5 @@ The game take place in Carrie’s dreams. You’ll travel through several rooms 
 
 ## Download
 - 64 bits : http://adrien-givry.com/download/carrie-the-game-x64.zip
+
+![alt text](assets/textures/UI/sliders/credits.png?raw=true "Credits")
